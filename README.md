@@ -28,11 +28,12 @@ yarn lint
 
 ## TODO
 
+- [ ] Add GitHub actions for CI on PRs
 - [ ] Rename `vuetils` to `composables` (search to confirm this is best practice)
-- [ ] Move store to store folder
-- [ ] Update useAuth to not rely on alerts
-- [ ] Improve useAuth documentation
-- [ ] Convert Profile to use composition API partial
-- [ ] Convert Avatar to use composition API partial
+- [ ] Move `store.js` to `store/index.js`
+- [ ] Update `useAuth` to not rely on alerts
+- [ ] Improve `useAuth` documentation
+- [ ] Convert `Profile` to use composition API partial
+- [ ] Convert `Avatar` to use composition API partial
 - [ ] Follow Todo example
   - https://github.com/supabase/supabase/tree/master/examples/vue3-ts-todo-list
