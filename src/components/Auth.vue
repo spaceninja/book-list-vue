@@ -1,5 +1,5 @@
 <template>
-  <form class="row flex flex-center" @submit.prevent="handleLogin">
+  <form class="row flex flex-center" @submit.prevent="handleEmailLogin">
     <div class="col-6 form-widget">
       <h1 class="header">Supabase + Vue 3</h1>
       <p class="description">Sign in via magic link with your email below</p>
@@ -19,6 +19,11 @@
           :disabled="loading"
         />
       </div>
+      <div>
+        <button type="button" class="button block" @click="handleGitHubLogin">
+          {{ loading ? 'Loading' : 'Sign in with GitHub' }}
+        </button>
+      </div>
     </div>
   </form>
 </template>
@@ -32,7 +37,7 @@ export default {
     const loading = ref(false);
     const email = ref('');
 
-    const handleLogin = async () => {
+    const handleEmailLogin = async () => {
       try {
         loading.value = true;
         const { error } = await supabase.auth.signIn({ email: email.value });
@@ -45,10 +50,23 @@ export default {
       }
     };
 
+    const handleGitHubLogin = async () => {
+      try {
+        loading.value = true;
+        const { error } = await supabase.auth.signIn({ provider: 'github' });
+        if (error) throw error;
+      } catch (error) {
+        alert(error.error_description || error.message);
+      } finally {
+        loading.value = false;
+      }
+    };
+
     return {
       loading,
       email,
-      handleLogin,
+      handleEmailLogin,
+      handleGitHubLogin,
     };
   },
 };
