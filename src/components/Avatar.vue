@@ -31,7 +31,7 @@
 
 <script>
 import { ref, toRefs, watch } from 'vue';
-import { supabase } from '../supabase';
+import { supabase } from '../lib/supabase';
 
 export default {
   props: {

@@ -298,7 +298,8 @@ button.primary,
   padding: var(--custom-spacing);
   width: 100%;
 }
-.footer div > img {
+.footer div > img,
+.footer div > svg {
   height: 20px;
   margin-left: 10px;
 }

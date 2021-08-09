@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { supabase } from '../supabase';
+import { supabase } from '../lib/supabase';
 import { store } from '../store';
 import { onMounted, ref } from 'vue';
 import Avatar from './Avatar.vue';

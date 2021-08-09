@@ -1,72 +1,67 @@
 <template>
-  <form class="row flex flex-center" @submit.prevent="handleEmailLogin">
-    <div class="col-6 form-widget">
-      <h1 class="header">Supabase + Vue 3</h1>
-      <p class="description">Sign in via magic link with your email below</p>
-      <div>
-        <input
-          v-model="email"
-          class="inputField"
-          type="email"
-          placeholder="Your email"
-        />
-      </div>
-      <div>
-        <input
-          type="submit"
-          class="button block"
-          :value="loading ? 'Loading' : 'Send magic link'"
-          :disabled="loading"
-        />
-      </div>
-      <div>
-        <button type="button" class="button block" @click="handleGitHubLogin">
-          {{ loading ? 'Loading' : 'Sign in with GitHub' }}
-        </button>
-      </div>
+  <main>
+    <div>
+      <label for="auth-email">Email</label>
+      <input
+        id="auth-email"
+        v-model="email"
+        type="text"
+        placeholder="Your email"
+      />
     </div>
-  </form>
+    <div>
+      <label for="auth-password">Password</label>
+      <input
+        id="auth-password"
+        v-model="password"
+        type="password"
+        placeholder="Your password"
+      />
+    </div>
+
+    <div>
+      <button type="button" @click="handleSignup({ email, password })">
+        Sign up
+      </button>
+      <button type="button" @click="handleLogin({ email, password })">
+        {{ password.length ? 'Sign in' : 'Send magic link' }}
+      </button>
+      <button type="button" @click="handlePasswordReset">
+        Forgot your password?
+      </button>
+    </div>
+
+    <h4>Or continue with</h4>
+
+    <div>
+      <button type="button" @click="handleOAuthLogin('github')">
+        Sign in with GitHub
+      </button>
+    </div>
+  </main>
 </template>
 
 <script>
 import { ref } from 'vue';
-import { supabase } from '../supabase';
+import {
+  handleLogin,
+  handleOAuthLogin,
+  handleSignup,
+  handlePasswordReset,
+} from '../vuetils/useAuth';
 
 export default {
   setup() {
-    const loading = ref(false);
     const email = ref('');
-
-    const handleEmailLogin = async () => {
-      try {
-        loading.value = true;
-        const { error } = await supabase.auth.signIn({ email: email.value });
-        if (error) throw error;
-        alert('Check your email for the login link!');
-      } catch (error) {
-        alert(error.error_description || error.message);
-      } finally {
-        loading.value = false;
-      }
-    };
-
-    const handleGitHubLogin = async () => {
-      try {
-        loading.value = true;
-        const { error } = await supabase.auth.signIn({ provider: 'github' });
-        if (error) throw error;
-      } catch (error) {
-        alert(error.error_description || error.message);
-      } finally {
-        loading.value = false;
-      }
-    };
+    const password = ref('');
 
     return {
-      loading,
       email,
-      handleEmailLogin,
-      handleGitHubLogin,
+      password,
+      handleLogin,
+      handleOAuthLogin,
+      handleSignup,
+      handlePasswordReset,
     };
   },
 };
