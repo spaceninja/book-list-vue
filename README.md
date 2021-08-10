@@ -29,7 +29,7 @@ yarn lint
 ## TODO
 
 - [x] Rename `vuetils` to `composables` (search to confirm this is best practice)
-- [ ] Move `store.js` to `store/index.js`
+- [x] Move `store.js` to `store/index.js`
 - [ ] Update `useAuth` to not rely on alerts
 - [ ] Improve `useAuth` documentation
 - [ ] Convert `Profile` to use composition API partial
