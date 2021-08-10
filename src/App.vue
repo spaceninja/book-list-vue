@@ -10,7 +10,7 @@
 <script>
 import { store } from './store';
 import { supabase } from './lib/supabase';
-import { handleLogout } from './vuetils/useAuth';
+import { handleLogout } from './composables/useAuth';
 import { getParameterByName } from './lib/helpers';
 import Auth from './components/Auth.vue';
 import Footer from './components/Footer.vue';

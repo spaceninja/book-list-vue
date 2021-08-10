@@ -20,7 +20,7 @@
 
 <script>
 import { ref } from 'vue';
-import { handleUpdateUser } from '../vuetils/useAuth';
+import { handleUpdateUser } from '../composables/useAuth';
 
 export default {
   setup() {

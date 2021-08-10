@@ -48,7 +48,7 @@ import {
   handleOAuthLogin,
   handleSignup,
   handlePasswordReset,
-} from '../vuetils/useAuth';
+} from '../composables/useAuth';
 
 export default {
   setup() {
