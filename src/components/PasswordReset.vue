@@ -1,5 +1,6 @@
 <template>
   <main>
+    <div v-if="authAlert" class="alert">{{ authAlert }}</div>
     <div>
       <label for="auth-password">Password</label>
       <input
@@ -20,7 +21,7 @@
 
 <script>
 import { ref } from 'vue';
-import { handleUpdateUser } from '../composables/useAuth';
+import { authAlert, handleUpdateUser } from '../composables/useAuth';
 
 export default {
   setup() {
@@ -28,6 +29,7 @@ export default {
 
     return {
       password,
+      authAlert,
       handleUpdateUser,
     };
   },

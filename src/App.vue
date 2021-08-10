@@ -8,10 +8,9 @@
 </template>
 
 <script>
-import { store } from './store';
-import { supabase } from './lib/supabase';
-import { handleLogout } from './composables/useAuth';
 import { getParameterByName } from './lib/helpers';
+import { supabase } from './lib/supabase';
+import { store } from './store';
 import Auth from './components/Auth.vue';
 import Footer from './components/Footer.vue';
 import PasswordReset from './components/PasswordReset.vue';
@@ -29,11 +28,10 @@ export default {
     store.user = supabase.auth.user();
     // Update store whenever an auth event happens.
     supabase.auth.onAuthStateChange((_, session) => {
-      store.user = session.user;
+      store.user = session?.user;
     });
     return {
       store,
-      handleLogout,
     };
   },
   computed: {

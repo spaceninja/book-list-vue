@@ -8,6 +8,7 @@ body {
   --custom-color: #ffffff;
   --custom-color-brand: #24b47e;
   --custom-color-secondary: #666666;
+  --custom-color-alert: rgba(255, 255, 0, 0.25);
   --custom-border: 1px solid #333333;
   --custom-border-radius: 5px;
   --custom-spacing: 5px;
@@ -263,6 +264,16 @@ button.primary,
   border: var(--custom-border);
   border-radius: var(--custom-border-radius);
   display: block;
+  margin: 1em 0;
+  padding: var(--custom-spacing);
+  width: 100%;
+}
+
+.alert {
+  background-color: var(--custom-color-alert);
+  border-radius: var(--custom-border-radius);
+  display: block;
+  margin: 1em 0;
   padding: var(--custom-spacing);
   width: 100%;
 }

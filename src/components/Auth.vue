@@ -1,5 +1,6 @@
 <template>
   <main>
+    <div v-if="authAlert" class="alert">{{ authAlert }}</div>
     <div>
       <label for="auth-email">Email</label>
       <input
@@ -20,13 +21,17 @@
     </div>
 
     <div>
+      <button
+        class="primary"
+        type="submit"
+        @click="handleLogin({ email, password })"
+      >
+        {{ password.length ? 'Sign in' : 'Send magic link' }}
+      </button>
       <button type="button" @click="handleSignup({ email, password })">
         Sign up
       </button>
-      <button type="submit" @click="handleLogin({ email, password })">
-        {{ password.length ? 'Sign in' : 'Send magic link' }}
-      </button>
-      <button type="button" @click="handlePasswordReset">
+      <button type="button" @click="handlePasswordReset(email)">
         Forgot your password?
       </button>
     </div>
@@ -44,6 +49,7 @@
 <script>
 import { ref } from 'vue';
 import {
+  authAlert,
   handleLogin,
   handleOAuthLogin,
   handleSignup,
@@ -58,6 +64,7 @@ export default {
     return {
       email,
       password,
+      authAlert,
       handleLogin,
       handleOAuthLogin,
       handleSignup,

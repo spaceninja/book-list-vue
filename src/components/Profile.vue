@@ -1,4 +1,5 @@
 <template>
+  <div v-if="authAlert" class="alert">{{ authAlert }}</div>
   <form class="form-widget" @submit.prevent="updateProfile">
     <Avatar v-model:path="avatar_url" @upload="updateProfile" />
     <div>
@@ -24,7 +25,7 @@
     </div>
 
     <div>
-      <button class="button block" :disabled="loading" @click="signOut">
+      <button class="button block" :disabled="loading" @click="handleLogout">
         Sign Out
       </button>
     </div>
@@ -35,6 +36,7 @@
 import { supabase } from '../lib/supabase';
 import { store } from '../store';
 import { onMounted, ref } from 'vue';
+import { authAlert, handleLogout } from '../composables/useAuth';
 import Avatar from './Avatar.vue';
 
 export default {
@@ -97,18 +99,6 @@ export default {
       }
     }
 
-    async function signOut() {
-      try {
-        loading.value = true;
-        let { error } = await supabase.auth.signOut();
-        if (error) throw error;
-      } catch (error) {
-        alert(error.message);
-      } finally {
-        loading.value = false;
-      }
-    }
-
     onMounted(() => {
       getProfile();
     });
@@ -120,8 +110,9 @@ export default {
       website,
       avatar_url,
 
+      authAlert,
+      handleLogout,
       updateProfile,
-      signOut,
     };
   },
 };
