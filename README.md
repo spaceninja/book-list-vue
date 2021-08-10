@@ -30,8 +30,8 @@ yarn lint
 
 - [x] Rename `vuetils` to `composables` (search to confirm this is best practice)
 - [x] Move `store.js` to `store/index.js`
+- [x] Improve `useAuth` documentation
 - [ ] Update `useAuth` to not rely on alerts
-- [ ] Improve `useAuth` documentation
 - [ ] Convert `Profile` to use composition API partial
 - [ ] Convert `Avatar` to use composition API partial
 - [ ] Follow Todo example

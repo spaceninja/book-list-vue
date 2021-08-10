@@ -23,7 +23,7 @@
       <button type="button" @click="handleSignup({ email, password })">
         Sign up
       </button>
-      <button type="button" @click="handleLogin({ email, password })">
+      <button type="submit" @click="handleLogin({ email, password })">
         {{ password.length ? 'Sign in' : 'Send magic link' }}
       </button>
       <button type="button" @click="handlePasswordReset">
