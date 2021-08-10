@@ -32,8 +32,11 @@ yarn lint
 - [x] Move `store.js` to `store/index.js`
 - [x] Improve `useAuth` documentation
 - [x] Update `useAuth` to not rely on alerts
-- [ ] Convert `Profile` to use composition API partial
-- [ ] Convert `Avatar` to use composition API partial
+- [x] Convert `Profile` to use `useProfile` composition
+- [ ] Convert `Avatar` to use `useProfile` composition
+- [ ] Improve `useProfile` documentation
+- [ ] Update `useProfile` to not rely on alerts
+- [ ] Convert authAlert to global alert using store object {message,type}
 - [ ] Follow Todo example
   - https://github.com/supabase/supabase/tree/master/examples/vue3-ts-todo-list
 - [ ] Add GitHub actions for CI on PRs

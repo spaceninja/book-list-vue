@@ -5,6 +5,18 @@ import { supabase } from '../lib/supabase';
 const authAlert = ref('');
 
 /**
+ * Handle Errors
+ *
+ * Alerts the user to an error state, and logs the error
+ *
+ * @param {Error} error
+ */
+function handleErrors(error) {
+  authAlert.value = 'Error: ' + error.message;
+  console.error(error);
+}
+
+/**
  * Handle Signup
  *
  * Creates a new supabase user account.
@@ -20,26 +32,20 @@ async function handleSignup(credentials) {
   // Reset the alert
   authAlert.value = '';
   const { email, password } = credentials;
-  // Return early and prompt the user if no email/password provided
-  if (!email || !password) {
-    authAlert.value = 'Please provide both your email and password.';
-    return;
-  }
   // Send request to supabase
   try {
+    // Alert the user if no email/password provided
+    if (!email || !password)
+      throw new Error('Please provide both your email and password.');
+
     const { error } = await supabase.auth.signUp({ email, password });
-    // handle error
-    if (error) {
-      authAlert.value = 'Error signing up: ' + error.message;
-      console.error(error, error.message);
-      return;
-    }
-    // handle success
+
+    if (error) throw error;
+
     authAlert.value =
       'Signup successful, confirmation mail should be sent soon!';
-  } catch (asyncError) {
-    authAlert.value = 'Error connecting to Supabase!';
-    console.error('Supabase Error:', asyncError);
+  } catch (error) {
+    handleErrors(error);
   }
 }
 
@@ -64,22 +70,18 @@ async function handleLogin(credentials) {
       email: credentials.email,
       password: credentials.password,
     });
-    // handle error
-    if (error) {
-      authAlert.value = 'Error logging in: ' + error.message;
-      console.error(error, error.message);
-      return;
-    }
-    // handle no error throw, but no user detected, so magic link sent
+
+    if (error) throw error;
+
+    // No error thrown, but no user detected, so magic link sent
     if (!error && !user) {
       authAlert.value = 'Check your email for the login link!';
       return;
     }
-    // handle success
+
     console.log('EMAIL SIGNIN', user, session);
-  } catch (asyncError) {
-    authAlert.value = 'Error connecting to Supabase!';
-    console.error('Supabase Error:', asyncError);
+  } catch (error) {
+    handleErrors(error);
   }
 }
 
@@ -98,17 +100,12 @@ async function handleOAuthLogin(provider) {
   // Send request to supabase
   try {
     const { error, user, session } = await supabase.auth.signIn({ provider });
-    // handle error
-    if (error) {
-      authAlert.value = 'Error logging in: ' + error.message;
-      console.error(error, error.message);
-      return;
-    }
-    // handle success
+
+    if (error) throw error;
+
     console.log('OAUTH SIGNIN', user, session);
-  } catch (asyncError) {
-    authAlert.value = 'Error connecting to Supabase!';
-    console.error('Supabase Error:', asyncError);
+  } catch (error) {
+    handleErrors(error);
   }
 }
 
@@ -125,17 +122,12 @@ async function handleLogout() {
   // Send request to supabase
   try {
     const { error } = await supabase.auth.signOut();
-    // handle error
-    if (error) {
-      authAlert.value = 'Error signing out: ' + error.message;
-      console.error(error, error.message);
-      return;
-    }
-    // handle success
+
+    if (error) throw error;
+
     authAlert.value = 'You have signed out!';
-  } catch (asyncError) {
-    authAlert.value = 'Error connecting to Supabase!';
-    console.error('Supabase Error:', asyncError);
+  } catch (error) {
+    handleErrors(error);
   }
 }
 
@@ -155,18 +147,13 @@ async function handleUpdateUser(credentials) {
   // Send request to supabase
   try {
     const { error } = await supabase.auth.update(credentials);
-    // handle error
-    if (error) {
-      authAlert.value = 'Error updating user info: ' + error.message;
-      console.error(error, error.message);
-      return;
-    }
-    // handle success
+
+    if (error) throw error;
+
     authAlert.value = 'User info updated.';
     window.location.href = '/';
-  } catch (asyncError) {
-    authAlert.value = 'Error connecting to Supabase!';
-    console.error('Supabase Error:', asyncError);
+  } catch (error) {
+    handleErrors(error);
   }
 }
 
@@ -182,25 +169,18 @@ async function handleUpdateUser(credentials) {
 async function handlePasswordReset(email) {
   // Reset the alert
   authAlert.value = '';
-  // Return early and prompt the user if no email provided
-  if (!email) {
-    authAlert.value = 'Email address is required.';
-    return;
-  }
   // Send request to supabase
   try {
+    // Alert the user if no email provided
+    if (!email) throw new Error('Email address is required.');
+
     const { error } = await supabase.auth.api.resetPasswordForEmail(email);
-    // handle error
-    if (error) {
-      authAlert.value = 'Error resetting password: ' + error.message;
-      console.error(error, error.message);
-      return;
-    }
-    // handle success
+
+    if (error) throw error;
+
     authAlert.value = 'Password recovery email has been sent.';
-  } catch (asyncError) {
-    authAlert.value = 'Error connecting to Supabase!';
-    console.error('Supabase Error:', asyncError);
+  } catch (error) {
+    handleErrors(error);
   }
 }
 
