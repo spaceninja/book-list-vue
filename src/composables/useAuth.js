@@ -11,10 +11,10 @@ const authAlert = ref('');
  *
  * @param {Error} error
  */
-function handleErrors(error) {
+const handleErrors = (error) => {
   authAlert.value = 'Error: ' + error.message;
   console.error(error);
-}
+};
 
 /**
  * Handle Signup
@@ -28,7 +28,7 @@ function handleErrors(error) {
  * @param {string} credentials.password
  * @returns
  */
-async function handleSignup(credentials) {
+const handleSignup = async (credentials) => {
   // Reset the alert
   authAlert.value = '';
   const { email, password } = credentials;
@@ -47,7 +47,7 @@ async function handleSignup(credentials) {
   } catch (error) {
     handleErrors(error);
   }
-}
+};
 
 /**
  * Handle Email Login
@@ -61,7 +61,7 @@ async function handleSignup(credentials) {
  * @param {string} credentials.email
  * @param {string} credentials.password
  */
-async function handleLogin(credentials) {
+const handleLogin = async (credentials) => {
   // Reset the alert
   authAlert.value = '';
   // Send request to supabase
@@ -83,7 +83,7 @@ async function handleLogin(credentials) {
   } catch (error) {
     handleErrors(error);
   }
-}
+};
 
 /**
  * Handle OAuth Login
@@ -94,7 +94,7 @@ async function handleLogin(credentials) {
  *
  * @param {string} provider - OAuth provider, eg 'github'
  */
-async function handleOAuthLogin(provider) {
+const handleOAuthLogin = async (provider) => {
   // Reset the alert
   authAlert.value = '';
   // Send request to supabase
@@ -107,7 +107,7 @@ async function handleOAuthLogin(provider) {
   } catch (error) {
     handleErrors(error);
   }
-}
+};
 
 /**
  * Handle Logout
@@ -116,7 +116,7 @@ async function handleOAuthLogin(provider) {
  *
  * @see https://supabase.io/docs/reference/javascript/auth-signout
  */
-async function handleLogout() {
+const handleLogout = async () => {
   // Reset the alert
   authAlert.value = '';
   // Send request to supabase
@@ -129,7 +129,7 @@ async function handleLogout() {
   } catch (error) {
     handleErrors(error);
   }
-}
+};
 
 /**
  * Handle Update User
@@ -141,7 +141,7 @@ async function handleLogout() {
  * @param {Object} credentials
  * @param {string} credentials.password
  */
-async function handleUpdateUser(credentials) {
+const handleUpdateUser = async (credentials) => {
   // Reset the alert
   authAlert.value = '';
   // Send request to supabase
@@ -155,7 +155,7 @@ async function handleUpdateUser(credentials) {
   } catch (error) {
     handleErrors(error);
   }
-}
+};
 
 /**
  * Handle Password Reset
@@ -166,7 +166,7 @@ async function handleUpdateUser(credentials) {
  *
  * @param {string} email
  */
-async function handlePasswordReset(email) {
+const handlePasswordReset = async (email) => {
   // Reset the alert
   authAlert.value = '';
   // Send request to supabase
@@ -182,7 +182,7 @@ async function handlePasswordReset(email) {
   } catch (error) {
     handleErrors(error);
   }
-}
+};
 
 export {
   authAlert,

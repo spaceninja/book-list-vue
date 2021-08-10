@@ -7,7 +7,7 @@ const username = ref('');
 const website = ref('');
 const avatar_url = ref('');
 
-async function getProfile() {
+const getProfile = async () => {
   try {
     loading.value = true;
     store.user = supabase.auth.user();
@@ -30,9 +30,9 @@ async function getProfile() {
   } finally {
     loading.value = false;
   }
-}
+};
 
-async function updateProfile() {
+const updateProfile = async () => {
   try {
     loading.value = true;
     store.user = supabase.auth.user();
@@ -55,6 +55,6 @@ async function updateProfile() {
   } finally {
     loading.value = false;
   }
-}
+};
 
 export { loading, username, website, avatar_url, getProfile, updateProfile };
