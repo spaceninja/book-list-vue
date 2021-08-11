@@ -1,7 +1,8 @@
 <template>
   <AppAlert :alert="authAlert" />
   <form class="form-widget" @submit.prevent="updateProfile">
-    <AvatarEdit v-model:path="avatar_url" @upload="updateProfile" />
+    <AvatarImage :src="avatarBlob" />
+    <AvatarEdit @upload="updateProfile" />
     <div>
       <label for="email">Email</label>
       <input id="email" type="email" :value="store.user?.email" disabled />
@@ -16,13 +17,13 @@
     </div>
 
     <div>
-      <button type="submit" class="primary" :disabled="loading">
-        {{ loading ? 'Loading...' : 'Update' }}
+      <button type="submit" class="primary" :disabled="isLoading">
+        {{ isLoading ? 'Loading...' : 'Update' }}
       </button>
     </div>
 
     <div>
-      <button type="button" :disabled="loading" @click="handleLogout">
+      <button type="button" :disabled="isLoading" @click="handleLogout">
         Sign Out
       </button>
     </div>
@@ -30,38 +31,48 @@
 </template>
 
 <script>
-import { onMounted } from 'vue';
+import { onMounted, watch } from 'vue';
 import { store } from '../store';
 import { authAlert, handleLogout } from '../composables/useAuth';
 import {
-  loading,
+  isLoading,
   username,
   website,
   avatar_url,
+  avatarBlob,
   getProfile,
   updateProfile,
+  downloadImage,
 } from '../composables/useProfile';
 import AppAlert from './AppAlert.vue';
 import AvatarEdit from './AvatarEdit.vue';
+import AvatarImage from './AvatarImage.vue';
 
 export default {
   components: {
     AppAlert,
     AvatarEdit,
+    AvatarImage,
   },
   setup() {
     onMounted(() => {
       getProfile();
     });
 
+    watch(avatar_url, () => {
+      // downloadImage writes to avatarBlob
+      avatar_url.value ? downloadImage(avatar_url.value) : '';
+    });
+
     return {
       store,
       authAlert,
       handleLogout,
-      loading,
+      isLoading,
       username,
       website,
       avatar_url,
+      avatarBlob,
       updateProfile,
     };
   },

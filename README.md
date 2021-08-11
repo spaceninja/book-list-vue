@@ -33,7 +33,7 @@ yarn lint
 - [x] Improve `useAuth` documentation
 - [x] Update `useAuth` to not rely on alerts
 - [x] Convert `Profile` to use `useProfile` composition
-- [ ] Convert `Avatar` to use `useProfile` composition
+- [x] Convert `Avatar` to use `useProfile` composition
 - [ ] Improve `useProfile` documentation
 - [ ] Update `useProfile` to not rely on alerts
 - [ ] Convert authAlert to global alert using store object {message,type}
@@ -41,3 +41,4 @@ yarn lint
   - https://github.com/supabase/supabase/tree/master/examples/vue3-ts-todo-list
 - [ ] Add GitHub actions for CI on PRs
 - [ ] Add tests
+- [ ] Convert form elements to reusable components

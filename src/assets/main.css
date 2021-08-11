@@ -1,5 +1,4 @@
-html,
-body {
+:root {
   --custom-font-family: -apple-system, blinkmacsystemfont, segoe ui, roboto,
     oxygen, ubuntu, cantarell, fira sans, droid sans, helvetica neue, sans-serif;
   --custom-bg-color: #101010;
@@ -13,6 +12,7 @@ body {
   --custom-border: 1px solid #333333;
   --custom-border-radius: 5px;
   --custom-spacing: 5px;
+  --avatar-size: 10em;
   background-color: var(--custom-bg-color);
   font-family: var(--custom-font-family);
   margin: 0;
@@ -296,6 +296,10 @@ button.primary,
   background-color: #333333;
   border: 1px solid rgb(200, 200, 200);
   border-radius: 5px;
+}
+.avatar--large {
+  height: var(--avatar-size);
+  width: var(--avatar-size);
 }
 
 .footer {
