@@ -1,27 +1,28 @@
 <template>
-  <div class="container">
-    <PasswordReset v-if="showPasswordReset" />
-    <Auth v-else-if="store.user === null" />
-    <Profile v-else />
-    <Footer />
-  </div>
+  <AppHeader />
+  <PasswordReset v-if="showPasswordReset" />
+  <ProfileEdit v-else-if="store.user" />
+  <AppAuth v-else />
+  <AppFooter />
 </template>
 
 <script>
 import { getParameterByName } from './lib/helpers';
 import { supabase } from './lib/supabase';
 import { store } from './store';
-import Auth from './components/Auth.vue';
-import Footer from './components/Footer.vue';
+import AppAuth from './components/AppAuth.vue';
+import AppHeader from './components/AppHeader.vue';
+import AppFooter from './components/AppFooter.vue';
 import PasswordReset from './components/PasswordReset.vue';
-import Profile from './components/Profile.vue';
+import ProfileEdit from './components/ProfileEdit.vue';
 
 export default {
   components: {
-    Auth,
-    Footer,
+    AppAuth,
+    AppHeader,
+    AppFooter,
     PasswordReset,
-    Profile,
+    ProfileEdit,
   },
   setup() {
     // Check if the user is currently logged in, save to store
@@ -29,6 +30,7 @@ export default {
     // Update store whenever an auth event happens.
     supabase.auth.onAuthStateChange((_, session) => {
       store.user = session?.user;
+      console.log('UPDATED STORE', store.user);
     });
     return {
       store,

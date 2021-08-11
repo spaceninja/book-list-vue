@@ -1,10 +1,10 @@
 <template>
-  <div v-if="authAlert" class="alert">{{ authAlert }}</div>
+  <AppAlert :alert="authAlert" />
   <form class="form-widget" @submit.prevent="updateProfile">
-    <Avatar v-model:path="avatar_url" @upload="updateProfile" />
+    <AvatarEdit v-model:path="avatar_url" @upload="updateProfile" />
     <div>
       <label for="email">Email</label>
-      <input id="email" type="email" :value="store.user.email" disabled />
+      <input id="email" type="email" :value="store.user?.email" disabled />
     </div>
     <div>
       <label for="username">Name</label>
@@ -41,11 +41,13 @@ import {
   getProfile,
   updateProfile,
 } from '../composables/useProfile';
-import Avatar from './Avatar.vue';
+import AppAlert from './AppAlert.vue';
+import AvatarEdit from './AvatarEdit.vue';
 
 export default {
   components: {
-    Avatar,
+    AppAlert,
+    AvatarEdit,
   },
   setup() {
     onMounted(() => {

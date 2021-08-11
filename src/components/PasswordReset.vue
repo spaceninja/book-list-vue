@@ -1,6 +1,9 @@
 <template>
-  <main>
-    <div v-if="authAlert" class="alert">{{ authAlert }}</div>
+  <AppAlert :alert="authAlert" />
+  <form
+    class="form-widget"
+    @submit.prevent="handleUpdateUser({ password: password })"
+  >
     <div>
       <label for="auth-password">Password</label>
       <input
@@ -10,20 +13,21 @@
         placeholder="Your password"
       />
     </div>
-
     <div>
-      <button type="button" @click="handleUpdateUser({ password: password })">
-        Update password
-      </button>
+      <button type="submit" class="primary">Update password</button>
     </div>
-  </main>
+  </form>
 </template>
 
 <script>
 import { ref } from 'vue';
 import { authAlert, handleUpdateUser } from '../composables/useAuth';
+import AppAlert from './AppAlert.vue';
 
 export default {
+  components: {
+    AppAlert,
+  },
   setup() {
     const password = ref('');
 
