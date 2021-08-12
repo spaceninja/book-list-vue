@@ -3,29 +3,23 @@
   <form class="form-widget" @submit.prevent="updateProfile">
     <AvatarImage :src="avatarBlob" />
     <AvatarEdit @upload="updateProfile" />
+    <FormInput :model-value="store.user?.email" label="Email" disabled />
+    <FormInput v-model="username" label="Name" placeholder="Your name" />
+    <FormInput
+      v-model="website"
+      type="url"
+      label="Website"
+      placeholder="Your website"
+    />
     <div>
-      <label for="email">Email</label>
-      <input id="email" type="email" :value="store.user?.email" disabled />
-    </div>
-    <div>
-      <label for="username">Name</label>
-      <input id="username" v-model="username" type="text" />
-    </div>
-    <div>
-      <label for="website">Website</label>
-      <input id="website" v-model="website" type="url" />
-    </div>
-
-    <div>
-      <button type="submit" class="primary" :disabled="isLoading">
+      <AppButton type="submit" class="primary" :disabled="isLoading">
         {{ isLoading ? 'Loading...' : 'Update' }}
-      </button>
+      </AppButton>
     </div>
-
     <div>
-      <button type="button" :disabled="isLoading" @click="handleLogout">
+      <AppButton :disabled="isLoading" @click="handleLogout">
         Sign Out
-      </button>
+      </AppButton>
     </div>
   </form>
 </template>
@@ -47,12 +41,16 @@ import {
 import AppAlert from './AppAlert.vue';
 import AvatarEdit from './AvatarEdit.vue';
 import AvatarImage from './AvatarImage.vue';
+import AppButton from './AppButton.vue';
+import FormInput from './FormInput.vue';
 
 export default {
   components: {
     AppAlert,
     AvatarEdit,
     AvatarImage,
+    AppButton,
+    FormInput,
   },
   setup() {
     onMounted(() => {
@@ -60,7 +58,7 @@ export default {
     });
 
     watch(avatar_url, () => {
-      // downloadAvatar writes to avatarBlob
+      // downloadAvatar method writes to avatarBlob ref
       avatar_url.value ? downloadAvatar(avatar_url.value) : '';
     });
 
