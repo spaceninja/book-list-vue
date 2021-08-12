@@ -26,6 +26,12 @@ yarn build
 yarn lint
 ```
 
+### Run tests
+
+```
+yarn test
+```
+
 ## TODO
 
 - [x] Rename `vuetils` to `composables` (search to confirm this is best practice)
@@ -39,6 +45,7 @@ yarn lint
 - [x] Convert authAlert to object {message,type}
 - [x] Add GitHub actions for CI on PRs
 - [x] Convert form elements to reusable components
+- [x] Add testing library
 - [ ] Follow Todo example
   - https://github.com/supabase/supabase/tree/master/examples/vue3-ts-todo-list
-- [ ] Add tests
+- [ ] Add tests for existing components
