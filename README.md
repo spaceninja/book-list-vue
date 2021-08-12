@@ -34,9 +34,9 @@ yarn lint
 - [x] Update `useAuth` to not rely on alerts
 - [x] Convert `Profile` to use `useProfile` composition
 - [x] Convert `Avatar` to use `useProfile` composition
-- [ ] Improve `useProfile` documentation
-- [ ] Update `useProfile` to not rely on alerts
-- [ ] Convert authAlert to global alert using store object {message,type}
+- [x] Improve `useProfile` documentation
+- [x] Update `useProfile` to not rely on alerts
+- [x] Convert authAlert to object {message,type}
 - [ ] Follow Todo example
   - https://github.com/supabase/supabase/tree/master/examples/vue3-ts-todo-list
 - [ ] Add GitHub actions for CI on PRs

@@ -1,7 +1,7 @@
 <template>
   <div>
-    <label class="button primary block" for="single">
-      {{ isUploading ? 'Uploading ...' : 'Upload' }}
+    <label class="button primary" for="single">
+      {{ isUploading ? 'Uploading ...' : 'Upload New Avatar' }}
     </label>
     <input
       id="single"

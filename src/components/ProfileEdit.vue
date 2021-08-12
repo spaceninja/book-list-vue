@@ -42,7 +42,7 @@ import {
   avatarBlob,
   getProfile,
   updateProfile,
-  downloadImage,
+  downloadAvatar,
 } from '../composables/useProfile';
 import AppAlert from './AppAlert.vue';
 import AvatarEdit from './AvatarEdit.vue';
@@ -60,8 +60,8 @@ export default {
     });
 
     watch(avatar_url, () => {
-      // downloadImage writes to avatarBlob
-      avatar_url.value ? downloadImage(avatar_url.value) : '';
+      // downloadAvatar writes to avatarBlob
+      avatar_url.value ? downloadAvatar(avatar_url.value) : '';
     });
 
     return {
