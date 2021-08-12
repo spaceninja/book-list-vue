@@ -37,8 +37,8 @@ yarn lint
 - [x] Improve `useProfile` documentation
 - [x] Update `useProfile` to not rely on alerts
 - [x] Convert authAlert to object {message,type}
+- [x] Add GitHub actions for CI on PRs
 - [ ] Follow Todo example
   - https://github.com/supabase/supabase/tree/master/examples/vue3-ts-todo-list
-- [ ] Add GitHub actions for CI on PRs
 - [ ] Add tests
 - [ ] Convert form elements to reusable components
