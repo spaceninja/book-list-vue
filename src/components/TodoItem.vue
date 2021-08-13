@@ -1,5 +1,5 @@
 <template>
-  <li>
+  <li class="flex">
     <FormInput
       :checked="todo['is_complete']"
       type="checkbox"

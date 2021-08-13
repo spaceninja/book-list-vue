@@ -1,5 +1,6 @@
 import { supabase } from '../lib/supabase';
 import { ref } from 'vue';
+import { userSession } from './useAuth';
 
 const allTodos = ref([]);
 
@@ -77,6 +78,36 @@ async function updateTaskCompletion(todo, isCompleted) {
 }
 
 /**
+ * Wrapper function adding a new todo for additional client side error handling.
+ */
+async function insertTask(task) {
+  // Guard for short task descriptions which will fail db policy.
+  if (task.length <= 3) {
+    alert('Please make your task a little more descriptive');
+    return;
+  }
+  // Type check to ensure user is still logged in.
+  if (userSession?.value === null) {
+    alert('Please log in again');
+    return;
+  }
+  try {
+    const todo = await addTodo({
+      user_id: userSession.value.user.id,
+      task: task,
+    });
+    // If there was no response, dont do anything.
+    if (!todo) {
+      return;
+    }
+    // Otherwise push the response into allTodos.
+    allTodos.value.push(todo);
+  } catch (err) {
+    console.error('Unknown error when adding todo', err);
+  }
+}
+
+/**
  *  Deletes a todo via its id
  */
 async function deleteTodo(deletedTodo) {
@@ -93,4 +124,11 @@ async function deleteTodo(deletedTodo) {
   }
 }
 
-export { allTodos, fetchTodos, addTodo, updateTaskCompletion, deleteTodo };
+export {
+  allTodos,
+  fetchTodos,
+  addTodo,
+  updateTaskCompletion,
+  insertTask,
+  deleteTodo,
+};
