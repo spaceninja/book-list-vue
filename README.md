@@ -49,7 +49,7 @@ yarn test
 - [x] Follow Todo example
 - [x] Add a basic router to allow access to Profile
 - [x] Move router links into AppHeader
-- [ ] Refactor `TodoItem`
+- [x] Refactor `TodoItem`
 - [ ] Refactor `TodoList`
 - [ ] Refactor `useTodo` with better docs and no alerts
 - [ ] Add tests for existing components

@@ -79,10 +79,15 @@ async function updateTaskCompletion(todo, isCompleted) {
 /**
  *  Deletes a todo via its id
  */
-async function deleteTodo(todo) {
+async function deleteTodo(deletedTodo) {
   try {
-    await supabase.from('todos').delete().eq('id', todo.id);
-    console.log('deleted todo', todo.id);
+    const { error } = await supabase
+      .from('todos')
+      .delete()
+      .eq('id', deletedTodo.id);
+    if (error) throw error;
+    // it's been deleted from supabase, now delete from app state
+    allTodos.value = allTodos.value.filter((todo) => todo.id != deletedTodo.id);
   } catch (error) {
     console.error('error', error);
   }

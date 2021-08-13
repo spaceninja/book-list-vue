@@ -1,49 +1,30 @@
 <template>
   <li>
-    <div>
-      <div>
-        <div>
-          {{ todo.task }}
-        </div>
-      </div>
-      <div>
-        <input
-          type="checkbox"
-          :checked="todo['is_complete']"
-          @click="updateTaskCompletion(todo, !todo['is_complete'])"
-        />
-      </div>
-      <button @click="clearTodo">Delete</button>
-    </div>
+    <FormInput
+      :checked="todo['is_complete']"
+      type="checkbox"
+      :label="todo.task"
+      @click="updateTaskCompletion(todo, !todo['is_complete'])"
+    />
+    <AppButton @click="deleteTodo(todo)">Delete</AppButton>
   </li>
 </template>
 
 <script>
-import { defineComponent } from 'vue';
-import {
-  updateTaskCompletion,
-  deleteTodo,
-  allTodos,
-} from '../composables/useTodo';
+import { updateTaskCompletion, deleteTodo } from '../composables/useTodo';
+import FormInput from './FormInput.vue';
+import AppButton from './AppButton.vue';
 
-export default defineComponent({
+export default {
+  components: { FormInput, AppButton },
   props: {
     todo: {
       type: Object,
       required: true,
     },
   },
-  setup(props) {
-    // Removes todo from supbase and also from app state
-    function clearTodo() {
-      deleteTodo(props.todo).then(() => {
-        allTodos.value = allTodos.value.filter(
-          (todo) => todo.id != props.todo.id
-        );
-      });
-    }
-
-    return { updateTaskCompletion, clearTodo };
+  setup() {
+    return { updateTaskCompletion, deleteTodo };
   },
-});
+};
 </script>
