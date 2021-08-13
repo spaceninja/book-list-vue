@@ -1,6 +1,6 @@
 import { ref } from 'vue';
 import { supabase } from '../lib/supabase';
-import { store } from '../store';
+import { userSession } from '../composables/useAuth';
 
 export const isLoading = ref(true);
 export const isUploading = ref(false);
@@ -22,11 +22,11 @@ export const avatarBlob = ref('');
 export const getProfile = async () => {
   try {
     isLoading.value = true;
-    store.user = supabase.auth.user();
+    userSession.user = supabase.auth.user();
     let { data, error, status } = await supabase
       .from('profiles')
       .select(`username, website, avatar_url`)
-      .eq('id', store.user.id)
+      .eq('id', userSession.user.id)
       .single();
     if (error && status !== 406) throw error;
     if (data) {
@@ -51,9 +51,9 @@ export const getProfile = async () => {
 export const updateProfile = async () => {
   try {
     isLoading.value = true;
-    store.user = supabase.auth.user();
+    userSession.user = supabase.auth.user();
     const updates = {
-      id: store.user.id,
+      id: userSession.user.id,
       username: username.value,
       website: website.value,
       avatar_url: avatar_url.value,

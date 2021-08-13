@@ -1,6 +1,9 @@
 import { ref } from 'vue';
 import { supabase } from '../lib/supabase';
 
+// Used to store the user session
+export const userSession = ref(null);
+
 // Used to display a message to the user
 export const authAlert = ref({
   message: '',

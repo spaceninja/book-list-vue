@@ -3,7 +3,7 @@
   <form class="form-widget" @submit.prevent="updateProfile">
     <AvatarImage :src="avatarBlob" />
     <AvatarEdit @upload="updateProfile" />
-    <FormInput :model-value="store.user?.email" label="Email" disabled />
+    <FormInput :model-value="userSession.user?.email" label="Email" disabled />
     <FormInput v-model="username" label="Name" placeholder="Your name" />
     <FormInput
       v-model="website"
@@ -26,8 +26,7 @@
 
 <script>
 import { onMounted, watch } from 'vue';
-import { store } from '../store';
-import { authAlert, handleLogout } from '../composables/useAuth';
+import { userSession, authAlert, handleLogout } from '../composables/useAuth';
 import {
   isLoading,
   username,
@@ -63,7 +62,7 @@ export default {
     });
 
     return {
-      store,
+      userSession,
       authAlert,
       handleLogout,
       isLoading,

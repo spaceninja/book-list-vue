@@ -1,15 +1,14 @@
 <template>
   <AppHeader />
   <PasswordReset v-if="showPasswordReset" />
-  <ProfileEdit v-else-if="store.user" />
-  <AppAuth v-else />
+  <AppAuth v-else-if="userSession === null" />
+  <ProfileEdit v-else />
   <AppFooter />
 </template>
 
 <script>
 import { getParameterByName } from './lib/helpers';
-import { supabase } from './lib/supabase';
-import { store } from './store';
+import { userSession } from './composables/useAuth';
 import AppAuth from './components/AppAuth.vue';
 import AppHeader from './components/AppHeader.vue';
 import AppFooter from './components/AppFooter.vue';
@@ -25,15 +24,8 @@ export default {
     ProfileEdit,
   },
   setup() {
-    // Check if the user is currently logged in, save to store
-    store.user = supabase.auth.user();
-    // Update store whenever an auth event happens.
-    supabase.auth.onAuthStateChange((_, session) => {
-      store.user = session?.user;
-      console.log('UPDATED STORE', store.user);
-    });
     return {
-      store,
+      userSession,
     };
   },
   computed: {
