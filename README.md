@@ -46,6 +46,11 @@ yarn test
 - [x] Add GitHub actions for CI on PRs
 - [x] Convert form elements to reusable components
 - [x] Add testing library
-- [ ] Follow Todo example
-  - https://github.com/supabase/supabase/tree/master/examples/vue3-ts-todo-list
+- [x] Follow Todo example
+- [ ] Refactor `TodoItem`
+- [ ] Refactor `TodoList`
+- [ ] Refactor `useTodo` with better docs and no alerts
+- [ ] Refactor away from loading and Suspense to `isLoading` ref
+- [ ] Find a way to let user edit Profile
 - [ ] Add tests for existing components
+      see: https://github.com/phanan/vue-3.0-simple-routing-example
