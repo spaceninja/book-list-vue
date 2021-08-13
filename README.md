@@ -47,10 +47,10 @@ yarn test
 - [x] Convert form elements to reusable components
 - [x] Add testing library
 - [x] Follow Todo example
+- [x] Add a basic router to allow access to Profile
 - [ ] Refactor `TodoItem`
 - [ ] Refactor `TodoList`
 - [ ] Refactor `useTodo` with better docs and no alerts
-- [ ] Refactor away from loading and Suspense to `isLoading` ref
-- [ ] Find a way to let user edit Profile
+- [ ] Move router links into AppHeader
 - [ ] Add tests for existing components
       see: https://github.com/phanan/vue-3.0-simple-routing-example

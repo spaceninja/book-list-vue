@@ -15,19 +15,21 @@
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import TodoItem from './TodoItem.vue';
 import { allTodos, fetchTodos, addTodo } from '../composables/useTodo';
 import { userSession } from '../composables/useAuth';
 
-export default defineComponent({
+export default {
   name: 'TodoList',
   components: {
     TodoItem,
   },
 
-  async setup() {
-    await fetchTodos();
+  setup() {
+    onMounted(() => {
+      fetchTodos();
+    });
 
     const task = ref('');
 
@@ -68,5 +70,5 @@ export default defineComponent({
       userSession,
     };
   },
-});
+};
 </script>
