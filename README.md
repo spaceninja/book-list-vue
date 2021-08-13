@@ -48,9 +48,9 @@ yarn test
 - [x] Add testing library
 - [x] Follow Todo example
 - [x] Add a basic router to allow access to Profile
+- [x] Move router links into AppHeader
 - [ ] Refactor `TodoItem`
 - [ ] Refactor `TodoList`
 - [ ] Refactor `useTodo` with better docs and no alerts
-- [ ] Move router links into AppHeader
 - [ ] Add tests for existing components
       see: https://github.com/phanan/vue-3.0-simple-routing-example
