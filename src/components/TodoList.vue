@@ -1,12 +1,14 @@
 <template>
   <div>
     <h1>Todo List.</h1>
-    <FormInput
-      v-model="task"
-      label="New Todo Item"
-      placeholder="What do you need to?"
-    />
-    <AppButton @click="insertTask(task)">Add</AppButton>
+    <form class="form-widget" @submit.prevent="handleSubmit">
+      <FormInput
+        v-model="task"
+        label="New Todo Item"
+        placeholder="What do you need to?"
+      />
+      <AppButton class="primary" type="submit">Add</AppButton>
+    </form>
 
     <ul v-for="todo in allTodos" :key="todo.id">
       <TodoItem :todo="todo" />
@@ -16,7 +18,7 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { allTodos, fetchTodos, insertTask } from '../composables/useTodo';
+import { allTodos, fetchTodos, addTodo } from '../composables/useTodo';
 import TodoItem from './TodoItem.vue';
 import FormInput from './FormInput.vue';
 import AppButton from './AppButton.vue';
@@ -26,4 +28,9 @@ onMounted(() => {
 });
 
 const task = ref('');
+
+const handleSubmit = async () => {
+  const todo = await addTodo(task.value);
+  if (todo) task.value = ''; // if successful, clear the form
+};
 </script>

@@ -4,7 +4,7 @@
       :checked="todo['is_complete']"
       type="checkbox"
       :label="todo.task"
-      @click="updateTaskCompletion(todo, !todo['is_complete'])"
+      @click="updateTodoCompletion(todo, !todo['is_complete'])"
     />
     <AppButton @click="deleteTodo(todo)">Delete</AppButton>
   </li>
@@ -12,7 +12,7 @@
 
 <script setup>
 import { defineProps } from 'vue';
-import { updateTaskCompletion, deleteTodo } from '../composables/useTodo';
+import { updateTodoCompletion, deleteTodo } from '../composables/useTodo';
 import FormInput from './FormInput.vue';
 import AppButton from './AppButton.vue';
 
