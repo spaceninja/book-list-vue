@@ -54,3 +54,7 @@ yarn test
 - [x] Refactor `useTodo` with better docs and no alerts
 - [ ] Add tests for existing components
       see: https://github.com/phanan/vue-3.0-simple-routing-example
+
+## Dependency Note
+
+Do not upgrade Jest to v27 until vue-jest updates to support it!
