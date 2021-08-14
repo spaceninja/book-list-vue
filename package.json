@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^1.21.0",
-    "vue": "^3.0.5"
+    "vue": "^3.2.2"
   },
   "devDependencies": {
     "@babel/core": "^7.15.0",

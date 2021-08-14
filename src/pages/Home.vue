@@ -4,14 +4,7 @@
   </MainLayout>
 </template>
 
-<script>
+<script setup>
 import MainLayout from '../layouts/Main.vue';
 import TodoList from '../components/TodoList.vue';
-
-export default {
-  components: {
-    MainLayout,
-    TodoList,
-  },
-};
 </script>

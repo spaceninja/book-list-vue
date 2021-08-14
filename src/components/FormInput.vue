@@ -68,57 +68,63 @@
 <script>
 export default {
   inheritAttrs: false,
-  props: {
-    type: {
-      type: String,
-      default: 'text',
-    },
-    modelValue: {
-      type: [String, Number, Boolean],
-      default: null,
-    },
-    label: {
-      type: String,
-      required: true,
-    },
-    prepend: {
-      type: String,
-      default: null,
-    },
-    append: {
-      type: String,
-      default: null,
-    },
-    help: {
-      type: String,
-      default: null,
-    },
-  },
-  emits: ['update:modelValue'],
-  computed: {
-    isCheckbox() {
-      return this.type === 'checkbox';
-    },
-    isTextarea() {
-      return this.type === 'textarea';
-    },
-    uuid() {
-      return this.getUUID();
-    },
-  },
-  methods: {
-    /**
-     * Generate a random UUID
-     * This is total overkill, but I need a unique ID for each input component.
-     * @see https://gist.github.com/jed/982883
-     */
-    getUUID(a) {
-      return a
-        ? (a ^ ((Math.random() * 16) >> (a / 4))).toString(16)
-        : ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, this.getUUID);
-    },
-  },
 };
+</script>
+
+<script setup>
+import { defineProps, defineEmits, computed } from 'vue';
+
+const props = defineProps({
+  type: {
+    type: String,
+    default: 'text',
+  },
+  modelValue: {
+    type: [String, Number, Boolean],
+    default: null,
+  },
+  label: {
+    type: String,
+    required: true,
+  },
+  prepend: {
+    type: String,
+    default: null,
+  },
+  append: {
+    type: String,
+    default: null,
+  },
+  help: {
+    type: String,
+    default: null,
+  },
+});
+
+defineEmits(['update:modelValue']);
+
+/**
+ * Generate a random UUID
+ * This is total overkill, but I need a unique ID for each input component.
+ * @see https://gist.github.com/jed/982883
+ */
+const getUUID = (a) => {
+  return a
+    ? (a ^ ((Math.random() * 16) >> (a / 4))).toString(16)
+    : ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, getUUID);
+};
+
+const isCheckbox = computed(() => {
+  return props.type === 'checkbox';
+});
+
+const isTextarea = computed(() => {
+  return props.type === 'textarea';
+});
+
+const uuid = computed(() => {
+  return getUUID();
+});
 </script>
 
 <style>

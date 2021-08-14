@@ -8,25 +8,17 @@
   <AppFooter />
 </template>
 
-<script>
+<script setup>
 import { getParameterByName } from '../lib/helpers';
 import { userSession } from '../composables/useAuth';
 import AppHeader from '../components/AppHeader.vue';
 import AppFooter from '../components/AppFooter.vue';
 import AppAuth from '../components/AppAuth.vue';
 import PasswordReset from '../components/PasswordReset.vue';
+</script>
+
+<script>
 export default {
-  components: {
-    AppHeader,
-    AppFooter,
-    AppAuth,
-    PasswordReset,
-  },
-  setup() {
-    return {
-      userSession,
-    };
-  },
   computed: {
     showPasswordReset() {
       const requestType = getParameterByName('type', location.href);

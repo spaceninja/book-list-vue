@@ -4,15 +4,21 @@
   </a>
 </template>
 
+<script setup>
+import { defineProps } from 'vue';
+
+defineProps({
+  href: {
+    type: String,
+    required: true,
+  },
+});
+</script>
+
 <script>
 import { routes } from '../routes';
+
 export default {
-  props: {
-    href: {
-      type: String,
-      required: true,
-    },
-  },
   methods: {
     // @see https://github.com/phanan/vue-3.0-simple-routing-example
     go() {

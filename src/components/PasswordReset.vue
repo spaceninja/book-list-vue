@@ -16,27 +16,12 @@
   </form>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue';
 import { authAlert, handleUpdateUser } from '../composables/useAuth';
 import AppAlert from './AppAlert.vue';
 import AppButton from './AppButton.vue';
 import FormInput from './FormInput.vue';
 
-export default {
-  components: {
-    AppAlert,
-    AppButton,
-    FormInput,
-  },
-  setup() {
-    const password = ref('');
-
-    return {
-      password,
-      authAlert,
-      handleUpdateUser,
-    };
-  },
-};
+const password = ref('');
 </script>

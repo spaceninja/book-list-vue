@@ -5,13 +5,13 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    src: {
-      type: String,
-      default: null,
-    },
+<script setup>
+import { defineProps } from 'vue';
+
+defineProps({
+  src: {
+    type: String,
+    default: null,
   },
-};
+});
 </script>

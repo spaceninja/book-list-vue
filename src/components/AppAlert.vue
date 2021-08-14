@@ -4,13 +4,13 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    alert: {
-      type: Object,
-      required: true,
-    },
+<script setup>
+import { defineProps } from 'vue';
+
+defineProps({
+  alert: {
+    type: Object,
+    required: true,
   },
-};
+});
 </script>

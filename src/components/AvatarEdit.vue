@@ -9,22 +9,14 @@
       type="file"
       accept="image/*"
       :disabled="isUploading"
-      @change="uploadAvatar($event, emit)"
+      @change="uploadAvatar($event, $emit)"
     />
   </div>
 </template>
 
-<script>
+<script setup>
+import { defineEmits } from 'vue';
 import { isUploading, uploadAvatar } from '../composables/useProfile';
 
-export default {
-  emits: ['upload'],
-  setup(props, { emit }) {
-    return {
-      emit,
-      isUploading,
-      uploadAvatar,
-    };
-  },
-};
+defineEmits(['upload']);
 </script>

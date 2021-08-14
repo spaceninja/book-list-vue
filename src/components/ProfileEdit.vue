@@ -24,7 +24,7 @@
   </form>
 </template>
 
-<script>
+<script setup>
 import { onMounted, watch } from 'vue';
 import { userSession, authAlert, handleLogout } from '../composables/useAuth';
 import {
@@ -43,35 +43,12 @@ import AvatarImage from './AvatarImage.vue';
 import AppButton from './AppButton.vue';
 import FormInput from './FormInput.vue';
 
-export default {
-  components: {
-    AppAlert,
-    AvatarEdit,
-    AvatarImage,
-    AppButton,
-    FormInput,
-  },
-  setup() {
-    onMounted(() => {
-      getProfile();
-    });
+onMounted(() => {
+  getProfile();
+});
 
-    watch(avatar_url, () => {
-      // downloadAvatar method writes to avatarBlob ref
-      avatar_url.value ? downloadAvatar(avatar_url.value) : '';
-    });
-
-    return {
-      userSession,
-      authAlert,
-      handleLogout,
-      isLoading,
-      username,
-      website,
-      avatar_url,
-      avatarBlob,
-      updateProfile,
-    };
-  },
-};
+watch(avatar_url, () => {
+  // downloadAvatar method writes to avatarBlob ref
+  avatar_url.value ? downloadAvatar(avatar_url.value) : '';
+});
 </script>

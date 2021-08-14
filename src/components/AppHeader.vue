@@ -10,12 +10,6 @@
   </header>
 </template>
 
-<script>
+<script setup>
 import RouterLink from '../components/RouterLink.vue';
-
-export default {
-  components: {
-    RouterLink,
-  },
-};
 </script>

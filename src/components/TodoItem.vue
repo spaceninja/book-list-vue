@@ -10,21 +10,16 @@
   </li>
 </template>
 
-<script>
+<script setup>
+import { defineProps } from 'vue';
 import { updateTaskCompletion, deleteTodo } from '../composables/useTodo';
 import FormInput from './FormInput.vue';
 import AppButton from './AppButton.vue';
 
-export default {
-  components: { FormInput, AppButton },
-  props: {
-    todo: {
-      type: Object,
-      required: true,
-    },
+defineProps({
+  todo: {
+    type: Object,
+    required: true,
   },
-  setup() {
-    return { updateTaskCompletion, deleteTodo };
-  },
-};
+});
 </script>

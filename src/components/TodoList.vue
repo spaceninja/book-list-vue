@@ -14,33 +14,16 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { onMounted, ref } from 'vue';
 import { allTodos, fetchTodos, insertTask } from '../composables/useTodo';
 import TodoItem from './TodoItem.vue';
 import FormInput from './FormInput.vue';
 import AppButton from './AppButton.vue';
 
-export default {
-  name: 'TodoList',
-  components: {
-    TodoItem,
-    FormInput,
-    AppButton,
-  },
+onMounted(() => {
+  fetchTodos();
+});
 
-  setup() {
-    onMounted(() => {
-      fetchTodos();
-    });
-
-    const task = ref('');
-
-    return {
-      task,
-      allTodos,
-      insertTask,
-    };
-  },
-};
+const task = ref('');
 </script>

@@ -39,7 +39,7 @@
   </main>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue';
 import {
   authAlert,
@@ -52,25 +52,6 @@ import AppAlert from './AppAlert.vue';
 import AppButton from './AppButton.vue';
 import FormInput from './FormInput.vue';
 
-export default {
-  components: {
-    AppAlert,
-    AppButton,
-    FormInput,
-  },
-  setup() {
-    const email = ref('');
-    const password = ref('');
-
-    return {
-      email,
-      password,
-      authAlert,
-      handleLogin,
-      handleOAuthLogin,
-      handleSignup,
-      handlePasswordReset,
-    };
-  },
-};
+const email = ref('');
+const password = ref('');
 </script>

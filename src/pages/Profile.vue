@@ -4,14 +4,7 @@
   </MainLayout>
 </template>
 
-<script>
+<script setup>
 import MainLayout from '../layouts/Main.vue';
 import ProfileEdit from '../components/ProfileEdit.vue';
-
-export default {
-  components: {
-    MainLayout,
-    ProfileEdit,
-  },
-};
 </script>
