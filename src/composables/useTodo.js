@@ -54,30 +54,6 @@ async function addTodo(todo) {
 }
 
 /**
- * Targets a specific todo via its record id and updates the is_completed attribute.
- */
-async function updateTaskCompletion(todo, isCompleted) {
-  try {
-    const { error } = await supabase
-      .from('todos')
-      .update({ is_complete: isCompleted })
-      .eq('id', todo.id)
-      .single();
-
-    if (error) {
-      alert(error.message);
-      console.error('There was an error updating', error);
-      return;
-    }
-
-    console.log('Updated task', todo.id);
-  } catch (err) {
-    alert('Error');
-    console.error('Unknown problem updating record', err);
-  }
-}
-
-/**
  * Wrapper function adding a new todo for additional client side error handling.
  */
 async function insertTask(task) {
@@ -104,6 +80,30 @@ async function insertTask(task) {
     allTodos.value.push(todo);
   } catch (err) {
     console.error('Unknown error when adding todo', err);
+  }
+}
+
+/**
+ * Targets a specific todo via its record id and updates the is_completed attribute.
+ */
+async function updateTaskCompletion(todo, isCompleted) {
+  try {
+    const { error } = await supabase
+      .from('todos')
+      .update({ is_complete: isCompleted })
+      .eq('id', todo.id)
+      .single();
+
+    if (error) {
+      alert(error.message);
+      console.error('There was an error updating', error);
+      return;
+    }
+
+    console.log('Updated task', todo.id);
+  } catch (err) {
+    alert('Error');
+    console.error('Unknown problem updating record', err);
   }
 }
 
