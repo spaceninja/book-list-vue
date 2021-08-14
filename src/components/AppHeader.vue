@@ -4,6 +4,7 @@
     <nav>
       <ul>
         <li><RouterLink href="/">Home</RouterLink></li>
+        <li><RouterLink href="/todos">Todos</RouterLink></li>
         <li><RouterLink href="/profile">Profile</RouterLink></li>
       </ul>
     </nav>

@@ -1,10 +1,10 @@
 <template>
   <MainLayout>
-    <BookList />
+    <TodoList />
   </MainLayout>
 </template>
 
 <script setup>
 import MainLayout from '../layouts/Main.vue';
-import BookList from '../components/BookList.vue';
+import TodoList from '../components/TodoList.vue';
 </script>
