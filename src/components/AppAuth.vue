@@ -1,5 +1,4 @@
 <template>
-  <AppAlert :alert="authAlert" />
   <main>
     <form
       class="form-widget"
@@ -42,13 +41,11 @@
 <script setup>
 import { ref } from 'vue';
 import {
-  authAlert,
   handleLogin,
   handleOAuthLogin,
   handleSignup,
   handlePasswordReset,
 } from '../composables/useAuth';
-import AppAlert from './AppAlert.vue';
 import AppButton from './AppButton.vue';
 import FormInput from './FormInput.vue';
 

@@ -1,5 +1,4 @@
 <template>
-  <AppAlert :alert="authAlert" />
   <form class="form-widget" @submit.prevent="updateProfile">
     <AvatarImage :src="avatarBlob" />
     <AvatarEdit @upload="updateProfile" />
@@ -26,7 +25,7 @@
 
 <script setup>
 import { onMounted, watch } from 'vue';
-import { userSession, authAlert, handleLogout } from '../composables/useAuth';
+import { userSession, handleLogout } from '../composables/useAuth';
 import {
   isLoading,
   username,
@@ -37,7 +36,6 @@ import {
   updateProfile,
   downloadAvatar,
 } from '../composables/useProfile';
-import AppAlert from './AppAlert.vue';
 import AvatarEdit from './AvatarEdit.vue';
 import AvatarImage from './AvatarImage.vue';
 import AppButton from './AppButton.vue';

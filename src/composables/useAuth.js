@@ -1,54 +1,9 @@
 import { ref } from 'vue';
 import { supabase } from '../lib/supabase';
+import { setAlert, clearAlert, handleError } from './useAlert';
 
 // Used to store the user session
 export const userSession = ref(null);
-
-// Used to display a message to the user
-export const authAlert = ref({
-  message: '',
-  type: 'alert',
-});
-
-/**
- * Set Alert
- *
- * Sets an alert message to be displayed to the user.
- *
- * @param {string} message
- */
-const setAlert = (message) => {
-  authAlert.value = {
-    message,
-    type: 'alert',
-  };
-};
-
-/**
- * Set Error
- *
- * Sets an error message to be displayed to the user.
- *
- * @param {string} message
- */
-const setError = (message) => {
-  authAlert.value = {
-    message,
-    type: 'error',
-  };
-};
-
-/**
- * Handle Errors
- *
- * Alerts the user to an error state, and console logs the error.
- *
- * @param {Error} error
- */
-const handleErrors = (error) => {
-  setError('Error: ' + error.message);
-  console.error(error);
-};
 
 /**
  * Handle Signup
@@ -63,7 +18,7 @@ const handleErrors = (error) => {
  * @returns
  */
 export const handleSignup = async (credentials) => {
-  setAlert(''); // Reset the alert
+  clearAlert();
   const { email, password } = credentials;
   try {
     // Alert the user if no email/password provided
@@ -73,7 +28,7 @@ export const handleSignup = async (credentials) => {
     if (error) throw error;
     setAlert('Signup successful, confirmation mail should be sent soon!');
   } catch (error) {
-    handleErrors(error);
+    handleError(error);
   }
 };
 
@@ -90,7 +45,7 @@ export const handleSignup = async (credentials) => {
  * @param {string} credentials.password
  */
 export const handleLogin = async (credentials) => {
-  setAlert(''); // Reset the alert
+  clearAlert();
   try {
     const { error, user, session } = await supabase.auth.signIn({
       email: credentials.email,
@@ -104,7 +59,7 @@ export const handleLogin = async (credentials) => {
     }
     console.log('EMAIL SIGNIN', user, session);
   } catch (error) {
-    handleErrors(error);
+    handleError(error);
   }
 };
 
@@ -118,13 +73,13 @@ export const handleLogin = async (credentials) => {
  * @param {string} provider - OAuth provider, eg 'github'
  */
 export const handleOAuthLogin = async (provider) => {
-  setAlert(''); // Reset the alert
+  clearAlert();
   try {
     const { error, user, session } = await supabase.auth.signIn({ provider });
     if (error) throw error;
     console.log('OAUTH SIGNIN', user, session);
   } catch (error) {
-    handleErrors(error);
+    handleError(error);
   }
 };
 
@@ -136,13 +91,13 @@ export const handleOAuthLogin = async (provider) => {
  * @see https://supabase.io/docs/reference/javascript/auth-signout
  */
 export const handleLogout = async () => {
-  setAlert(''); // Reset the alert
+  clearAlert();
   try {
     const { error } = await supabase.auth.signOut();
     if (error) throw error;
     setAlert('You have signed out!');
   } catch (error) {
-    handleErrors(error);
+    handleError(error);
   }
 };
 
@@ -157,7 +112,7 @@ export const handleLogout = async () => {
  * @param {string} credentials.password
  */
 export const handleUpdateUser = async (credentials) => {
-  setAlert(''); // Reset the alert
+  clearAlert();
   try {
     console.log(credentials);
     if (!credentials.password) throw new Error('Password is required.');
@@ -166,7 +121,7 @@ export const handleUpdateUser = async (credentials) => {
     setAlert('User info updated.');
     window.location.href = '/'; // Return to the main app
   } catch (error) {
-    handleErrors(error);
+    handleError(error);
   }
 };
 
@@ -180,13 +135,13 @@ export const handleUpdateUser = async (credentials) => {
  * @param {string} email
  */
 export const handlePasswordReset = async (email) => {
-  setAlert(''); // Reset the alert
+  clearAlert();
   try {
     if (!email) throw new Error('Email address is required.');
     const { error } = await supabase.auth.api.resetPasswordForEmail(email);
     if (error) throw error;
     setAlert('Password recovery email has been sent.');
   } catch (error) {
-    handleErrors(error);
+    handleError(error);
   }
 };

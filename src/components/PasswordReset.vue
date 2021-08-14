@@ -1,5 +1,4 @@
 <template>
-  <AppAlert :alert="authAlert" />
   <form
     class="form-widget"
     @submit.prevent="handleUpdateUser({ password: password })"
@@ -18,8 +17,7 @@
 
 <script setup>
 import { ref } from 'vue';
-import { authAlert, handleUpdateUser } from '../composables/useAuth';
-import AppAlert from './AppAlert.vue';
+import { handleUpdateUser } from '../composables/useAuth';
 import AppButton from './AppButton.vue';
 import FormInput from './FormInput.vue';
 
