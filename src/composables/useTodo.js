@@ -17,7 +17,7 @@ export const fetchTodos = async () => {
       .select('*')
       .order('id');
     if (error) throw error;
-    // if no todos are returned, save an empty array to app state
+    // save the todos from supabase (or an empty array) to app state
     allTodos.value = data === null ? [] : data;
   } catch (error) {
     handleError(error);
@@ -47,6 +47,7 @@ export const addTodo = async (task) => {
       })
       .single();
     if (error) throw error;
+    // it's been added to supabase, now add to app state
     allTodos.value.push(data);
     return data;
   } catch (error) {
