@@ -31,7 +31,3 @@ yarn lint
 ```
 yarn test
 ```
-
-## Dependency Note
-
-Do not upgrade Jest to v27 until vue-jest updates to support it!

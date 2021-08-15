@@ -83,7 +83,7 @@ export const fetchBooks = async () => {
       .select('*')
       .order('id');
     if (error) throw error;
-    // save the todos from supabase (or an empty array) to app state
+    // save the books from supabase (or an empty array) to app state
     allBooks.value = data === null ? [] : data;
     console.log('Fetched Books', allBooks.value);
   } catch (error) {
