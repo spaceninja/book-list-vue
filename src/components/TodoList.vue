@@ -10,8 +10,10 @@
       <AppButton class="primary" type="submit">Add</AppButton>
     </form>
 
-    <ul v-for="todo in allTodos" :key="todo.id">
-      <TodoItem :todo="todo" />
+    <ul>
+      <li v-for="todo in allTodos" :key="todo.id">
+        <TodoItem :todo="todo" />
+      </li>
     </ul>
   </div>
 </template>
