@@ -4,7 +4,6 @@
     <nav>
       <ul>
         <li><RouterLink href="/">Books</RouterLink></li>
-        <li><RouterLink href="/todos">Todos</RouterLink></li>
         <li><RouterLink href="/profile">Profile</RouterLink></li>
       </ul>
     </nav>
