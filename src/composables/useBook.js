@@ -6,6 +6,18 @@ import { clearAlert, handleError } from './useAlert';
 export const emptyBook = {
   isbn: '',
   title: '',
+  series: '',
+  author_fname: '',
+  author_lname: '',
+  rating: '',
+  length: '',
+  release_date: '',
+  thumbnail: '',
+  blurb: '',
+  source: '',
+  note: '',
+  is_purchased: false,
+  is_prioritized: false,
 };
 
 export const allBooks = ref([]);
@@ -46,6 +58,7 @@ export const isbnAlreadyUsed = computed(() => {
 export const enterAddBookMode = () => {
   currentBook.value = { ...emptyBook };
   editMode.value = 'add';
+  console.log('ADD BOOK', currentBook.value);
 };
 
 /**
@@ -58,6 +71,7 @@ export const enterAddBookMode = () => {
 export const enterEditBookMode = (book) => {
   currentBook.value = { ...book };
   editMode.value = 'edit';
+  console.log('EDIT BOOK', currentBook.value);
 };
 
 /**
