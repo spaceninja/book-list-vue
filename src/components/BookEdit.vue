@@ -17,12 +17,12 @@
     <FormInput v-model="currentBook.series" label="Series" />
     <FormInput
       v-model="currentBook.author_fname"
-      label="Author First Name"
+      label="Author First Name *"
       required
     />
     <FormInput
       v-model="currentBook.author_lname"
-      label="Author Last Name"
+      label="Author Last Name *"
       required
     />
     <FormInput
@@ -32,14 +32,14 @@
       max="5"
       min="0"
       step="0.01"
-      label="Rating"
+      label="Rating *"
       required
     />
     <FormInput
       v-model="currentBook.length"
       type="number"
       append="pages"
-      label="Length"
+      label="Length *"
       required
     />
     <FormInput
