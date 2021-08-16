@@ -1,10 +1,15 @@
 <template>
   <div
     class="form__group"
-    :class="{
-      'form__group--check': isCheckbox,
-    }"
+    :class="[
+      $attrsClass,
+      {
+        'form__group--check': isCheckbox,
+      },
+    ]"
   >
+    {{ $attrsNoClass }}
+
     <label v-if="!isCheckbox" class="form__label" :for="uuid">
       {{ label }}
     </label>
@@ -24,7 +29,7 @@
         :id="uuid"
         :value="modelValue"
         class="form__control form__control--textarea"
-        v-bind="$attrs"
+        v-bind="$attrsNoClass"
         @input="$emit('update:modelValue', $event.target.value)"
       />
       <input
@@ -33,7 +38,7 @@
         :checked="modelValue"
         :type="type"
         class="form__checkbox-input"
-        v-bind="$attrs"
+        v-bind="$attrsNoClass"
         @input="$emit('update:modelValue', $event.target.value)"
       />
       <input
@@ -42,7 +47,7 @@
         :value="modelValue"
         :type="type"
         class="form__control"
-        v-bind="$attrs"
+        v-bind="$attrsNoClass"
         @input="$emit('update:modelValue', $event.target.value)"
       />
 
@@ -72,7 +77,7 @@ export default {
 </script>
 
 <script setup>
-import { defineProps, defineEmits, computed } from 'vue';
+import { defineProps, defineEmits, computed, useAttrs } from 'vue';
 
 const props = defineProps({
   type: {
@@ -114,6 +119,8 @@ const getUUID = (a) => {
     : ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, getUUID);
 };
 
+const { class: attrsClass, ...attrsNoClass } = useAttrs();
+
 const isCheckbox = computed(() => {
   return props.type === 'checkbox';
 });
@@ -127,85 +134,6 @@ const uuid = computed(() => {
 });
 </script>
 
-<style>
-/* .form {
-  display: grid;
-  grid-gap: 1em;
-  grid-template-columns: 1fr;
-  margin: 1em auto;
-
-  @media only screen and (min-width: 640px) {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-.form__group--doublewide {
-  @media only screen and (min-width: 640px) {
-    grid-column-end: span 2;
-  }
-}
-
-.form__control {
-  background: var(--color-input-bg);
-  border: 1px solid var(--color-input-border);
-  border-radius: 0.25em;
-  color: currentColor;
-  display: block;
-  font-size: 16px;
-  padding: 0.375em 0.75em;
-  width: 100%;
-}
-
-select {
-  font-size: 16px;
-}
-
-.form__group--check {
-  align-items: center;
-  display: flex;
-}
-
-.form__checkbox-input {
-  flex: none;
-}
-
-.form__checkbox-label {
-  flex: 1;
-  margin-left: 0.375em;
-}
-
-.form__input-group {
-  display: flex;
-}
-
-.form__input-group:first-child {
-  border-bottom-left-radius: 0.25em;
-  border-top-left-radius: 0.25em;
-}
-
-.form__input-group:last-child {
-  border-bottom-right-radius: 0.25em;
-  border-top-right-radius: 0.25em;
-}
-
-.form__input-group .form__control {
-  border-radius: 0;
-  flex: 1;
-}
-
-.form__input-group-prepend,
-.form__input-group-append {
-  background: var(--color-input-append-bg);
-  border: 1px solid var(--color-input-border);
-  flex: none;
-  padding: 0.375em 0.75em;
-}
-
-.form__input-group-prepend {
-  border-right: 0;
-}
-
-.form__input-group-append {
-  border-left: 0;
-} */
+<style lang="scss">
+@import './FormInput';
 </style>

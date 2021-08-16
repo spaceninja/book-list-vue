@@ -1,23 +1,23 @@
 <template>
-  <AppHeader />
+  <TheHeader />
   <AppAlert :alert="theAlert" />
   <PasswordReset v-if="showPasswordReset" />
-  <AppAuth v-else-if="userSession === null" />
+  <AuthForm v-else-if="userSession === null" />
   <div v-else>
     <slot></slot>
   </div>
-  <AppFooter />
+  <TheFooter />
 </template>
 
 <script setup>
 import { getParameterByName } from '../lib/helpers';
 import { userSession } from '../composables/useAuth';
 import { theAlert } from '../composables/useAlert';
-import AppAlert from '../components/AppAlert.vue';
-import AppHeader from '../components/AppHeader.vue';
-import AppFooter from '../components/AppFooter.vue';
-import AppAuth from '../components/AppAuth.vue';
-import PasswordReset from '../components/PasswordReset.vue';
+import AppAlert from '../components/AppAlert/AppAlert.vue';
+import TheHeader from '../components/TheHeader/TheHeader.vue';
+import TheFooter from '../components/TheFooter/TheFooter.vue';
+import AuthForm from '../components/AuthForm/AuthForm.vue';
+import PasswordReset from '../components/PasswordReset/PasswordReset.vue';
 </script>
 
 <script>

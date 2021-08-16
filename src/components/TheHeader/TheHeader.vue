@@ -1,6 +1,6 @@
 <template>
-  <header class="mainHeader">
-    <p>Book List Vue</p>
+  <header class="header">
+    <h1 class="header__logo"><RouterLink href="/">Books</RouterLink></h1>
     <nav>
       <ul>
         <li><RouterLink href="/">Books</RouterLink></li>
@@ -11,5 +11,9 @@
 </template>
 
 <script setup>
-import RouterLink from '../components/RouterLink.vue';
+import RouterLink from '../RouterLink/RouterLink.vue';
 </script>
+
+<style lang="scss">
+@import './TheHeader';
+</style>

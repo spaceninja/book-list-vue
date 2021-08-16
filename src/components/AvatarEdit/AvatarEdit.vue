@@ -16,7 +16,7 @@
 
 <script setup>
 import { defineEmits } from 'vue';
-import { isUploading, uploadAvatar } from '../composables/useProfile';
+import { isUploading, uploadAvatar } from '../../composables/useProfile';
 
 defineEmits(['upload']);
 </script>

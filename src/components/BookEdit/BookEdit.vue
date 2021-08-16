@@ -2,17 +2,11 @@
   <h2 style="text-transform: capitalize">{{ editMode }} Book</h2>
 
   <form
-    class="form-widget"
+    class="form"
     @submit.prevent="
       editMode === 'add' ? addBook(currentBook) : editBook(currentBook)
     "
   >
-    <FormInput
-      v-model="currentBook.isbn"
-      label="ISBN *"
-      :help="isbnAlreadyUsed ? 'This ISBN has already been added!' : ''"
-      required
-    />
     <FormInput v-model="currentBook.title" label="Title *" required />
     <FormInput v-model="currentBook.series" label="Series" />
     <FormInput
@@ -43,6 +37,12 @@
       required
     />
     <FormInput
+      v-model="currentBook.isbn"
+      label="ISBN *"
+      :help="isbnAlreadyUsed ? 'This ISBN has already been added!' : ''"
+      required
+    />
+    <FormInput
       v-model="currentBook.release_date"
       type="date"
       pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"
@@ -52,12 +52,14 @@
     <FormInput v-model="currentBook.source" label="Source" />
     <FormInput
       v-model="currentBook.blurb"
+      class="form__group--doublewide"
       type="textarea"
       help="A short blurb introducing the book."
       label="Blurb"
     />
     <FormInput
       v-model="currentBook.note"
+      class="form__group--doublewide"
       type="textarea"
       help="A note explaining why you’re interested in this book."
       label="Notes"
@@ -93,7 +95,7 @@ import {
   addBook,
   editBook,
   exitEditMode,
-} from '../composables/useBook';
-import FormInput from './FormInput.vue';
-import AppButton from './AppButton.vue';
+} from '../../composables/useBook';
+import FormInput from '../FormInput/FormInput.vue';
+import AppButton from '../AppButton/AppButton.vue';
 </script>

@@ -57,8 +57,8 @@
 
 <script setup>
 import { defineProps } from 'vue';
-import { enterEditBookMode, deleteBook } from '../composables/useBook';
-import AppButton from './AppButton.vue';
+import { enterEditBookMode, deleteBook } from '../../composables/useBook';
+import AppButton from '../AppButton/AppButton.vue';
 
 /* eslint-disable vue/prop-name-casing */
 defineProps({
@@ -124,3 +124,7 @@ defineProps({
   },
 });
 </script>
+
+<style lang="scss">
+@import './BookCard';
+</style>

@@ -25,7 +25,7 @@
 
 <script setup>
 import { onMounted, watch } from 'vue';
-import { userSession, handleLogout } from '../composables/useAuth';
+import { userSession, handleLogout } from '../../composables/useAuth';
 import {
   isLoading,
   username,
@@ -35,11 +35,11 @@ import {
   getProfile,
   updateProfile,
   downloadAvatar,
-} from '../composables/useProfile';
-import AvatarEdit from './AvatarEdit.vue';
-import AvatarImage from './AvatarImage.vue';
-import AppButton from './AppButton.vue';
-import FormInput from './FormInput.vue';
+} from '../../composables/useProfile';
+import AvatarEdit from '../AvatarEdit/AvatarEdit.vue';
+import AvatarImage from '../AvatarImage/AvatarImage.vue';
+import AppButton from '../AppButton/AppButton.vue';
+import FormInput from '../FormInput/FormInput.vue';
 
 onMounted(() => {
   getProfile();

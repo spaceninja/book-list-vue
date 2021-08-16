@@ -41,6 +41,7 @@ testing. Here's a quick breakdown if you're wondering why anything's here:
 - Base Vite + Vue 3 install
   - `@vitejs/plugin-vue`
   - `@vue/compiler-sfc`
+  - `sass`
   - `vue`
   - `vite`
 - Supabase integration (DB & Auth)

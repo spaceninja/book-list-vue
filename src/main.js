@@ -3,7 +3,7 @@ import { routes } from './routes';
 import { supabase } from './lib/supabase';
 import { userSession } from './composables/useAuth';
 import NotFound from './pages/NotFound.vue';
-import './assets/main.css';
+import './assets/main.scss';
 
 /**
  * Simple Router App

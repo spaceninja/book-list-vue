@@ -14,3 +14,7 @@ defineProps({
   },
 });
 </script>
+
+<style lang="scss">
+@import './AppAlert';
+</style>

@@ -45,9 +45,9 @@ import {
   handleOAuthLogin,
   handleSignup,
   handlePasswordReset,
-} from '../composables/useAuth';
-import AppButton from './AppButton.vue';
-import FormInput from './FormInput.vue';
+} from '../../composables/useAuth';
+import AppButton from '../AppButton/AppButton.vue';
+import FormInput from '../FormInput/FormInput.vue';
 
 const email = ref('');
 const password = ref('');
