@@ -2,14 +2,12 @@
   <div
     class="form__group"
     :class="[
-      $attrsClass,
+      $attrs.class,
       {
         'form__group--check': isCheckbox,
       },
     ]"
   >
-    {{ $attrsNoClass }}
-
     <label v-if="!isCheckbox" class="form__label" :for="uuid">
       {{ label }}
     </label>
@@ -29,7 +27,7 @@
         :id="uuid"
         :value="modelValue"
         class="form__control form__control--textarea"
-        v-bind="$attrsNoClass"
+        v-bind="$attrs"
         @input="$emit('update:modelValue', $event.target.value)"
       />
       <input
@@ -38,7 +36,7 @@
         :checked="modelValue"
         :type="type"
         class="form__checkbox-input"
-        v-bind="$attrsNoClass"
+        v-bind="$attrs"
         @input="$emit('update:modelValue', $event.target.value)"
       />
       <input
@@ -47,7 +45,7 @@
         :value="modelValue"
         :type="type"
         class="form__control"
-        v-bind="$attrsNoClass"
+        v-bind="$attrs"
         @input="$emit('update:modelValue', $event.target.value)"
       />
 
@@ -77,7 +75,7 @@ export default {
 </script>
 
 <script setup>
-import { defineProps, defineEmits, computed, useAttrs } from 'vue';
+import { defineProps, defineEmits, computed } from 'vue';
 
 const props = defineProps({
   type: {
@@ -118,8 +116,6 @@ const getUUID = (a) => {
     ? (a ^ ((Math.random() * 16) >> (a / 4))).toString(16)
     : ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, getUUID);
 };
-
-const { class: attrsClass, ...attrsNoClass } = useAttrs();
 
 const isCheckbox = computed(() => {
   return props.type === 'checkbox';

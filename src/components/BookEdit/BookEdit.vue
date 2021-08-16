@@ -48,14 +48,23 @@
       pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"
       label="Release Date"
     />
-    <FormInput v-model="currentBook.thumbnail" label="Thumbnail" />
-    <FormInput v-model="currentBook.source" label="Source" />
+    <FormInput
+      v-model="currentBook.thumbnail"
+      class="form__group--doublewide"
+      label="Thumbnail"
+    />
     <FormInput
       v-model="currentBook.blurb"
       class="form__group--doublewide"
       type="textarea"
       help="A short blurb introducing the book."
       label="Blurb"
+    />
+    <FormInput
+      v-model="currentBook.source"
+      class="form__group--doublewide"
+      label="Source"
+      prepend="Recommended by"
     />
     <FormInput
       v-model="currentBook.note"
