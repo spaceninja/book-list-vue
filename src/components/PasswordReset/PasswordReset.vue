@@ -17,9 +17,9 @@
 
 <script setup>
 import { ref } from 'vue';
-import { handleUpdateUser } from '../composables/useAuth';
-import AppButton from './AppButton.vue';
-import FormInput from './FormInput.vue';
+import { handleUpdateUser } from '../../composables/useAuth';
+import AppButton from '../AppButton/AppButton.vue';
+import FormInput from '../FormInput/FormInput.vue';
 
 const password = ref('');
 </script>

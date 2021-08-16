@@ -1,5 +1,5 @@
 import { render } from '@testing-library/vue';
-import AppAlert from '../AppAlert.vue';
+import AppAlert from './AppAlert.vue';
 
 const slotContent = 'This is an Alert!';
 

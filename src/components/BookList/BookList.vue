@@ -4,7 +4,7 @@
   <div v-else>
     <h2>Book List</h2>
     <button type="button" @click="enterAddBookMode">Add New Book</button>
-    <ol>
+    <ol class="book-list">
       <li v-if="isLoading">Loading…</li>
       <li v-else-if="!allBooks.length">No books found</li>
       <BookCard
@@ -26,10 +26,10 @@ import {
   editMode,
   fetchBooks,
   enterAddBookMode,
-} from '../composables/useBook';
-import BookDev from './BookDev.vue';
-import BookEdit from './BookEdit.vue';
-import BookCard from './BookCard.vue';
+} from '../../composables/useBook';
+import BookDev from '../BookDev/BookDev.vue';
+import BookEdit from '../BookEdit/BookEdit.vue';
+import BookCard from '../BookCard/BookCard.vue';
 
 const isDev = import.meta.env.DEV;
 
@@ -37,3 +37,7 @@ onMounted(() => {
   fetchBooks();
 });
 </script>
+
+<style lang="scss">
+@import './BookList';
+</style>
