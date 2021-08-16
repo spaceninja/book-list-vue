@@ -192,6 +192,16 @@ input[disabled] {
   color: var(--custom-color-secondary);
 }
 
+textarea {
+  background-color: var(--custom-bg-color);
+  border: var(--custom-border);
+  border-radius: 5px;
+  color: var(--custom-color);
+  font-size: 0.9rem;
+  padding: 8px;
+  width: 100%;
+}
+
 /* Utils */
 
 .block {

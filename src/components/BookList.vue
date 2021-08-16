@@ -6,7 +6,7 @@
     <button type="button" @click="enterAddBookMode">Add New Book</button>
     <ul>
       <li v-if="isLoading">Loading…</li>
-      <li v-if="!allBooks.length">No books found</li>
+      <li v-else-if="!allBooks.length">No books found</li>
       <li v-for="book in allBooks" :key="book.id">
         {{ book.id }} - {{ book.isbn }} - {{ book.title }}
         <button type="button" @click="enterEditBookMode(book)">Edit</button>
