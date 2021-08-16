@@ -1,0 +1,30 @@
+[
+  {
+    "isbn": "0123456789",
+    "title": "Example Book with Everything",
+    "series": "Series Name #3",
+    "author_fname": "Author",
+    "author_lname": "McBigName",
+    "rating": "4.99",
+    "length": "999",
+    "release_date": "2018-05-08",
+    "thumbnail": "https://images.unsplash.com/photo-1528459105426-b9548367069b?w=300",
+    "blurb": "Lorem ipsum? Dolor sit amet! Consectetur adipisicing elit.",
+    "source": "somebody",
+    "note": "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+    "is_purchased": true,
+    "is_prioritized": true
+  },
+  {
+    "isbn": "9876543210",
+    "title": "Minimal Book",
+    "author_fname": "Timmy",
+    "author_lname": "Selfpublished",
+    "rating": "0.01",
+    "length": "1"
+  },
+  {
+    "title": "Minimum Viable Book",
+    "isbn": "1029384756"
+  }
+]

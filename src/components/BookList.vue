@@ -13,6 +13,7 @@
         <button type="button" @click="deleteBook(book)">Delete</button>
       </li>
     </ul>
+    <BookDev v-if="isDev" />
   </div>
 </template>
 
@@ -27,7 +28,10 @@ import {
   enterEditBookMode,
   deleteBook,
 } from '../composables/useBook';
+import BookDev from './BookDev.vue';
 import BookEdit from './BookEdit.vue';
+
+const isDev = import.meta.env.DEV;
 
 onMounted(() => {
   fetchBooks();
