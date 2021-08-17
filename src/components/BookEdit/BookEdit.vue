@@ -39,7 +39,7 @@
     <FormInput
       v-model="currentBook.isbn"
       label="ISBN *"
-      :help="isbnAlreadyUsed ? 'This ISBN has already been added!' : ''"
+      :help="isIsbnUsed ? 'This ISBN has already been added!' : ''"
       required
     />
     <FormInput
@@ -99,7 +99,7 @@
 <script setup>
 import {
   currentBook,
-  isbnAlreadyUsed,
+  isIsbnUsed,
   editMode,
   addBook,
   editBook,

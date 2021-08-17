@@ -1,5 +1,5 @@
 import { createApp, h } from 'vue';
-import { routes } from './routes';
+import { routes } from './router/routes';
 import { supabase } from './lib/supabase';
 import { userSession } from './composables/useAuth';
 import NotFound from './pages/NotFound.vue';

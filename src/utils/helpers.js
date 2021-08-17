@@ -9,7 +9,7 @@
  * @param {string} url - the URL to check
  * @returns {string} the value of the URL parameter
  */
-export function getParameterByName(name, url) {
+export const getParameterByName = (name, url) => {
   if (!url) url = window.location.href;
   name = name.replace(/[[]]/g, '\\$&');
   const regex = new RegExp('[?&#]' + name + '(=([^&#]*)|&|#|$)');
@@ -17,4 +17,4 @@ export function getParameterByName(name, url) {
   if (!results) return null;
   if (!results[2]) return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
-}
+};

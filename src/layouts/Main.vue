@@ -10,7 +10,7 @@
 </template>
 
 <script setup>
-import { getParameterByName } from '../lib/helpers';
+import { getParameterByName } from '../utils/helpers';
 import { userSession } from '../composables/useAuth';
 import { theAlert } from '../composables/useAlert';
 import AppAlert from '../components/AppAlert/AppAlert.vue';
