@@ -1,42 +1,20 @@
-# Book List Vue
+# Book List
 
-Bootstrapped with Vite & Vue 3.
+> Create a sortable and filterable list of books you'd like to read.
 
-## Project setup
+This project is a Vue version of my old [book list](https://github.com/spaceninja/book-list) side project. I started that project to challenge my vanilla javascript skills, and this is recreating that functionality using Vue3, Vite, and Supabase.
 
-```
-yarn
-```
+## Project scripts
 
-### Compiles and hot-reloads for development
-
-```
-yarn dev
-```
-
-### Compiles and minifies for production
-
-```
-yarn build
-```
-
-### Lints and fixes files
-
-```
-yarn lint
-```
-
-### Run tests
-
-```
-yarn test
-```
+- `yarn` - install dependencies
+- `yarn dev` - compiles and hot-reloads for development
+- `yarn build` - compiles and minifies for production
+- `yarn lint` - lints and fixes files
+- `yarn test` - runs the test suite
 
 ## Dependencies
 
-I was pretty impressed at how little was needed for the basic Vite+Vue app.
-Unfortunately, I had to add a lot more dependencies to support linting and
-testing. Here's a quick breakdown if you're wondering why anything's here:
+I was pretty impressed at how little was needed for the basic Vite+Vue app. Unfortunately, I had to add a lot more dependencies to support linting and testing. Here's a quick breakdown if you're wondering why anything's here:
 
 - Base Vite + Vue 3 install
   - `@vitejs/plugin-vue`
