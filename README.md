@@ -46,6 +46,8 @@ testing. Here's a quick breakdown if you're wondering why anything's here:
   - `vite`
 - Supabase integration (DB & Auth)
   - `@supabase/supabase-js`
+- Better Sorting
+  - `thenby`
 - Linting
   - `eslint`
   - `eslint-config-prettier`

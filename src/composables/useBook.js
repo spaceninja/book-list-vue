@@ -1,30 +1,63 @@
 import { supabase } from '../lib/supabase';
 import { ref, computed } from 'vue';
+import { firstBy } from 'thenby';
+import { emptyBook } from '../utils/empty-book';
+import { sortOptions } from '../utils/sort-options';
 import { userSession } from './useAuth';
 import { clearAlert, handleError } from './useAlert';
 
-export const emptyBook = {
-  isbn: '',
-  title: '',
-  series: '',
-  author_fname: '',
-  author_lname: '',
-  rating: '',
-  length: '',
-  release_date: '',
-  thumbnail: '',
-  blurb: '',
-  source: '',
-  note: '',
-  is_purchased: false,
-  is_prioritized: false,
-};
+/**
+ * REACTIVE REFERENCES ---------------------------------------------------------
+ */
 
 export const allBooks = ref([]);
 export const currentBook = ref(emptyBook);
-export const allBooksIsEmpty = computed(() => allBooks.value.length === 0);
 export const isLoading = ref(true);
 export const editMode = ref(null);
+export const sortBy = ref({
+  firstBy: 'rating',
+  firstByOrder: 'descending',
+  thenBy: 'length',
+  thenByOrder: 'ascending',
+});
+export const filterBy = ref([]);
+
+/**
+ * COMPUTED PROPERTIES ---------------------------------------------------------
+ */
+
+/**
+ * Sorted and Filtered Books
+ *
+ * Computed property to sort and filter the `allBooks` set.
+ *
+ * @returns Array
+ */
+export const sortedAndFilteredBooks = computed(() => {
+  return getSortedAndFilteredBooks(
+    allBooks.value,
+    filterBy.value,
+    sortBy.value
+  );
+});
+
+/**
+ * ISBN Already Used
+ *
+ * Computed property checking that we're in Add mode and this ISBN has been used.
+ *
+ * @returns boolean
+ */
+export const isIsbnUsed = computed(() => {
+  return editMode.value === 'add'
+    ? checkIfIsbnIsUsed(currentBook.value.isbn)
+    : false;
+});
+
+/**
+ * INTERNAL HELPER METHODS -----------------------------------------------------
+ * These functions don't need to be exported, they only used in this file.
+ */
 
 /**
  * Is ISBN Already Used?
@@ -34,21 +67,75 @@ export const editMode = ref(null);
  * @param {string} isbn
  * @returns boolean
  */
-export const isIsbnAlreadyUsed = (isbn) => {
+const checkIfIsbnIsUsed = (isbn) => {
   return allBooks.value.some((book) => book.isbn === isbn);
 };
 
 /**
- * ISBN Already Used
+ * Get Sorted and Filtered Books
  *
- * Computed property checking that we're in Add mode and this ISBN has been used.
+ * Given an array of books, a set of filters, and a sort method,
+ * returns a filtered and sorted set of books.
+ *
+ * @param {Array} bookSet
+ * @param {Array} filterBy
+ * @param {Object} sortBy
+ * @returns Array
  */
-export const isbnAlreadyUsed = computed(() => {
-  if (editMode.value === 'add') {
-    return isIsbnAlreadyUsed(currentBook.value.isbn);
+const getSortedAndFilteredBooks = (bookSet, filterBy, sortBy) => {
+  // filter the book set
+  filterBy.forEach((key) => {
+    bookSet = bookSet.filter((book) => book[key]);
+  });
+  // sort the filtered book set
+  return bookSet.sort(
+    firstBy(sortBy.firstBy, {
+      ignoreCase: true,
+      direction: sortBy.firstByOrder === 'descending' ? -1 : 0,
+    }).thenBy(sortBy.thenBy, {
+      ignoreCase: true,
+      direction: sortBy.thenByOrder === 'descending' ? -1 : 0,
+    })
+  );
+};
+
+/**
+ * FILTER & SORT METHODS -------------------------------------------------------
+ * These functions help define how to filter and sort the book set.
+ */
+
+/**
+ * Set Filter
+ *
+ * Updates the `filterBy` array, adding or removing the given filter.
+ *
+ * @param {Event} event
+ */
+export const setFilter = (event) => {
+  if (event.target.checked) {
+    filterBy.value.push(event.target.name);
+  } else {
+    filterBy.value = filterBy.value.filter(
+      (item) => item !== event.target.name
+    );
   }
-  return false;
-});
+};
+
+/**
+ * Set Sorting Method
+ *
+ * Updates the `sortBy` object with the given sort method.
+ *
+ * @param {Event} event
+ */
+export const setSort = (event) => {
+  sortBy.value = { ...sortOptions[event.target.value] };
+};
+
+/**
+ * EDIT MODE METHODS -----------------------------------------------------------
+ * These functions control whether the app should show the Edit Book form.
+ */
 
 /**
  * Enter "Add Book" Mode
@@ -58,7 +145,6 @@ export const isbnAlreadyUsed = computed(() => {
 export const enterAddBookMode = () => {
   currentBook.value = { ...emptyBook };
   editMode.value = 'add';
-  console.log('ADD BOOK', currentBook.value);
 };
 
 /**
@@ -71,7 +157,6 @@ export const enterAddBookMode = () => {
 export const enterEditBookMode = (book) => {
   currentBook.value = { ...book };
   editMode.value = 'edit';
-  console.log('EDIT BOOK', currentBook.value);
 };
 
 /**
@@ -83,6 +168,11 @@ export const exitEditMode = () => {
   currentBook.value = { ...emptyBook };
   editMode.value = null;
 };
+
+/**
+ * API METHODS -----------------------------------------------------------------
+ * These functions talk to the Supabase API.
+ */
 
 /**
  * Fetch Books
@@ -124,7 +214,7 @@ export const addBook = async (book) => {
     if (!(book.isbn && book.title))
       throw new Error('Books must have an ISBN and title.');
     // Check that this ISBN hasn't already been added
-    if (isIsbnAlreadyUsed(book.isbn))
+    if (checkIfIsbnIsUsed(book.isbn))
       throw new Error('That ISBN has already been added!');
     // add user ID
     book['user_id'] = userSession.value.user.id;
