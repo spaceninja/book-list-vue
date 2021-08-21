@@ -17,7 +17,7 @@
         placeholder="Your password"
       />
       <div>
-        <AppButton class="primary" type="submit">
+        <AppButton class="button--primary" type="submit">
           {{ password.length ? 'Sign in' : 'Send magic link' }}
         </AppButton>
         <AppButton @click="handleSignup({ email, password })">

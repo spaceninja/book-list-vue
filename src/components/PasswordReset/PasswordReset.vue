@@ -10,7 +10,9 @@
       placeholder="Your password"
     />
     <div>
-      <AppButton type="submit" class="primary">Update password</AppButton>
+      <AppButton type="submit" class="button--primary"
+        >Update password</AppButton
+      >
     </div>
   </form>
 </template>

@@ -5,6 +5,7 @@ import { emptyBook } from '../utils/empty-book';
 import { sortOptions } from '../utils/sort-options';
 import { userSession } from './useAuth';
 import { clearAlert, handleError } from './useAlert';
+const googleBooksApiKey = import.meta.env.VITE_FIREBASE_API_KEY;
 
 /**
  * REACTIVE REFERENCES ---------------------------------------------------------
@@ -171,8 +172,33 @@ export const exitEditMode = () => {
 
 /**
  * API METHODS -----------------------------------------------------------------
- * These functions talk to the Supabase API.
+ * These functions talk to the third-party APIs like Supabase.
  */
+
+export const getCover = (isbn) => {
+  fetch(
+    'https://www.googleapis.com/books/v1/volumes?q=isbn:' +
+      isbn +
+      '&fields=items(volumeInfo(imageLinks))' +
+      '&key=' +
+      googleBooksApiKey,
+    { method: 'get' }
+  )
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      if (data.error) throw new Error(data.error.message);
+      console.log('Fetched Thumbnails', data);
+      let img = data.items[0].volumeInfo.imageLinks.thumbnail;
+      img = img.replace(/^http:\/\//i, 'https://');
+      img = img.replace(/&edge=curl/i, '');
+      currentBook.value.thumbnail = img;
+    })
+    .catch((error) => {
+      handleError(error);
+    });
+};
 
 /**
  * Fetch Books
