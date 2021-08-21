@@ -17,7 +17,8 @@
     <div class="book__info">
       <h2 class="book__headline">
         <span class="book__title">{{ title }}</span>
-        <span v-if="series" class="book__series">({{ series }})</span>
+        {{ ' ' /* ensure a space between title and series */ }}
+        <span v-if="series" class="book__series">({{ widontSeries }})</span>
       </h2>
       <p class="book__author">by {{ author_fname }} {{ author_lname }}</p>
       <p class="book__rating num">
@@ -56,12 +57,17 @@
 </template>
 
 <script setup>
-import { defineProps } from 'vue';
+import { defineProps, computed } from 'vue';
+import { widont } from '../../utils/helpers';
 import { enterEditBookMode, deleteBook } from '../../composables/useBook';
 import AppButton from '../AppButton/AppButton.vue';
 
+const widontSeries = computed(() => {
+  return widont(props.series);
+});
+
 /* eslint-disable vue/prop-name-casing */
-defineProps({
+const props = defineProps({
   book: {
     type: Object,
     required: true,

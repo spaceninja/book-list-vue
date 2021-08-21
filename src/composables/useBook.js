@@ -15,12 +15,7 @@ export const allBooks = ref([]);
 export const currentBook = ref(emptyBook);
 export const isLoading = ref(true);
 export const editMode = ref(null);
-export const sortBy = ref({
-  firstBy: 'rating',
-  firstByOrder: 'descending',
-  thenBy: 'length',
-  thenByOrder: 'ascending',
-});
+export const sortBy = ref({ ...sortOptions.rating });
 export const filterBy = ref([]);
 
 /**
@@ -175,6 +170,13 @@ export const exitEditMode = () => {
  * These functions talk to the third-party APIs like Supabase.
  */
 
+/**
+ * Get Book Cover
+ *
+ * Given an ISBN, requests book cover thumbnail images from Google Books API.
+ *
+ * @param {string} isbn
+ */
 export const getCover = (isbn) => {
   fetch(
     'https://www.googleapis.com/books/v1/volumes?q=isbn:' +
