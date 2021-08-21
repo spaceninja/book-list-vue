@@ -11,7 +11,7 @@
       placeholder="Your website"
     />
     <div>
-      <AppButton type="submit" class="primary" :disabled="isLoading">
+      <AppButton type="submit" class="button--primary" :disabled="isLoading">
         {{ isLoading ? 'Loading...' : 'Update' }}
       </AppButton>
     </div>

@@ -85,13 +85,24 @@
     />
 
     <div>
-      <AppButton v-if="editMode === 'add'" class="primary" type="submit">
+      <AppButton
+        v-if="editMode === 'add'"
+        class="button--primary"
+        type="submit"
+      >
         Add
       </AppButton>
-      <AppButton v-if="editMode === 'edit'" class="primary" type="submit">
+      <AppButton
+        v-if="editMode === 'edit'"
+        class="button--primary"
+        type="submit"
+      >
         Edit
       </AppButton>
       <AppButton type="button" @click="exitEditMode">Cancel</AppButton>
+      <AppButton class="button--secondary" @click="getCover(currentBook.isbn)">
+        Get Cover
+      </AppButton>
     </div>
   </form>
 </template>
@@ -101,6 +112,7 @@ import {
   currentBook,
   isIsbnUsed,
   editMode,
+  getCover,
   addBook,
   editBook,
   exitEditMode,
