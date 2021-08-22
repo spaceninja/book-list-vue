@@ -1,6 +1,5 @@
 <template>
   <BookEdit v-if="editMode" />
-
   <div v-else>
     <BookControls />
     <ol class="book-list">

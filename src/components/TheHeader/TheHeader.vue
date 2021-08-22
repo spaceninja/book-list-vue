@@ -1,17 +1,15 @@
 <template>
   <header class="header">
-    <h1 class="header__logo"><RouterLink href="/">Books</RouterLink></h1>
+    <h1 class="header__logo">Books</h1>
     <nav>
-      <ul>
-        <li><RouterLink href="/">Books</RouterLink></li>
-        <li><RouterLink href="/profile">Profile</RouterLink></li>
-      </ul>
+      <AppButton v-if="userSession" @click="handleLogout"> Sign Out </AppButton>
     </nav>
   </header>
 </template>
 
 <script setup>
-import RouterLink from '../RouterLink/RouterLink.vue';
+import { userSession, handleLogout } from '../../composables/useAuth';
+import AppButton from '../AppButton/AppButton.vue';
 </script>
 
 <style lang="scss">
