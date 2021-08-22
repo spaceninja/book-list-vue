@@ -1,22 +1,13 @@
 <template>
   <footer class="footer">
-    <div>
-      Made with
-      <svg viewBox="0 0 261.76 226.69" height="25" aria-label="Vue">
-        <defs />
-        <path
-          fill="#41b883"
-          d="M161.096398.001167l-30.2245777 52.3506912L100.6472426.001167H-.0049077l130.876728 226.687666L261.7485483.001167z"
-        />
-        <path
-          fill="#34495e"
-          d="M161.096398.001167l-30.2245777 52.3506912L100.6472426.001167H52.3457835L130.8718203 136.0111 209.3978571.001167z"
-        />
-      </svg>
-    </div>
+    <a href="https://github.com/spaceninja/book-list-vue">Book List app</a>
+    created by
+    <a href="https://spaceninja.com">Scott Vandehey</a>
   </footer>
 </template>
 
-<script>
-export default {};
-</script>
+<script setup></script>
+
+<style lang="scss">
+@import './TheFooter';
+</style>
