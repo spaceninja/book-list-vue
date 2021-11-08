@@ -1,5 +1,5 @@
-$color_purchased: rgba(0, 128, 0, 0.33);
-$color_prioritized: rgba(255, 0, 0, 0.33);
+$color-purchased: rgb(0 128 0 / 33%);
+$color-prioritized: rgb(255 0 0 / 33%);
 
 .book-controls {
   align-items: center;
@@ -71,13 +71,13 @@ $color_prioritized: rgba(255, 0, 0, 0.33);
 
 .filter-list__item--purchased {
   &::before {
-    background: $color_purchased;
+    background: $color-purchased;
   }
 }
 
 .filter-list__item--prioritize {
   &::before {
-    background: $color_prioritized;
+    background: $color-prioritized;
   }
 }
 

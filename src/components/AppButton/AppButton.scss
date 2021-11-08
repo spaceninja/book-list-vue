@@ -1,7 +1,7 @@
-$color_blue: #007bff;
-$color_dark_blue: #0069d9;
-$color_secondary: #6c757d;
-$color_secondary_dark: #5a6268;
+$color-blue: #007bff;
+$color-dark-blue: #0069d9;
+$color-secondary: #6c757d;
+$color-secondary-dark: #5a6268;
 
 .button {
   border: none;
@@ -35,21 +35,21 @@ $color_secondary_dark: #5a6268;
 }
 
 .button--primary {
-  background: $color_blue;
+  background: $color-blue;
   color: var(--color-button-text);
 
   &:hover,
   &:focus {
-    background: $color_dark_blue;
+    background: $color-dark-blue;
   }
 }
 
 .button--secondary {
-  background: $color_secondary;
+  background: $color-secondary;
   color: var(--color-button-text);
 
   &:hover,
   &:focus {
-    background: $color_secondary_dark;
+    background: $color-secondary-dark;
   }
 }
