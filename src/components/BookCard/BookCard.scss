@@ -1,14 +1,14 @@
-$color_purchased: rgba(0, 128, 0, 0.33);
-$color_prioritized: rgba(255, 0, 0, 0.33);
-$color_warning: #ffffcc;
-$color_danger: #ffcccc;
-$color_shadow1: rgba(0, 0, 0, 0.12);
-$color_shadow2: rgba(0, 0, 0, 0.24);
+$color-purchased: rgb(0 128 0 / 33%);
+$color-prioritized: rgb(255 0 0 / 33%);
+$color-warning: #ffc;
+$color-danger: #fcc;
+$color-shadow1: rgb(0 0 0 / 12%);
+$color-shadow2: rgb(0 0 0 / 24%);
 
 .book {
   background: var(--color-book-bg);
   border-radius: 3px;
-  box-shadow: 0 1px 3px $color_shadow1, 0 1px 2px $color_shadow2;
+  box-shadow: 0 1px 3px $color-shadow1, 0 1px 2px $color-shadow2;
   display: flex;
   margin: 0;
   padding: 1em 1em 0.5em;
@@ -45,20 +45,20 @@ $color_shadow2: rgba(0, 0, 0, 0.24);
 
 .book--purchased {
   &::after {
-    border-left-color: $color_purchased;
-    border-top-color: $color_purchased;
+    border-left-color: $color-purchased;
+    border-top-color: $color-purchased;
   }
 }
 
 .book--prioritized {
   &::after {
-    border-left-color: $color_prioritized;
-    border-top-color: $color_prioritized;
+    border-left-color: $color-prioritized;
+    border-top-color: $color-prioritized;
   }
 
   &.book--purchased {
     &::after {
-      border-left-color: $color_purchased;
+      border-left-color: $color-purchased;
     }
   }
 }
@@ -106,20 +106,20 @@ $color_shadow2: rgba(0, 0, 0, 0.24);
 
 .book__series {
   font-weight: 300;
-  opacity: 0.5;
+  opacity: 50%;
 }
 
 .book__author {
   line-height: 1.2;
   margin-right: 4rem;
-  opacity: 0.7;
+  opacity: 70%;
 }
 
 .book__rating {
   font-size: 2em;
   font-weight: 200;
   line-height: 1;
-  opacity: 0.5;
+  opacity: 50%;
   position: absolute;
   right: 0;
   text-align: center;
@@ -129,7 +129,7 @@ $color_shadow2: rgba(0, 0, 0, 0.24);
 
 .book__length {
   line-height: 1;
-  opacity: 0.5;
+  opacity: 50%;
   position: absolute;
   right: 0;
   text-align: center;
@@ -145,7 +145,7 @@ $color_shadow2: rgba(0, 0, 0, 0.24);
 .book__recommendation {
   background: var(--color-recommendation-bg);
   margin: 0 -0.5em;
-  opacity: 0.7;
+  opacity: 70%;
   padding: 0.4em 0.75em;
 }
 
