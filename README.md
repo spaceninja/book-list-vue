@@ -38,10 +38,11 @@ I was pretty impressed at how little was needed for the basic Vite+Vue app. Unfo
 - Testing
   - `@babel/core`
   - `@babel/plugin-transform-modules-commonjs`
+  - `@babel/preset-env`
   - `@testing-library/jest-dom`
   - `@testing-library/user-event`
   - `@testing-library/vue`
   - `@types/jest`
+  - `@vue/vue3-jest`
   - `babel-jest`
   - `jest`
-  - `vue-jest`
