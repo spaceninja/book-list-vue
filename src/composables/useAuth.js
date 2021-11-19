@@ -1,6 +1,11 @@
 import { ref } from 'vue';
-import { supabase } from '../lib/supabase';
+// import { supabase } from '../lib/supabase';
+import { firebaseApp } from '../lib/firebase';
+import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { setAlert, clearAlert, handleError } from './useAlert';
+
+// Get a reference to the auth service
+const auth = getAuth();
 
 // Used to store the user session
 export const userSession = ref(null);
@@ -18,18 +23,19 @@ export const userSession = ref(null);
  * @returns
  */
 export const handleSignup = async (credentials) => {
+  console.log('HANDLE SIGNUP', credentials);
   clearAlert();
   const { email, password } = credentials;
-  try {
-    // Alert the user if no email/password provided
-    if (!email || !password)
-      throw new Error('Please provide both your email and password.');
-    const { error } = await supabase.auth.signUp({ email, password });
-    if (error) throw error;
-    setAlert('Signup successful, confirmation mail should be sent soon!');
-  } catch (error) {
-    handleError(error);
-  }
+  // try {
+  //   // Alert the user if no email/password provided
+  //   if (!email || !password)
+  //     throw new Error('Please provide both your email and password.');
+  //   const { error } = await supabase.auth.signUp({ email, password });
+  //   if (error) throw error;
+  //   setAlert('Signup successful, confirmation mail should be sent soon!');
+  // } catch (error) {
+  //   handleError(error);
+  // }
 };
 
 /**
@@ -38,29 +44,22 @@ export const handleSignup = async (credentials) => {
  * Log in an existing supabase user via email & password.
  * If password is empty, it will send a magic link to the user's email address.
  *
- * @see https://supabase.io/docs/reference/javascript/auth-signin
+ * @see https://firebase.google.com/docs/reference/js/auth?authuser=0#signinwithemailandpassword
  *
  * @param {Object} credentials
  * @param {string} credentials.email
  * @param {string} credentials.password
  */
 export const handleLogin = async (credentials) => {
+  console.log('HANDLE LOGIN', credentials);
   clearAlert();
-  try {
-    const { error, user, session } = await supabase.auth.signIn({
-      email: credentials.email,
-      password: credentials.password,
+  signInWithEmailAndPassword(auth, credentials.email, credentials.password)
+    .then((userCredential) => {
+      console.log('EMAIL SIGNIN', userCredential);
+    })
+    .catch((error) => {
+      handleError(error);
     });
-    if (error) throw error;
-    // No error thrown, but no user detected, so magic link sent
-    if (!error && !user) {
-      setAlert('Check your email for the login link!');
-      return;
-    }
-    console.log('EMAIL SIGNIN', user, session);
-  } catch (error) {
-    handleError(error);
-  }
 };
 
 /**
@@ -73,14 +72,15 @@ export const handleLogin = async (credentials) => {
  * @param {string} provider - OAuth provider, eg 'github'
  */
 export const handleOAuthLogin = async (provider) => {
+  console.log('HANDLE OAUTH LOGIN', provider);
   clearAlert();
-  try {
-    const { error, user, session } = await supabase.auth.signIn({ provider });
-    if (error) throw error;
-    console.log('OAUTH SIGNIN', user, session);
-  } catch (error) {
-    handleError(error);
-  }
+  // try {
+  //   const { error, user, session } = await supabase.auth.signIn({ provider });
+  //   if (error) throw error;
+  //   console.log('OAUTH SIGNIN', user, session);
+  // } catch (error) {
+  //   handleError(error);
+  // }
 };
 
 /**
@@ -88,17 +88,18 @@ export const handleOAuthLogin = async (provider) => {
  *
  * Log the current user out.
  *
- * @see https://supabase.io/docs/reference/javascript/auth-signout
+ * @see https://firebase.google.com/docs/reference/js/auth?authuser=0#signout
  */
 export const handleLogout = async () => {
+  console.log('HANDLE LOGOUT');
   clearAlert();
-  try {
-    const { error } = await supabase.auth.signOut();
-    if (error) throw error;
-    setAlert('You have signed out!');
-  } catch (error) {
-    handleError(error);
-  }
+  signOut(auth)
+    .then(() => {
+      setAlert('You have signed out!');
+    })
+    .catch((error) => {
+      handleError(error);
+    });
 };
 
 /**
@@ -112,17 +113,18 @@ export const handleLogout = async () => {
  * @param {string} credentials.password
  */
 export const handleUpdateUser = async (credentials) => {
+  console.log('HANDLE UPDATE USER', credentials);
   clearAlert();
-  try {
-    console.log(credentials);
-    if (!credentials.password) throw new Error('Password is required.');
-    const { error } = await supabase.auth.update(credentials);
-    if (error) throw error;
-    setAlert('User info updated.');
-    window.location.href = '/'; // Return to the main app
-  } catch (error) {
-    handleError(error);
-  }
+  // try {
+  //   console.log(credentials);
+  //   if (!credentials.password) throw new Error('Password is required.');
+  //   const { error } = await supabase.auth.update(credentials);
+  //   if (error) throw error;
+  //   setAlert('User info updated.');
+  //   window.location.href = '/'; // Return to the main app
+  // } catch (error) {
+  //   handleError(error);
+  // }
 };
 
 /**
@@ -135,13 +137,14 @@ export const handleUpdateUser = async (credentials) => {
  * @param {string} email
  */
 export const handlePasswordReset = async (email) => {
+  console.log('HANDLE PASSWORD RESET', email);
   clearAlert();
-  try {
-    if (!email) throw new Error('Email address is required.');
-    const { error } = await supabase.auth.api.resetPasswordForEmail(email);
-    if (error) throw error;
-    setAlert('Password recovery email has been sent.');
-  } catch (error) {
-    handleError(error);
-  }
+  // try {
+  //   if (!email) throw new Error('Email address is required.');
+  //   const { error } = await supabase.auth.api.resetPasswordForEmail(email);
+  //   if (error) throw error;
+  //   setAlert('Password recovery email has been sent.');
+  // } catch (error) {
+  //   handleError(error);
+  // }
 };

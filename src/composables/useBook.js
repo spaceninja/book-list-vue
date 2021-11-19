@@ -1,4 +1,4 @@
-import { supabase } from '../lib/supabase';
+// import { supabase } from '../lib/supabase';
 import { ref, computed } from 'vue';
 import { firstBy } from 'thenby';
 import { emptyBook } from '../utils/empty-book';
@@ -208,21 +208,22 @@ export const getCover = (isbn) => {
  * Retreive all books for the signed in user
  */
 export const fetchBooks = async () => {
-  try {
-    isLoading.value = true;
-    const { data, error } = await supabase
-      .from('books')
-      .select('*')
-      .order('id');
-    if (error) throw error;
-    // save the books from supabase (or an empty array) to app state
-    allBooks.value = data === null ? [] : data;
-    console.log('Fetched Books', allBooks.value);
-  } catch (error) {
-    handleError(error);
-  } finally {
-    isLoading.value = false;
-  }
+  console.log('FETCH BOOKS');
+  // try {
+  //   isLoading.value = true;
+  //   const { data, error } = await supabase
+  //     .from('books')
+  //     .select('*')
+  //     .order('id');
+  //   if (error) throw error;
+  //   // save the books from supabase (or an empty array) to app state
+  //   allBooks.value = data === null ? [] : data;
+  //   console.log('Fetched Books', allBooks.value);
+  // } catch (error) {
+  //   handleError(error);
+  // } finally {
+  //   isLoading.value = false;
+  // }
 };
 
 /**
@@ -235,26 +236,26 @@ export const fetchBooks = async () => {
 export const addBook = async (book) => {
   console.log('ADD BOOK', book);
   clearAlert();
-  try {
-    // Check to ensure user is still logged in.
-    if (userSession?.value === null) throw new Error('Please log in again');
-    // Don't allow adding books without an ISBN or title
-    if (!(book.isbn && book.title))
-      throw new Error('Books must have an ISBN and title.');
-    // Check that this ISBN hasn't already been added
-    if (checkIfIsbnIsUsed(book.isbn))
-      throw new Error('That ISBN has already been added!');
-    // add user ID
-    book['user_id'] = userSession.value.user.id;
-    // save to supabase
-    const { data, error } = await supabase.from('books').insert(book).single();
-    if (error) throw error;
-    // it's been added to supabase, now add to app state and exit edit mode
-    allBooks.value.push(data);
-    exitEditMode();
-  } catch (error) {
-    handleError(error);
-  }
+  // try {
+  //   // Check to ensure user is still logged in.
+  //   if (userSession?.value === null) throw new Error('Please log in again');
+  //   // Don't allow adding books without an ISBN or title
+  //   if (!(book.isbn && book.title))
+  //     throw new Error('Books must have an ISBN and title.');
+  //   // Check that this ISBN hasn't already been added
+  //   if (checkIfIsbnIsUsed(book.isbn))
+  //     throw new Error('That ISBN has already been added!');
+  //   // add user ID
+  //   book['user_id'] = userSession.value.user.id;
+  //   // save to supabase
+  //   const { data, error } = await supabase.from('books').insert(book).single();
+  //   if (error) throw error;
+  //   // it's been added to supabase, now add to app state and exit edit mode
+  //   allBooks.value.push(data);
+  //   exitEditMode();
+  // } catch (error) {
+  //   handleError(error);
+  // }
 };
 
 /**
@@ -267,29 +268,29 @@ export const addBook = async (book) => {
 export const editBook = async (book) => {
   console.log('EDIT BOOK', book);
   clearAlert();
-  try {
-    // Check to ensure user is still logged in.
-    if (userSession?.value === null) throw new Error('Please log in again');
-    // Don't allow adding books without an ISBN or title
-    if (!(book.isbn && book.title))
-      throw new Error('Books must have an ISBN and title.');
-    // TODO: check if ISBN has already been used by a book that doesn't match this ID
-    // add updated date
-    book['updated_at'] = new Date();
-    // save to supabase
-    const { data, error } = await supabase
-      .from('books')
-      .update(book)
-      .eq('id', book.id)
-      .single();
-    if (error) throw error;
-    // it's been saved to supabase, now save to app state and exit edit mode
-    const bookIndex = allBooks.value.findIndex((book) => book.id === data.id);
-    allBooks.value[bookIndex] = data;
-    exitEditMode();
-  } catch (error) {
-    handleError(error);
-  }
+  // try {
+  //   // Check to ensure user is still logged in.
+  //   if (userSession?.value === null) throw new Error('Please log in again');
+  //   // Don't allow adding books without an ISBN or title
+  //   if (!(book.isbn && book.title))
+  //     throw new Error('Books must have an ISBN and title.');
+  //   // TODO: check if ISBN has already been used by a book that doesn't match this ID
+  //   // add updated date
+  //   book['updated_at'] = new Date();
+  //   // save to supabase
+  //   const { data, error } = await supabase
+  //     .from('books')
+  //     .update(book)
+  //     .eq('id', book.id)
+  //     .single();
+  //   if (error) throw error;
+  //   // it's been saved to supabase, now save to app state and exit edit mode
+  //   const bookIndex = allBooks.value.findIndex((book) => book.id === data.id);
+  //   allBooks.value[bookIndex] = data;
+  //   exitEditMode();
+  // } catch (error) {
+  //   handleError(error);
+  // }
 };
 
 /**
@@ -300,16 +301,17 @@ export const editBook = async (book) => {
  * @param {Object} deletedBook
  */
 export const deleteBook = async (deletedBook) => {
+  console.log('DELETE BOOK', deletedBook);
   clearAlert();
-  try {
-    const { error } = await supabase
-      .from('books')
-      .delete()
-      .eq('id', deletedBook.id);
-    if (error) throw error;
-    // it's been deleted from supabase, now delete from app state
-    allBooks.value = allBooks.value.filter((book) => book.id != deletedBook.id);
-  } catch (error) {
-    handleError(error);
-  }
+  // try {
+  //   const { error } = await supabase
+  //     .from('books')
+  //     .delete()
+  //     .eq('id', deletedBook.id);
+  //   if (error) throw error;
+  //   // it's been deleted from supabase, now delete from app state
+  //   allBooks.value = allBooks.value.filter((book) => book.id != deletedBook.id);
+  // } catch (error) {
+  //   handleError(error);
+  // }
 };

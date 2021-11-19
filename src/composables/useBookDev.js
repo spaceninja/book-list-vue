@@ -1,4 +1,4 @@
-import { supabase } from '../lib/supabase';
+// import { supabase } from '../lib/supabase';
 import { userSession } from './useAuth';
 import { allBooks } from './useBook';
 import { clearAlert, handleError } from './useAlert';
@@ -13,19 +13,20 @@ import sampleBooks from '../sample-data/sample-books.json';
  * @param {Array} books - an array of book objects
  */
 const addBooks = async (books) => {
+  console.log('ADD BOOKS', books);
   clearAlert();
-  try {
-    const theBooks = books.map((book) => ({
-      ...book,
-      user_id: userSession.value.user.id,
-    }));
-    const { data, error } = await supabase.from('books').insert(theBooks);
-    if (error) throw error;
-    // they've been added to supabase, now add to app state
-    allBooks.value = data;
-  } catch (error) {
-    handleError(error);
-  }
+  // try {
+  //   const theBooks = books.map((book) => ({
+  //     ...book,
+  //     user_id: userSession.value.user.id,
+  //   }));
+  //   const { data, error } = await supabase.from('books').insert(theBooks);
+  //   if (error) throw error;
+  //   // they've been added to supabase, now add to app state
+  //   allBooks.value = data;
+  // } catch (error) {
+  //   handleError(error);
+  // }
 };
 
 /**
@@ -47,18 +48,19 @@ export const addSampleBooks = async () => {
  */
 export const deleteAllBooks = async () => {
   if (window.confirm('Woah, there hoss… Are you sure?')) {
+    console.log('DELETE ALL BOOKS');
     clearAlert();
-    try {
-      const allBookIds = allBooks.value.map((book) => book.id);
-      const { error } = await supabase
-        .from('books')
-        .delete()
-        .in('id', allBookIds);
-      if (error) throw error;
-      // all books deleted from supabase, now delete from app state
-      allBooks.value = [];
-    } catch (error) {
-      handleError(error);
-    }
+    // try {
+    //   const allBookIds = allBooks.value.map((book) => book.id);
+    //   const { error } = await supabase
+    //     .from('books')
+    //     .delete()
+    //     .in('id', allBookIds);
+    //   if (error) throw error;
+    //   // all books deleted from supabase, now delete from app state
+    //   allBooks.value = [];
+    // } catch (error) {
+    //   handleError(error);
+    // }
   }
 };

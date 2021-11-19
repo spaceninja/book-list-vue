@@ -2,7 +2,7 @@
 
 > Create a sortable and filterable list of books you'd like to read.
 
-This project is a Vue version of my old [book list](https://github.com/spaceninja/book-list) side project. I started that project to challenge my vanilla javascript skills, and this is recreating that functionality using Vue3, Vite, and Supabase.
+This project is a Vue version of my old [book list](https://github.com/spaceninja/book-list) side project. I started that project to challenge my vanilla javascript skills, and this is recreating that functionality using Vue3, Vite, and Firebase.
 
 ## Project scripts
 
@@ -22,8 +22,8 @@ I was pretty impressed at how little was needed for the basic Vite+Vue app. Unfo
   - `sass`
   - `vue`
   - `vite`
-- Supabase integration (DB & Auth)
-  - `@supabase/supabase-js`
+- Firebase integration (DB & Auth)
+  - `firebase`
 - Better Sorting
   - `thenby`
 - Linting
