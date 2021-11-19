@@ -21,9 +21,9 @@ export const userSession = ref(null);
 /**
  * Handle Signup
  *
- * Creates a new supabase user account.
+ * Creates a new user account.
  *
- * @see https://supabase.io/docs/reference/javascript/auth-signup
+ * @see https://firebase.google.com/docs/reference/js/auth.md?authuser=0#createuserwithemailandpassword
  *
  * @param {Object} credentials
  * @param {string} credentials.email
@@ -45,7 +45,7 @@ export const handleSignup = async (credentials) => {
 /**
  * Handle Email Login
  *
- * Log in an existing supabase user via email & password.
+ * Log in an existing user via email & password.
  * If password is empty, it will send a magic link to the user's email address.
  *
  * @see https://firebase.google.com/docs/reference/js/auth?authuser=0#signinwithemailandpassword
