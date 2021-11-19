@@ -1,11 +1,16 @@
 import { ref } from 'vue';
 // import { supabase } from '../lib/supabase';
 import { firebaseApp } from '../lib/firebase';
-import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+} from 'firebase/auth';
 import { setAlert, clearAlert, handleError } from './useAlert';
 
 // Get a reference to the auth service
-const auth = getAuth();
+const auth = getAuth(firebaseApp);
 
 // Used to store the user session
 export const userSession = ref(null);
@@ -25,17 +30,17 @@ export const userSession = ref(null);
 export const handleSignup = async (credentials) => {
   console.log('HANDLE SIGNUP', credentials);
   clearAlert();
-  const { email, password } = credentials;
-  // try {
-  //   // Alert the user if no email/password provided
-  //   if (!email || !password)
-  //     throw new Error('Please provide both your email and password.');
-  //   const { error } = await supabase.auth.signUp({ email, password });
-  //   if (error) throw error;
-  //   setAlert('Signup successful, confirmation mail should be sent soon!');
-  // } catch (error) {
-  //   handleError(error);
-  // }
+  createUserWithEmailAndPassword(auth, credentials.email, credentials.password)
+    .then((userCredential) => {
+      console.log(
+        'EMAIL SIGNUP SUCCESSFUL',
+        userCredential,
+        userCredential.user.email
+      );
+    })
+    .catch((error) => {
+      handleError(error);
+    });
 };
 
 /**
@@ -55,7 +60,11 @@ export const handleLogin = async (credentials) => {
   clearAlert();
   signInWithEmailAndPassword(auth, credentials.email, credentials.password)
     .then((userCredential) => {
-      console.log('EMAIL SIGNIN', userCredential);
+      console.log(
+        'EMAIL SIGNIN SUCCESSFUL',
+        userCredential,
+        userCredential.user.email
+      );
     })
     .catch((error) => {
       handleError(error);

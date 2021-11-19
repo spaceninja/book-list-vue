@@ -11,15 +11,20 @@ createApp(App).mount('#app');
  * Keeps track of if the user is logged in or out
  * and will update userSession state accordingly.
  */
-const auth = getAuth();
+const auth = getAuth(firebaseApp);
 onAuthStateChanged(auth, (user) => {
   if (user) {
     // User is signed in, see docs for a list of available properties
     // https://firebase.google.com/docs/reference/js/firebase.User
     userSession.value = user;
-    console.log('AUTH STATE CHANGE: LOGGED IN', userSession.value);
+    console.log(
+      'AUTH STATE CHANGE: LOGGED IN',
+      userSession.value,
+      userSession.value.email
+    );
   } else {
     // User is signed out
+    userSession.value = null;
     console.log('AUTH STATE CHANGE: LOGGED OUT', userSession.value);
   }
 });
