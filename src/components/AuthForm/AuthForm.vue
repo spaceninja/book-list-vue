@@ -17,9 +17,7 @@
         placeholder="Your password"
       />
       <div>
-        <AppButton class="button--primary" type="submit">
-          {{ password.length ? 'Sign in' : 'Send magic link' }}
-        </AppButton>
+        <AppButton class="button--primary" type="submit">Sign in</AppButton>
         <AppButton @click="handleSignup({ email, password })">
           Sign up
         </AppButton>
@@ -31,9 +29,7 @@
 
     <h4>Or continue with</h4>
     <div>
-      <AppButton @click="handleOAuthLogin('github')">
-        Sign in with GitHub
-      </AppButton>
+      <AppButton @click="handleGitHubLogin()">Sign in with GitHub</AppButton>
     </div>
   </main>
 </template>
@@ -42,7 +38,7 @@
 import { ref } from 'vue';
 import {
   handleLogin,
-  handleOAuthLogin,
+  handleGitHubLogin,
   handleSignup,
   handlePasswordReset,
 } from '../../composables/useAuth';

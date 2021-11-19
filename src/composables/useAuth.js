@@ -1,16 +1,19 @@
 import { ref } from 'vue';
-// import { supabase } from '../lib/supabase';
 import { firebaseApp } from '../lib/firebase';
 import {
+  GithubAuthProvider,
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signInWithPopup,
   signOut,
+  sendPasswordResetEmail,
 } from 'firebase/auth';
 import { setAlert, clearAlert, handleError } from './useAlert';
 
 // Get a reference to the auth service
 const auth = getAuth(firebaseApp);
+const githubProvider = new GithubAuthProvider();
 
 // Used to store the user session
 export const userSession = ref(null);
@@ -31,12 +34,8 @@ export const handleSignup = async (credentials) => {
   console.log('HANDLE SIGNUP', credentials);
   clearAlert();
   createUserWithEmailAndPassword(auth, credentials.email, credentials.password)
-    .then((userCredential) => {
-      console.log(
-        'EMAIL SIGNUP SUCCESSFUL',
-        userCredential,
-        userCredential.user.email
-      );
+    .then(() => {
+      console.log('EMAIL SIGNUP SUCCESSFUL');
     })
     .catch((error) => {
       handleError(error);
@@ -59,12 +58,8 @@ export const handleLogin = async (credentials) => {
   console.log('HANDLE LOGIN', credentials);
   clearAlert();
   signInWithEmailAndPassword(auth, credentials.email, credentials.password)
-    .then((userCredential) => {
-      console.log(
-        'EMAIL SIGNIN SUCCESSFUL',
-        userCredential,
-        userCredential.user.email
-      );
+    .then(() => {
+      console.log('EMAIL SIGNIN SUCCESSFUL');
     })
     .catch((error) => {
       handleError(error);
@@ -76,20 +71,18 @@ export const handleLogin = async (credentials) => {
  *
  * Log in a user via a third-party provider.
  *
- * @see https://supabase.io/docs/reference/javascript/auth-signin
- *
- * @param {string} provider - OAuth provider, eg 'github'
+ * @see https://firebase.google.com/docs/reference/js/auth.md?authuser=0#signinwithpopup
  */
-export const handleOAuthLogin = async (provider) => {
+export const handleGitHubLogin = async (provider) => {
   console.log('HANDLE OAUTH LOGIN', provider);
   clearAlert();
-  // try {
-  //   const { error, user, session } = await supabase.auth.signIn({ provider });
-  //   if (error) throw error;
-  //   console.log('OAUTH SIGNIN', user, session);
-  // } catch (error) {
-  //   handleError(error);
-  // }
+  signInWithPopup(auth, githubProvider)
+    .then(() => {
+      console.log('OAUTH SIGNIN SUCCESSFUL');
+    })
+    .catch((error) => {
+      handleError(error);
+    });
 };
 
 /**
@@ -112,48 +105,22 @@ export const handleLogout = async () => {
 };
 
 /**
- * Handle Update User
- *
- * Updates the current user's password.
- *
- * @see https://supabase.io/docs/reference/javascript/auth-update
- *
- * @param {Object} credentials
- * @param {string} credentials.password
- */
-export const handleUpdateUser = async (credentials) => {
-  console.log('HANDLE UPDATE USER', credentials);
-  clearAlert();
-  // try {
-  //   console.log(credentials);
-  //   if (!credentials.password) throw new Error('Password is required.');
-  //   const { error } = await supabase.auth.update(credentials);
-  //   if (error) throw error;
-  //   setAlert('User info updated.');
-  //   window.location.href = '/'; // Return to the main app
-  // } catch (error) {
-  //   handleError(error);
-  // }
-};
-
-/**
  * Handle Password Reset
  *
  * Sends a reset request to an email address.
  *
- * @see https://supabase.io/docs/reference/javascript/reset-password-email
+ * @see https://firebase.google.com/docs/reference/js/auth.md?authuser=0#sendpasswordresetemail
  *
  * @param {string} email
  */
 export const handlePasswordReset = async (email) => {
   console.log('HANDLE PASSWORD RESET', email);
   clearAlert();
-  // try {
-  //   if (!email) throw new Error('Email address is required.');
-  //   const { error } = await supabase.auth.api.resetPasswordForEmail(email);
-  //   if (error) throw error;
-  //   setAlert('Password recovery email has been sent.');
-  // } catch (error) {
-  //   handleError(error);
-  // }
+  sendPasswordResetEmail(auth, email)
+    .then(() => {
+      setAlert('Password recovery email has been sent.');
+    })
+    .catch((error) => {
+      handleError(error);
+    });
 };
