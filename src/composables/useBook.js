@@ -1,6 +1,12 @@
 import { ref, computed } from 'vue';
 import { firebaseApp } from '../lib/firebase';
-import { getDatabase, ref as dbRef, onValue } from 'firebase/database';
+import {
+  getDatabase,
+  ref as dbRef,
+  push,
+  set,
+  onValue,
+} from 'firebase/database';
 import { firstBy } from 'thenby';
 import { emptyBook } from '../utils/empty-book';
 import { sortOptions } from '../utils/sort-options';
@@ -222,9 +228,13 @@ export const loadUserBooks = async (uid) => {
     const booksRef = dbRef(database, 'books/' + uid);
     // add a listener for database changes
     unloadDbListener.value = onValue(booksRef, (snapshot) => {
-      const data = snapshot.val();
+      let data = snapshot.val();
+      // coerce to an array for easier local filtering & sorting
+      // @see https://firebase.googleblog.com/2014/04/best-practices-arrays-in-firebase.html
+      if (data === null) data = [];
+      data = data.isArray ? data : Object.values(data);
       // save the books from database (or an empty array) to app state
-      allBooks.value = data === null ? [] : data;
+      allBooks.value = data;
       console.log('BOOKS REF CHANGE', allBooks.value);
     });
   } catch (error) {
@@ -238,6 +248,8 @@ export const loadUserBooks = async (uid) => {
  * Unload Books
  *
  * Remove all books from state and remove listener
+ *
+ * @see https://firebase.google.com/docs/reference/js/database#onvalue
  */
 export const unloadUserBooks = async () => {
   console.log('UNLOAD BOOKS');
@@ -251,89 +263,88 @@ export const unloadUserBooks = async () => {
 /**
  * Add Book
  *
- *  Add a new book to supabase
+ *  Add a new book to database
+ *
+ * @see https://firebase.google.com/docs/reference/js/database#set
  *
  * @param {Object} book
  */
 export const addBook = async (book) => {
   console.log('ADD BOOK', book);
   clearAlert();
-  // try {
-  //   // Check to ensure user is still logged in.
-  //   if (userSession?.value === null) throw new Error('Please log in again');
-  //   // Don't allow adding books without an ISBN or title
-  //   if (!(book.isbn && book.title))
-  //     throw new Error('Books must have an ISBN and title.');
-  //   // Check that this ISBN hasn't already been added
-  //   if (checkIfIsbnIsUsed(book.isbn))
-  //     throw new Error('That ISBN has already been added!');
-  //   // add user ID
-  //   book['user_id'] = userSession.value.user.id;
-  //   // save to supabase
-  //   const { data, error } = await supabase.from('books').insert(book).single();
-  //   if (error) throw error;
-  //   // it's been added to supabase, now add to app state and exit edit mode
-  //   allBooks.value.push(data);
-  //   exitEditMode();
-  // } catch (error) {
-  //   handleError(error);
-  // }
+  try {
+    // Check to ensure user is still logged in.
+    if (userSession?.value === null) throw new Error('Please log in again');
+    // Don't allow adding books without an ISBN or title
+    if (!(book.isbn && book.title))
+      throw new Error('Books must have an ISBN and title.');
+    // Check that this ISBN hasn't already been added
+    if (checkIfIsbnIsUsed(book.isbn))
+      throw new Error('That ISBN has already been added!');
+    // create a database reference
+    const newBookRef = dbRef(
+      database,
+      `books/${userSession.value.uid}/${book.isbn}`
+    );
+    // save to database
+    await set(newBookRef, book);
+    exitEditMode();
+  } catch (error) {
+    handleError(error);
+  }
 };
 
 /**
  * Edit Book
  *
- * Targets a specific book via its record id and updates it.
+ * Targets a specific book via its isbn and updates it.
  *
  * @param {Object} book
  */
 export const editBook = async (book) => {
   console.log('EDIT BOOK', book);
   clearAlert();
-  // try {
-  //   // Check to ensure user is still logged in.
-  //   if (userSession?.value === null) throw new Error('Please log in again');
-  //   // Don't allow adding books without an ISBN or title
-  //   if (!(book.isbn && book.title))
-  //     throw new Error('Books must have an ISBN and title.');
-  //   // TODO: check if ISBN has already been used by a book that doesn't match this ID
-  //   // add updated date
-  //   book['updated_at'] = new Date();
-  //   // save to supabase
-  //   const { data, error } = await supabase
-  //     .from('books')
-  //     .update(book)
-  //     .eq('id', book.id)
-  //     .single();
-  //   if (error) throw error;
-  //   // it's been saved to supabase, now save to app state and exit edit mode
-  //   const bookIndex = allBooks.value.findIndex((book) => book.id === data.id);
-  //   allBooks.value[bookIndex] = data;
-  //   exitEditMode();
-  // } catch (error) {
-  //   handleError(error);
-  // }
+  try {
+    // Check to ensure user is still logged in.
+    if (userSession?.value === null) throw new Error('Please log in again');
+    // Don't allow adding books without an ISBN or title
+    if (!(book.isbn && book.title))
+      throw new Error('Books must have an ISBN and title.');
+    // TODO: check if ISBN has already been used by a book that doesn't match this ID
+    // add updated date
+    book['updated_at'] = new Date();
+    // create a database reference
+    const newBookRef = dbRef(
+      database,
+      `books/${userSession.value.uid}/${book.isbn}`
+    );
+    // save to database
+    await set(newBookRef, book);
+    exitEditMode();
+  } catch (error) {
+    handleError(error);
+  }
 };
 
 /**
  * Delete Book
  *
- * Deletes a book via its id
+ * Deletes a book via its isbn
  *
  * @param {Object} deletedBook
  */
 export const deleteBook = async (deletedBook) => {
   console.log('DELETE BOOK', deletedBook);
   clearAlert();
-  // try {
-  //   const { error } = await supabase
-  //     .from('books')
-  //     .delete()
-  //     .eq('id', deletedBook.id);
-  //   if (error) throw error;
-  //   // it's been deleted from supabase, now delete from app state
-  //   allBooks.value = allBooks.value.filter((book) => book.id != deletedBook.id);
-  // } catch (error) {
-  //   handleError(error);
-  // }
+  try {
+    // create a database reference
+    const newBookRef = dbRef(
+      database,
+      `books/${userSession.value.uid}/${deletedBook.isbn}`
+    );
+    // save to database
+    await set(newBookRef, null);
+  } catch (error) {
+    handleError(error);
+  }
 };

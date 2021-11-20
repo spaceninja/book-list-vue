@@ -1,5 +1,5 @@
-[
-  {
+{
+  "0123456789": {
     "isbn": "0123456789",
     "title": "Example Book with Everything",
     "series": "Series Name #3",
@@ -15,7 +15,7 @@
     "is_purchased": true,
     "is_prioritized": true
   },
-  {
+  "9876543210": {
     "isbn": "9876543210",
     "title": "Minimal Book",
     "author_fname": "Timmy",
@@ -23,8 +23,8 @@
     "rating": "0.01",
     "length": "1"
   },
-  {
+  "1029384756": {
     "title": "Minimum Viable Book",
     "isbn": "1029384756"
   }
-]
+}
