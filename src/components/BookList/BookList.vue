@@ -16,20 +16,14 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
 import {
   sortedAndFilteredBooks,
   isLoading,
   editMode,
-  fetchBooks,
 } from '../../composables/useBook';
 import BookEdit from '../BookEdit/BookEdit.vue';
 import BookControls from '../BookControls/BookControls.vue';
 import BookCard from '../BookCard/BookCard.vue';
-
-onMounted(() => {
-  fetchBooks();
-});
 </script>
 
 <style lang="scss">

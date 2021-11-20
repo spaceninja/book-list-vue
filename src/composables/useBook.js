@@ -1,10 +1,14 @@
-// import { supabase } from '../lib/supabase';
 import { ref, computed } from 'vue';
+import { firebaseApp } from '../lib/firebase';
+import { getDatabase, ref as dbRef, onValue } from 'firebase/database';
 import { firstBy } from 'thenby';
 import { emptyBook } from '../utils/empty-book';
 import { sortOptions } from '../utils/sort-options';
 import { userSession } from './useAuth';
 import { clearAlert, handleError } from './useAlert';
+
+// Get a reference to the database service
+const database = getDatabase(firebaseApp);
 const googleBooksApiKey = import.meta.env.VITE_FIREBASE_API_KEY;
 
 /**
@@ -17,6 +21,7 @@ export const isLoading = ref(true);
 export const editMode = ref(null);
 export const sortBy = ref({ ...sortOptions.rating });
 export const filterBy = ref([]);
+export const unloadDbListener = ref(() => {});
 
 /**
  * COMPUTED PROPERTIES ---------------------------------------------------------
@@ -52,7 +57,7 @@ export const isIsbnUsed = computed(() => {
 
 /**
  * INTERNAL HELPER METHODS -----------------------------------------------------
- * These functions don't need to be exported, they only used in this file.
+ * These functions don't need to be exported, they're only used in this file.
  */
 
 /**
@@ -167,7 +172,7 @@ export const exitEditMode = () => {
 
 /**
  * API METHODS -----------------------------------------------------------------
- * These functions talk to the third-party APIs like Supabase.
+ * These functions talk to the third-party APIs like Firebase & Google Books.
  */
 
 /**
@@ -205,25 +210,42 @@ export const getCover = (isbn) => {
 /**
  * Fetch Books
  *
- * Retreive all books for the signed in user
+ * Retreive all books for the signed in user and watch for changes
+ *
+ * @see https://firebase.google.com/docs/reference/js/database#onvalue
  */
-export const fetchBooks = async () => {
-  console.log('FETCH BOOKS');
-  // try {
-  //   isLoading.value = true;
-  //   const { data, error } = await supabase
-  //     .from('books')
-  //     .select('*')
-  //     .order('id');
-  //   if (error) throw error;
-  //   // save the books from supabase (or an empty array) to app state
-  //   allBooks.value = data === null ? [] : data;
-  //   console.log('Fetched Books', allBooks.value);
-  // } catch (error) {
-  //   handleError(error);
-  // } finally {
-  //   isLoading.value = false;
-  // }
+export const loadUserBooks = async (uid) => {
+  console.log('FETCH BOOKS', uid);
+  try {
+    isLoading.value = true;
+    // create a database reference
+    const booksRef = dbRef(database, 'books/' + uid);
+    // add a listener for database changes
+    unloadDbListener.value = onValue(booksRef, (snapshot) => {
+      const data = snapshot.val();
+      // save the books from database (or an empty array) to app state
+      allBooks.value = data === null ? [] : data;
+      console.log('BOOKS REF CHANGE', allBooks.value);
+    });
+  } catch (error) {
+    handleError(error);
+  } finally {
+    isLoading.value = false;
+  }
+};
+
+/**
+ * Unload Books
+ *
+ * Remove all books from state and remove listener
+ */
+export const unloadUserBooks = async () => {
+  console.log('UNLOAD BOOKS');
+  // remove listener
+  unloadDbListener.value();
+  // reset state
+  allBooks.value = [];
+  unloadDbListener.value = () => {};
 };
 
 /**

@@ -3,6 +3,7 @@ import App from './App.vue';
 import { firebaseApp } from './lib/firebase';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { userSession } from './composables/useAuth';
+import { loadUserBooks, unloadUserBooks } from './composables/useBook';
 import './assets/main.scss';
 
 createApp(App).mount('#app');
@@ -14,17 +15,14 @@ createApp(App).mount('#app');
 const auth = getAuth(firebaseApp);
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    // User is signed in, see docs for a list of available properties
-    // https://firebase.google.com/docs/reference/js/firebase.User
+    // User is signed in
     userSession.value = user;
-    console.log(
-      'AUTH STATE CHANGE: LOGGED IN',
-      userSession.value,
-      userSession.value.email
-    );
+    console.log('AUTH STATE CHANGE: LOGGED IN', userSession.value);
+    loadUserBooks(user.uid);
   } else {
     // User is signed out
     userSession.value = null;
     console.log('AUTH STATE CHANGE: LOGGED OUT', userSession.value);
+    unloadUserBooks();
   }
 });

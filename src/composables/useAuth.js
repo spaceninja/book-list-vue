@@ -23,7 +23,7 @@ export const userSession = ref(null);
  *
  * Creates a new user account.
  *
- * @see https://firebase.google.com/docs/reference/js/auth.md?authuser=0#createuserwithemailandpassword
+ * @see https://firebase.google.com/docs/reference/js/auth#createuserwithemailandpassword
  *
  * @param {Object} credentials
  * @param {string} credentials.email
@@ -48,7 +48,7 @@ export const handleSignup = async (credentials) => {
  * Log in an existing user via email & password.
  * If password is empty, it will send a magic link to the user's email address.
  *
- * @see https://firebase.google.com/docs/reference/js/auth?authuser=0#signinwithemailandpassword
+ * @see https://firebase.google.com/docs/reference/js/auth#signinwithemailandpassword
  *
  * @param {Object} credentials
  * @param {string} credentials.email
@@ -71,10 +71,10 @@ export const handleLogin = async (credentials) => {
  *
  * Log in a user via a third-party provider.
  *
- * @see https://firebase.google.com/docs/reference/js/auth.md?authuser=0#signinwithpopup
+ * @see https://firebase.google.com/docs/reference/js/auth#signinwithpopup
  */
-export const handleGitHubLogin = async (provider) => {
-  console.log('HANDLE OAUTH LOGIN', provider);
+export const handleGitHubLogin = async () => {
+  console.log('HANDLE OAUTH LOGIN');
   clearAlert();
   signInWithPopup(auth, githubProvider)
     .then(() => {
@@ -90,7 +90,7 @@ export const handleGitHubLogin = async (provider) => {
  *
  * Log the current user out.
  *
- * @see https://firebase.google.com/docs/reference/js/auth?authuser=0#signout
+ * @see https://firebase.google.com/docs/reference/js/auth#signout
  */
 export const handleLogout = async () => {
   console.log('HANDLE LOGOUT');
@@ -109,7 +109,7 @@ export const handleLogout = async () => {
  *
  * Sends a reset request to an email address.
  *
- * @see https://firebase.google.com/docs/reference/js/auth.md?authuser=0#sendpasswordresetemail
+ * @see https://firebase.google.com/docs/reference/js/auth#sendpasswordresetemail
  *
  * @param {string} email
  */
