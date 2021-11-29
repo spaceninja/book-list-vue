@@ -31,7 +31,7 @@
     "@types/jest": "27.0.3",
     "@vitejs/plugin-vue": "1.10.1",
     "@vue/compiler-sfc": "3.2.23",
-    "@vue/vue3-jest": "27.0.0-alpha.3",
+    "@vue/vue3-jest": "27.0.0-alpha.4",
     "babel-jest": "27.3.1",
     "eslint": "8.3.0",
     "eslint-config-prettier": "8.3.0",
