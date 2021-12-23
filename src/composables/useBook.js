@@ -1,12 +1,6 @@
 import { ref, computed } from 'vue';
 import { firebaseApp } from '../lib/firebase';
-import {
-  getDatabase,
-  ref as dbRef,
-  push,
-  set,
-  onValue,
-} from 'firebase/database';
+import { getDatabase, ref as dbRef, set, onValue } from 'firebase/database';
 import { firstBy } from 'thenby';
 import { emptyBook } from '../utils/empty-book';
 import { sortOptions } from '../utils/sort-options';
