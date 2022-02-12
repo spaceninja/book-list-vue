@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "1.30.0",
-    "vue": "3.2.30"
+    "vue": "3.2.31"
   },
   "devDependencies": {
     "@babel/core": "7.17.2",
@@ -30,7 +30,7 @@
     "@testing-library/vue": "6.5.1",
     "@types/jest": "27.4.0",
     "@vitejs/plugin-vue": "2.2.0",
-    "@vue/compiler-sfc": "3.2.30",
+    "@vue/compiler-sfc": "3.2.31",
     "@vue/vue3-jest": "27.0.0-alpha.4",
     "babel-jest": "27.5.1",
     "eslint": "8.9.0",
