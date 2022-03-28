@@ -18,7 +18,7 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
-    "@supabase/supabase-js": "1.32.2",
+    "@supabase/supabase-js": "1.33.0",
     "vue": "3.2.31"
   },
   "devDependencies": {
