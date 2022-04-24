@@ -4,6 +4,7 @@ import { userSession } from './useAuth';
 import { clearAlert, handleError } from './useAlert';
 import initBooks from '../sample-data/init-books.json';
 import sampleBooks from '../sample-data/sample-books.json';
+import supabaseBooks from '../sample-data/supabase-export.json';
 
 // Get a reference to the database service
 const database = getDatabase(firebaseApp);
@@ -40,6 +41,13 @@ export const addInitBooks = async () => {
  */
 export const addSampleBooks = async () => {
   addBooks(sampleBooks);
+};
+
+/**
+ * Import the sample book set
+ */
+export const addSupabaseBooks = async () => {
+  addBooks(supabaseBooks);
 };
 
 /**
