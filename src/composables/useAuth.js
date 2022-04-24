@@ -1,6 +1,19 @@
 import { ref } from 'vue';
-import { supabase } from '../lib/supabase';
+import { firebaseApp } from '../lib/firebase';
+import {
+  GithubAuthProvider,
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
+  sendPasswordResetEmail,
+} from 'firebase/auth';
 import { setAlert, clearAlert, handleError } from './useAlert';
+
+// Get a reference to the auth service
+const auth = getAuth(firebaseApp);
+const githubProvider = new GithubAuthProvider();
 
 // Used to store the user session
 export const userSession = ref(null);
@@ -8,9 +21,9 @@ export const userSession = ref(null);
 /**
  * Handle Signup
  *
- * Creates a new supabase user account.
+ * Creates a new user account.
  *
- * @see https://supabase.io/docs/reference/javascript/auth-signup
+ * @see https://firebase.google.com/docs/reference/js/auth#createuserwithemailandpassword
  *
  * @param {Object} credentials
  * @param {string} credentials.email
@@ -18,49 +31,39 @@ export const userSession = ref(null);
  * @returns
  */
 export const handleSignup = async (credentials) => {
+  console.log('HANDLE SIGNUP', credentials);
   clearAlert();
-  const { email, password } = credentials;
-  try {
-    // Alert the user if no email/password provided
-    if (!email || !password)
-      throw new Error('Please provide both your email and password.');
-    const { error } = await supabase.auth.signUp({ email, password });
-    if (error) throw error;
-    setAlert('Signup successful, confirmation mail should be sent soon!');
-  } catch (error) {
-    handleError(error);
-  }
+  createUserWithEmailAndPassword(auth, credentials.email, credentials.password)
+    .then(() => {
+      console.log('EMAIL SIGNUP SUCCESSFUL');
+    })
+    .catch((error) => {
+      handleError(error);
+    });
 };
 
 /**
  * Handle Email Login
  *
- * Log in an existing supabase user via email & password.
+ * Log in an existing user via email & password.
  * If password is empty, it will send a magic link to the user's email address.
  *
- * @see https://supabase.io/docs/reference/javascript/auth-signin
+ * @see https://firebase.google.com/docs/reference/js/auth#signinwithemailandpassword
  *
  * @param {Object} credentials
  * @param {string} credentials.email
  * @param {string} credentials.password
  */
 export const handleLogin = async (credentials) => {
+  console.log('HANDLE LOGIN', credentials);
   clearAlert();
-  try {
-    const { error, user, session } = await supabase.auth.signIn({
-      email: credentials.email,
-      password: credentials.password,
+  signInWithEmailAndPassword(auth, credentials.email, credentials.password)
+    .then(() => {
+      console.log('EMAIL SIGNIN SUCCESSFUL');
+    })
+    .catch((error) => {
+      handleError(error);
     });
-    if (error) throw error;
-    // No error thrown, but no user detected, so magic link sent
-    if (!error && !user) {
-      setAlert('Check your email for the login link!');
-      return;
-    }
-    console.log('EMAIL SIGNIN', user, session);
-  } catch (error) {
-    handleError(error);
-  }
 };
 
 /**
@@ -68,19 +71,18 @@ export const handleLogin = async (credentials) => {
  *
  * Log in a user via a third-party provider.
  *
- * @see https://supabase.io/docs/reference/javascript/auth-signin
- *
- * @param {string} provider - OAuth provider, eg 'github'
+ * @see https://firebase.google.com/docs/reference/js/auth#signinwithpopup
  */
-export const handleOAuthLogin = async (provider) => {
+export const handleGitHubLogin = async () => {
+  console.log('HANDLE OAUTH LOGIN');
   clearAlert();
-  try {
-    const { error, user, session } = await supabase.auth.signIn({ provider });
-    if (error) throw error;
-    console.log('OAUTH SIGNIN', user, session);
-  } catch (error) {
-    handleError(error);
-  }
+  signInWithPopup(auth, githubProvider)
+    .then(() => {
+      console.log('OAUTH SIGNIN SUCCESSFUL');
+    })
+    .catch((error) => {
+      handleError(error);
+    });
 };
 
 /**
@@ -88,41 +90,18 @@ export const handleOAuthLogin = async (provider) => {
  *
  * Log the current user out.
  *
- * @see https://supabase.io/docs/reference/javascript/auth-signout
+ * @see https://firebase.google.com/docs/reference/js/auth#signout
  */
 export const handleLogout = async () => {
+  console.log('HANDLE LOGOUT');
   clearAlert();
-  try {
-    const { error } = await supabase.auth.signOut();
-    if (error) throw error;
-    setAlert('You have signed out!');
-  } catch (error) {
-    handleError(error);
-  }
-};
-
-/**
- * Handle Update User
- *
- * Updates the current user's password.
- *
- * @see https://supabase.io/docs/reference/javascript/auth-update
- *
- * @param {Object} credentials
- * @param {string} credentials.password
- */
-export const handleUpdateUser = async (credentials) => {
-  clearAlert();
-  try {
-    console.log(credentials);
-    if (!credentials.password) throw new Error('Password is required.');
-    const { error } = await supabase.auth.update(credentials);
-    if (error) throw error;
-    setAlert('User info updated.');
-    window.location.href = '/'; // Return to the main app
-  } catch (error) {
-    handleError(error);
-  }
+  signOut(auth)
+    .then(() => {
+      setAlert('You have signed out!');
+    })
+    .catch((error) => {
+      handleError(error);
+    });
 };
 
 /**
@@ -130,18 +109,18 @@ export const handleUpdateUser = async (credentials) => {
  *
  * Sends a reset request to an email address.
  *
- * @see https://supabase.io/docs/reference/javascript/reset-password-email
+ * @see https://firebase.google.com/docs/reference/js/auth#sendpasswordresetemail
  *
  * @param {string} email
  */
 export const handlePasswordReset = async (email) => {
+  console.log('HANDLE PASSWORD RESET', email);
   clearAlert();
-  try {
-    if (!email) throw new Error('Email address is required.');
-    const { error } = await supabase.auth.api.resetPasswordForEmail(email);
-    if (error) throw error;
-    setAlert('Password recovery email has been sent.');
-  } catch (error) {
-    handleError(error);
-  }
+  sendPasswordResetEmail(auth, email)
+    .then(() => {
+      setAlert('Password recovery email has been sent.');
+    })
+    .catch((error) => {
+      handleError(error);
+    });
 };

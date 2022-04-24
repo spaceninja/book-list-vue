@@ -8,6 +8,9 @@
       <AppButton v-if="isDev" @click="addSampleBooks">
         Add Sample Book Set
       </AppButton>
+      <AppButton v-if="isDev" @click="addSupabaseBooks">
+        Add Supabase Book Set
+      </AppButton>
       <AppButton v-if="isDev" @click="deleteAllBooks">
         Delete All Books
       </AppButton>
@@ -72,6 +75,7 @@ import {
   deleteAllBooks,
   addInitBooks,
   addSampleBooks,
+  addSupabaseBooks,
 } from '../../composables/useBookDev';
 import AppButton from '../AppButton/AppButton.vue';
 

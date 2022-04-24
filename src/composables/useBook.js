@@ -1,10 +1,14 @@
-import { supabase } from '../lib/supabase';
 import { ref, computed } from 'vue';
+import { firebaseApp } from '../lib/firebase';
+import { getDatabase, ref as dbRef, set, onValue } from 'firebase/database';
 import { firstBy } from 'thenby';
 import { emptyBook } from '../utils/empty-book';
 import { sortOptions } from '../utils/sort-options';
 import { userSession } from './useAuth';
 import { clearAlert, handleError } from './useAlert';
+
+// Get a reference to the database service
+const database = getDatabase(firebaseApp);
 const googleBooksApiKey = import.meta.env.VITE_FIREBASE_API_KEY;
 
 /**
@@ -17,6 +21,7 @@ export const isLoading = ref(true);
 export const editMode = ref(null);
 export const sortBy = ref({ ...sortOptions.rating });
 export const filterBy = ref([]);
+export const unloadDbListener = ref(() => {});
 
 /**
  * COMPUTED PROPERTIES ---------------------------------------------------------
@@ -52,7 +57,7 @@ export const isIsbnUsed = computed(() => {
 
 /**
  * INTERNAL HELPER METHODS -----------------------------------------------------
- * These functions don't need to be exported, they only used in this file.
+ * These functions don't need to be exported, they're only used in this file.
  */
 
 /**
@@ -167,7 +172,7 @@ export const exitEditMode = () => {
 
 /**
  * API METHODS -----------------------------------------------------------------
- * These functions talk to the third-party APIs like Supabase.
+ * These functions talk to the third-party APIs like Firebase & Google Books.
  */
 
 /**
@@ -205,19 +210,27 @@ export const getCover = (isbn) => {
 /**
  * Fetch Books
  *
- * Retreive all books for the signed in user
+ * Retreive all books for the signed in user and watch for changes
+ *
+ * @see https://firebase.google.com/docs/reference/js/database#onvalue
  */
-export const fetchBooks = async () => {
+export const loadUserBooks = async (uid) => {
+  console.log('FETCH BOOKS', uid);
   try {
     isLoading.value = true;
-    const { data, error } = await supabase
-      .from('books')
-      .select('*')
-      .order('id');
-    if (error) throw error;
-    // save the books from supabase (or an empty array) to app state
-    allBooks.value = data === null ? [] : data;
-    console.log('Fetched Books', allBooks.value);
+    // create a database reference
+    const booksRef = dbRef(database, 'books/' + uid);
+    // add a listener for database changes
+    unloadDbListener.value = onValue(booksRef, (snapshot) => {
+      let data = snapshot.val();
+      // coerce to an array for easier local filtering & sorting
+      // @see https://firebase.googleblog.com/2014/04/best-practices-arrays-in-firebase.html
+      if (data === null) data = [];
+      data = data.isArray ? data : Object.values(data);
+      // save the books from database (or an empty array) to app state
+      allBooks.value = data;
+      console.log('BOOKS REF CHANGE', allBooks.value);
+    });
   } catch (error) {
     handleError(error);
   } finally {
@@ -226,9 +239,27 @@ export const fetchBooks = async () => {
 };
 
 /**
+ * Unload Books
+ *
+ * Remove all books from state and remove listener
+ *
+ * @see https://firebase.google.com/docs/reference/js/database#onvalue
+ */
+export const unloadUserBooks = async () => {
+  console.log('UNLOAD BOOKS');
+  // remove listener
+  unloadDbListener.value();
+  // reset state
+  allBooks.value = [];
+  unloadDbListener.value = () => {};
+};
+
+/**
  * Add Book
  *
- *  Add a new book to supabase
+ *  Add a new book to database
+ *
+ * @see https://firebase.google.com/docs/reference/js/database#set
  *
  * @param {Object} book
  */
@@ -244,13 +275,13 @@ export const addBook = async (book) => {
     // Check that this ISBN hasn't already been added
     if (checkIfIsbnIsUsed(book.isbn))
       throw new Error('That ISBN has already been added!');
-    // add user ID
-    book['user_id'] = userSession.value.user.id;
-    // save to supabase
-    const { data, error } = await supabase.from('books').insert(book).single();
-    if (error) throw error;
-    // it's been added to supabase, now add to app state and exit edit mode
-    allBooks.value.push(data);
+    // create a database reference
+    const newBookRef = dbRef(
+      database,
+      `books/${userSession.value.uid}/${book.isbn}`
+    );
+    // save to database
+    await set(newBookRef, book);
     exitEditMode();
   } catch (error) {
     handleError(error);
@@ -260,7 +291,7 @@ export const addBook = async (book) => {
 /**
  * Edit Book
  *
- * Targets a specific book via its record id and updates it.
+ * Targets a specific book via its isbn and updates it.
  *
  * @param {Object} book
  */
@@ -276,16 +307,13 @@ export const editBook = async (book) => {
     // TODO: check if ISBN has already been used by a book that doesn't match this ID
     // add updated date
     book['updated_at'] = new Date();
-    // save to supabase
-    const { data, error } = await supabase
-      .from('books')
-      .update(book)
-      .eq('id', book.id)
-      .single();
-    if (error) throw error;
-    // it's been saved to supabase, now save to app state and exit edit mode
-    const bookIndex = allBooks.value.findIndex((book) => book.id === data.id);
-    allBooks.value[bookIndex] = data;
+    // create a database reference
+    const newBookRef = dbRef(
+      database,
+      `books/${userSession.value.uid}/${book.isbn}`
+    );
+    // save to database
+    await set(newBookRef, book);
     exitEditMode();
   } catch (error) {
     handleError(error);
@@ -295,20 +323,21 @@ export const editBook = async (book) => {
 /**
  * Delete Book
  *
- * Deletes a book via its id
+ * Deletes a book via its isbn
  *
  * @param {Object} deletedBook
  */
 export const deleteBook = async (deletedBook) => {
+  console.log('DELETE BOOK', deletedBook);
   clearAlert();
   try {
-    const { error } = await supabase
-      .from('books')
-      .delete()
-      .eq('id', deletedBook.id);
-    if (error) throw error;
-    // it's been deleted from supabase, now delete from app state
-    allBooks.value = allBooks.value.filter((book) => book.id != deletedBook.id);
+    // create a database reference
+    const newBookRef = dbRef(
+      database,
+      `books/${userSession.value.uid}/${deletedBook.isbn}`
+    );
+    // save to database
+    await set(newBookRef, null);
   } catch (error) {
     handleError(error);
   }
