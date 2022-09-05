@@ -29,7 +29,7 @@
     "@testing-library/user-event": "14.4.3",
     "@testing-library/vue": "6.6.1",
     "@types/jest": "28.1.8",
-    "@vitejs/plugin-vue": "3.0.3",
+    "@vitejs/plugin-vue": "3.1.0",
     "@vue/compiler-sfc": "3.2.38",
     "@vue/vue3-jest": "28.1.0",
     "babel-jest": "29.0.2",
