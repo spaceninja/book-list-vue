@@ -33,7 +33,7 @@
     "@vue/compiler-sfc": "3.2.39",
     "@vue/vue3-jest": "28.1.0",
     "babel-jest": "29.0.3",
-    "eslint": "8.23.1",
+    "eslint": "8.24.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-jest": "27.0.4",
     "eslint-plugin-vue": "9.5.1",
