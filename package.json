@@ -22,7 +22,7 @@
     "vue": "3.2.45"
   },
   "devDependencies": {
-    "@babel/core": "7.20.7",
+    "@babel/core": "7.20.12",
     "@babel/plugin-transform-modules-commonjs": "7.20.11",
     "@babel/preset-env": "7.20.2",
     "@testing-library/jest-dom": "5.16.5",
