@@ -37,7 +37,7 @@
         :type="type"
         class="form__checkbox-input"
         v-bind="$attrs"
-        @input="$emit('update:modelValue', $event.target.value)"
+        @change="$emit('update:modelValue', !modelValue)"
       />
       <input
         v-else

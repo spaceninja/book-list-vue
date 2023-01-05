@@ -88,15 +88,21 @@ const getSortedAndFilteredBooks = (bookSet, filterBy, sortBy) => {
   filterBy.forEach((key) => {
     bookSet = bookSet.filter((book) => book[key]);
   });
-  // sort the filtered book set
-  return bookSet.sort(
-    firstBy(sortBy.firstBy, {
+  // define options for firstBy sorting
+  const sortOptions = (method) => {
+    return {
+      // lengths are stored as strings we need to explicitly sort them as numbers
+      cmp: method === 'length' ? (a, b) => a - b : null,
       ignoreCase: true,
       direction: sortBy.firstByOrder === 'descending' ? -1 : 0,
-    }).thenBy(sortBy.thenBy, {
-      ignoreCase: true,
-      direction: sortBy.thenByOrder === 'descending' ? -1 : 0,
-    })
+    };
+  };
+  // sort the filtered book set
+  return bookSet.sort(
+    firstBy(sortBy.firstBy, sortOptions(sortBy.firstBy)).thenBy(
+      sortBy.thenBy,
+      sortOptions(sortBy.thenBy)
+    )
   );
 };
 
@@ -297,6 +303,7 @@ export const addBook = async (book) => {
  */
 export const editBook = async (book) => {
   console.log('EDIT BOOK', book);
+  console.log(book.is_prioritized, book.is_purchased);
   clearAlert();
   try {
     // Check to ensure user is still logged in.
@@ -304,8 +311,20 @@ export const editBook = async (book) => {
     // Don't allow adding books without an ISBN or title
     if (!(book.isbn && book.title))
       throw new Error('Books must have an ISBN and title.');
+    if (book.is_prioritized) {
+      book.is_prioritized = true;
+    } else {
+      book.is_prioritized = false;
+    }
+    if (book.is_purchased) {
+      book.is_purchased = true;
+    } else {
+      book.is_purchased = false;
+    }
     // TODO: check if ISBN has already been used by a book that doesn't match this ID
     // add updated date
+    console.log('EDITED BOOK', book);
+    console.log(book.is_prioritized, book.is_purchased);
     book['updated_at'] = new Date();
     // create a database reference
     const newBookRef = dbRef(

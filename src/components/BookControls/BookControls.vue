@@ -2,14 +2,12 @@
   <form class="book-controls">
     <div class="book-controls__add">
       <AppButton @click="enterAddBookMode">Add New Book</AppButton>
-      <AppButton v-if="isDev" @click="addInitBooks">
-        Add Init Book Set
-      </AppButton>
+      <AppButton v-if="isDev" @click="addInitBooks"> Add Init Books </AppButton>
       <AppButton v-if="isDev" @click="addSampleBooks">
-        Add Sample Book Set
+        Add Sample Books
       </AppButton>
       <AppButton v-if="isDev" @click="addSupabaseBooks">
-        Add Supabase Book Set
+        Add Supabase Books
       </AppButton>
       <AppButton v-if="isDev" @click="deleteAllBooks">
         Delete All Books

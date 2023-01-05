@@ -27,15 +27,18 @@
       <p class="book__length num">
         <span class="sr-only">Length:</span> {{ length }}p
       </p>
-      <blockquote v-if="blurb">
-        <p class="book__snippet">{{ blurb }}</p>
-      </blockquote>
-      <p v-if="source || note" class="book__recommendation">
-        <span v-if="source" class="book__source"
-          >Recommended by {{ source }}</span
-        ><span v-if="source && note">: </span
-        ><q v-if="note" class="book__note">{{ note }}</q>
-      </p>
+      <details>
+        <summary>Details</summary>
+        <blockquote v-if="blurb">
+          <p class="book__snippet">{{ blurb }}</p>
+        </blockquote>
+        <p v-if="source || note" class="book__recommendation">
+          <span v-if="source" class="book__source"
+            >Recommended by {{ source }}</span
+          ><span v-if="source && note">: </span
+          ><q v-if="note" class="book__note">{{ note }}</q>
+        </p>
+      </details>
     </div>
     <div class="book__actions">
       <AppButton

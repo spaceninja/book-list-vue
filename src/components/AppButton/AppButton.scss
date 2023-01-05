@@ -4,12 +4,19 @@ $color-secondary: #6c757d;
 $color-secondary-dark: #5a6268;
 
 .button {
-  border: none;
+  background: $color-secondary;
   border-radius: 0.25em;
+  border: none;
+  color: var(--color-button-text);
   cursor: pointer;
   display: inline-block;
   font-size: 16px;
   padding: 0.375em 0.75em;
+
+  &:hover,
+  &:focus {
+    background: $color-secondary-dark;
+  }
 
   + .button {
     margin-left: 1em;
@@ -41,15 +48,5 @@ $color-secondary-dark: #5a6268;
   &:hover,
   &:focus {
     background: $color-dark-blue;
-  }
-}
-
-.button--secondary {
-  background: $color-secondary;
-  color: var(--color-button-text);
-
-  &:hover,
-  &:focus {
-    background: $color-secondary-dark;
   }
 }
