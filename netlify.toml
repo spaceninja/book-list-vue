@@ -2,7 +2,4 @@
   from = "/facebook-pixel/*"
   to = "https://connect.facebook.net/:splat"
   status = 200
-[[headers]]
-  for = "/*"
-    [headers.values]
-    Access-Control-Allow-Origin = "*"
+  headers = {Access-Control-Allow-Origin = "*"}
