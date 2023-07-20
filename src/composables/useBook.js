@@ -38,7 +38,7 @@ export const sortedAndFilteredBooks = computed(() => {
   return getSortedAndFilteredBooks(
     allBooks.value,
     filterBy.value,
-    sortBy.value
+    sortBy.value,
   );
 });
 
@@ -101,8 +101,8 @@ const getSortedAndFilteredBooks = (bookSet, filterBy, sortBy) => {
   return bookSet.sort(
     firstBy(sortBy.firstBy, sortOptions(sortBy.firstBy)).thenBy(
       sortBy.thenBy,
-      sortOptions(sortBy.thenBy)
-    )
+      sortOptions(sortBy.thenBy),
+    ),
   );
 };
 
@@ -123,7 +123,7 @@ export const setFilter = (event) => {
     filterBy.value.push(event.target.name);
   } else {
     filterBy.value = filterBy.value.filter(
-      (item) => item !== event.target.name
+      (item) => item !== event.target.name,
     );
   }
 };
@@ -195,7 +195,7 @@ export const getCover = (isbn) => {
       '&fields=items(volumeInfo(imageLinks))' +
       '&key=' +
       googleBooksApiKey,
-    { method: 'get' }
+    { method: 'get' },
   )
     .then((response) => {
       return response.json();
@@ -284,7 +284,7 @@ export const addBook = async (book) => {
     // create a database reference
     const newBookRef = dbRef(
       database,
-      `books/${userSession.value.uid}/${book.isbn}`
+      `books/${userSession.value.uid}/${book.isbn}`,
     );
     // save to database
     await set(newBookRef, book);
@@ -329,7 +329,7 @@ export const editBook = async (book) => {
     // create a database reference
     const newBookRef = dbRef(
       database,
-      `books/${userSession.value.uid}/${book.isbn}`
+      `books/${userSession.value.uid}/${book.isbn}`,
     );
     // save to database
     await set(newBookRef, book);
@@ -353,7 +353,7 @@ export const deleteBook = async (deletedBook) => {
     // create a database reference
     const newBookRef = dbRef(
       database,
-      `books/${userSession.value.uid}/${deletedBook.isbn}`
+      `books/${userSession.value.uid}/${deletedBook.isbn}`,
     );
     // save to database
     await set(newBookRef, null);
