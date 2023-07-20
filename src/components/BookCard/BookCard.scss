@@ -8,7 +8,9 @@ $color-shadow2: rgb(0 0 0 / 24%);
 .book {
   background: var(--color-book-bg);
   border-radius: 3px;
-  box-shadow: 0 1px 3px $color-shadow1, 0 1px 2px $color-shadow2;
+  box-shadow:
+    0 1px 3px $color-shadow1,
+    0 1px 2px $color-shadow2;
   display: flex;
   margin: 0;
   padding: 1em 1em 0.5em;
