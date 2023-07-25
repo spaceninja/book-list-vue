@@ -214,6 +214,30 @@ export const getCover = (isbn) => {
 };
 
 /**
+ * Get Book Rating
+ *
+ * Given an ISBN, requests book rating from Goodreads API.
+ *
+ * @param {string} isbn
+ */
+export const getRating = (isbn) => {
+  fetch('https://www.goodreads.com/book/review_counts.json?isbns=' + isbn, {
+    method: 'get',
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      if (data.error) throw new Error(data.error.message);
+      console.log('Fetched Rating', data);
+      currentBook.value.rating = data.books[0].average_rating;
+    })
+    .catch((error) => {
+      handleError(error);
+    });
+};
+
+/**
  * Fetch Books
  *
  * Retreive all books for the signed in user and watch for changes
