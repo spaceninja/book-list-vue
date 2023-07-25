@@ -103,9 +103,6 @@
       <AppButton class="button--secondary" @click="getCover(currentBook.isbn)">
         Get Cover
       </AppButton>
-      <AppButton class="button--secondary" @click="getRating(currentBook.isbn)">
-        Get Rating
-      </AppButton>
     </div>
   </form>
 </template>
@@ -116,7 +113,6 @@ import {
   isIsbnUsed,
   editMode,
   getCover,
-  getRating,
   addBook,
   editBook,
   exitEditMode,
