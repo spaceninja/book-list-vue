@@ -50,7 +50,7 @@
       </AppButton>
       <AppButton
         class="button--icon-only button--secondary"
-        @click="deleteBook(book)"
+        @click="confirmDelete(book)"
       >
         <span aria-hidden="true" class="button__icon">❌</span>
         <span class="sr-only">Delete</span>
@@ -64,6 +64,12 @@ import { defineProps, computed } from 'vue';
 import { widont } from '../../utils/helpers';
 import { enterEditBookMode, deleteBook } from '../../composables/useBook';
 import AppButton from '../AppButton/AppButton.vue';
+
+const confirmDelete = (book) => {
+  if (confirm(`Are you sure you want to delete ${book.title}?`)) {
+    deleteBook(book);
+  }
+};
 
 const widontSeries = computed(() => {
   return widont(props.series);
