@@ -221,9 +221,13 @@ export const getCover = (isbn) => {
  * @param {string} isbn
  */
 export const getRating = (isbn) => {
-  fetch('https://www.goodreads.com/book/review_counts.json?isbns=' + isbn, {
-    method: 'get',
-  })
+  fetch(
+    'https://www.goodreads.com/book/review_counts.json?key=D6PjjEJrRdFraaUdEvKrrA&isbns=' +
+      isbn,
+    {
+      method: 'get',
+    },
+  )
     .then((response) => {
       return response.json();
     })
