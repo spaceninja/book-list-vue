@@ -2501,10 +2501,10 @@
   resolved "https://registry.yarnpkg.com/@testing-library/user-event/-/user-event-14.5.1.tgz#27337d72046d5236b32fd977edee3f74c71d332f"
   integrity sha512-UCcUKrUYGj7ClomOo2SpNVvx4/fkd/2BbIHDCle8A0ax+P3bU7yJwDBDrS6ZwdTMARWTGODX1hEsCcO+7beJjg==
 
-"@testing-library/vue@8.0.0":
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/@testing-library/vue/-/vue-8.0.0.tgz#beec937194b9a3b142cb5f0893ad3bde0bfe93b8"
-  integrity sha512-SP0qEY/SGpdT9+bPuHxYD3P/HCG0ZY8GlGJocVqdLn9EojbdQu69x06trJi1V7RW9tAZai/wwy+ZFcRsTp47kg==
+"@testing-library/vue@8.0.1":
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/@testing-library/vue/-/vue-8.0.1.tgz#3def5854daa7e5f98a9d05ecf65a2d84ca551b02"
+  integrity sha512-l51ZEpjTQ6glq3wM+asQ1GbKJMGcxwgHEygETx0aCRN4TjFEGvMZy4YdWKs/y7bu4bmLrxcxhbEPP7iPSW/2OQ==
   dependencies:
     "@babel/runtime" "^7.23.2"
     "@testing-library/dom" "^9.3.3"
