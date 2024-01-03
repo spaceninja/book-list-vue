@@ -73,6 +73,11 @@
       help="A note explaining why you’re interested in this book."
       label="Notes"
     />
+    <TagInput
+      v-model="currentBook.tags"
+      class="form__group--doublewide"
+      label="Tags"
+    />
     <FormInput
       v-model="currentBook.is_purchased"
       type="checkbox"
@@ -118,5 +123,6 @@ import {
   exitEditMode,
 } from '../../composables/useBook';
 import FormInput from '../FormInput/FormInput.vue';
+import TagInput from '../TagInput/TagInput.vue';
 import AppButton from '../AppButton/AppButton.vue';
 </script>

@@ -13,7 +13,8 @@
     "source": null,
     "note": null,
     "is_purchased": false,
-    "is_prioritized": true
+    "is_prioritized": true,
+    "tags": ["sci-fi", "space opera", "series", "expanse"]
   },
   "0593158296": {
     "isbn": "0593158296",
@@ -29,7 +30,8 @@
     "source": null,
     "note": null,
     "is_purchased": false,
-    "is_prioritized": true
+    "is_prioritized": true,
+    "tags": ["sci-fi", "space opera", "series", "thrawn"]
   },
   "0316332828": {
     "isbn": "0316332828",

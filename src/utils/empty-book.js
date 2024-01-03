@@ -13,4 +13,5 @@ export const emptyBook = {
   note: '',
   is_purchased: false,
   is_prioritized: false,
+  tags: [],
 };

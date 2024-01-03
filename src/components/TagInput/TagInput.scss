@@ -1,0 +1,51 @@
+/* stylelint-disable a11y/media-prefers-reduced-motion */
+/* stylelint-disable plugin/no-low-performance-animation-properties */
+$color-secondary: #6c757d;
+$color-secondary-dark: #5a6268;
+
+.tag-input {
+  position: relative;
+}
+
+.tag-input__tag-list {
+  align-items: center;
+  bottom: 0;
+  display: flex;
+  left: 12px;
+  list-style: none;
+  margin: 0;
+  max-width: 75%;
+  overflow-x: auto;
+  padding: 0;
+  position: absolute;
+  top: 0;
+}
+
+.tag-input__tag {
+  align-items: center;
+  background: $color-secondary;
+  border-radius: 4px;
+  color: white;
+  display: flex;
+  flex-direction: row-reverse;
+  font-size: 0.75rem;
+  margin-right: 12px;
+  padding-block: 0.25em;
+  padding-inline-end: 0.75em;
+  transition: 0.1s ease background-color;
+  white-space: nowrap;
+
+  &:hover,
+  &:focus {
+    background: $color-secondary-dark;
+  }
+}
+
+.tag-input__delete {
+  align-self: stretch;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  font-size: smaller;
+  padding-inline: 0.5em;
+}

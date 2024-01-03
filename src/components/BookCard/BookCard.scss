@@ -13,7 +13,7 @@ $color-shadow2: rgb(0 0 0 / 24%);
     0 1px 2px $color-shadow2;
   display: flex;
   margin: 0;
-  padding: 1em 1em 0.5em;
+  padding: 1em 1em 0.66em;
   position: relative;
 
   > * + * {
@@ -99,7 +99,7 @@ $color-shadow2: rgb(0 0 0 / 24%);
   font-weight: 600;
   line-height: 1.2;
   margin-bottom: 0.33em;
-  margin-right: 4rem;
+  margin-right: 0.5em;
 
   @media screen and (width >= 640px) {
     font-size: 1.5em;
@@ -114,7 +114,7 @@ $color-shadow2: rgb(0 0 0 / 24%);
 .book__author,
 .book__date {
   line-height: 1.2;
-  margin-right: 4rem;
+  margin-bottom: 0.33em;
   opacity: 0.7;
 }
 
@@ -138,6 +138,30 @@ $color-shadow2: rgb(0 0 0 / 24%);
   text-align: center;
   top: 3.5rem;
   width: 4.5rem;
+}
+
+.book__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25em 0.5em;
+  list-style: none;
+  margin: 0;
+  margin-top: 0.75em;
+  padding: 0;
+}
+
+.book__tag {
+  background: var(--color-rating-bg);
+  border-radius: 1em;
+  display: inline-block;
+  font-size: smaller;
+  padding: 0.1em 0.5em;
+  text-transform: lowercase;
+  white-space: nowrap;
+}
+
+.book__details {
+  margin-block: 0.75em;
 }
 
 .book__snippet {

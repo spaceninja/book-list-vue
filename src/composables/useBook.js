@@ -303,7 +303,6 @@ export const addBook = async (book) => {
  */
 export const editBook = async (book) => {
   console.log('EDIT BOOK', book);
-  console.log(book.is_prioritized, book.is_purchased);
   clearAlert();
   try {
     // Check to ensure user is still logged in.
@@ -324,7 +323,6 @@ export const editBook = async (book) => {
     // TODO: check if ISBN has already been used by a book that doesn't match this ID
     // add updated date
     console.log('EDITED BOOK', book);
-    console.log(book.is_prioritized, book.is_purchased);
     book['updated_at'] = new Date();
     // create a database reference
     const newBookRef = dbRef(

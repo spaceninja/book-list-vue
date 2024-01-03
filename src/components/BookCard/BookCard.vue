@@ -12,6 +12,7 @@
         :src="thumbnail"
         alt=""
         class="book__thumbnail-media"
+        loading="lazy"
       />
     </div>
     <div class="book__info">
@@ -27,7 +28,13 @@
       <p class="book__length num">
         <span class="sr-only">Length:</span> {{ length }}p
       </p>
-      <details>
+      <ul v-if="releaseYear || tags" class="book__tags" role="list">
+        <li v-if="releaseYear" class="book__tag">{{ releaseYear }}</li>
+        <li v-for="tag in tags" :key="tag" class="book__tag">
+          {{ tag }}
+        </li>
+      </ul>
+      <details class="book__details">
         <summary>Details</summary>
         <blockquote v-if="blurb">
           <p class="book__snippet">{{ blurb }}</p>
@@ -84,6 +91,15 @@ const formattedDate = computed(() => {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
+    timeZone: 'UTC',
+  });
+});
+
+const releaseYear = computed(() => {
+  if (!props.release_date) return null;
+  const date = new Date(props.release_date);
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
     timeZone: 'UTC',
   });
 });
@@ -149,6 +165,10 @@ const props = defineProps({
   is_prioritized: {
     type: Boolean,
     default: false,
+  },
+  tags: {
+    type: Array,
+    default: null,
   },
 });
 </script>

@@ -10,7 +10,8 @@
     "series": "Expanse #8",
     "blurb": "The eighth novel in James S. A. Corey's New York Times bestselling Expanse series--now a major television series.",
     "thumbnail": "https://books.google.com/books/content?id=9cOFtQEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
-    "title": "Tiamat's Wrath"
+    "title": "Tiamat's Wrath",
+    "tags": ["sci-fi", "space opera", "series", "expanse"]
   },
   "0593135202": {
     "author_fname": "Andy",
@@ -37,7 +38,8 @@
     "series": "Star Wars: Thrawn Ascendancy #2",
     "blurb": "Thrawn’s latest triumph still rests newly on his shoulders. Despite leading the Chiss to victory and bringing glory to the House of Mitth, the true threat to the Ascendancy has not yet been extinguished. Their foes do not send threats or ultimatums, or mass ships on the edge of the Chaos. Their weapons come cloaked in smiles and generosity: Gifts offered freely. Services granted unconditionally. ",
     "thumbnail": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1604058822l/55644025.jpg",
-    "title": "Greater Good"
+    "title": "Greater Good",
+    "tags": ["sci-fi", "space opera", "series", "thrawn"]
   },
   "0316332828": {
     "author_fname": "James S.A.",
