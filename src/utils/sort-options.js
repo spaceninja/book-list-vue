@@ -34,4 +34,11 @@ export const sortOptions = {
     thenBy: 'rating',
     thenByOrder: 'descending',
   },
+  release_date: {
+    display: 'Date',
+    firstBy: 'release_date',
+    firstByOrder: 'descending',
+    thenBy: 'rating',
+    thenByOrder: 'descending',
+  },
 };

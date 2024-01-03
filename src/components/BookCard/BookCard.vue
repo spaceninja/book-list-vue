@@ -38,6 +38,9 @@
           ><span v-if="source && note">: </span
           ><q v-if="note" class="book__note">{{ note }}</q>
         </p>
+        <p v-if="release_date" class="book__date">
+          Published <time :datetime="release_date">{{ formattedDate }}</time>
+        </p>
       </details>
     </div>
     <div class="book__actions">
@@ -73,6 +76,16 @@ const confirmDelete = (book) => {
 
 const widontSeries = computed(() => {
   return widont(props.series);
+});
+
+const formattedDate = computed(() => {
+  const date = new Date(props.release_date);
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    timeZone: 'UTC',
+  });
 });
 
 /* eslint-disable vue/prop-name-casing */

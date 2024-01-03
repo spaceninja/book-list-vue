@@ -111,7 +111,8 @@ $color-shadow2: rgb(0 0 0 / 24%);
   opacity: 0.5;
 }
 
-.book__author {
+.book__author,
+.book__date {
   line-height: 1.2;
   margin-right: 4rem;
   opacity: 0.7;
