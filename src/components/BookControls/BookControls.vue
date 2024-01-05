@@ -36,7 +36,7 @@
           }}<span v-if="filterBy.length">/{{ allBooksCount }}</span> books)
         </small>
       </AppButton>
-      <ul id="filter-list" :hidden="isFilterMenuOpen" class="filter-list">
+      <ul id="filter-list" :hidden="!isFilterMenuOpen" class="filter-list">
         <li
           v-for="option in filterOptions"
           :key="option.filterBy"
