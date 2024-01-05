@@ -31,15 +31,7 @@
 </template>
 
 <script setup>
-import {
-  defineEmits,
-  defineProps,
-  computed,
-  nextTick,
-  onMounted,
-  ref,
-  watch,
-} from 'vue';
+import { computed, nextTick, onMounted, ref, watch } from 'vue';
 import { getUUID } from '../../utils/helpers';
 
 const props = defineProps({

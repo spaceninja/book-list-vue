@@ -70,7 +70,7 @@
 </template>
 
 <script setup>
-import { defineProps, computed } from 'vue';
+import { computed } from 'vue';
 import { widont } from '../../utils/helpers';
 import { enterEditBookMode, deleteBook } from '../../composables/useBook';
 import AppButton from '../AppButton/AppButton.vue';

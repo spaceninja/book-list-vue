@@ -1,46 +1,65 @@
 $color-purchased: rgb(0 128 0 / 33%);
 $color-prioritized: rgb(255 0 0 / 33%);
+$color-shadow1: rgb(0 0 0 / 12%);
+$color-shadow2: rgb(0 0 0 / 24%);
 
 .book-controls {
   align-items: center;
   display: flex;
   flex-direction: column;
-
-  > * + * {
-    margin-top: 0.5em;
-  }
+  gap: 1rem 2rem;
 
   @media screen and (width >= 640px) {
     flex-direction: row;
-
-    > * + * {
-      margin-left: 2rem;
-      margin-top: 0;
-    }
   }
 }
 
 .book-controls__add {
-  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em 1em;
+  justify-content: center;
+
+  .button {
+    margin: 0;
+  }
 
   @media screen and (width >= 640px) {
+    justify-content: start;
     margin-right: auto;
-    text-align: left;
   }
 }
 
 .book-controls__filter {
-  @media screen and (width >= 640px) {
-    margin-left: auto;
-  }
+  position: relative;
 }
 
 .filter-list {
-  border: none;
+  background: var(--color-book-bg);
+  border-radius: 3px;
+  box-shadow:
+    0 1px 3px $color-shadow1,
+    0 1px 2px $color-shadow2;
   display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  justify-content: center;
   list-style: none;
   margin: 0;
   padding: 0;
+  padding: 1rem;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  z-index: 2;
+
+  @media screen and (width >= 640px) {
+    justify-content: start;
+  }
+
+  &[hidden] {
+    display: none;
+  }
 }
 
 .filter-list__item {
@@ -49,12 +68,15 @@ $color-prioritized: rgb(255 0 0 / 33%);
   line-height: 1;
   margin: 0;
   padding: 0;
+}
 
-  + .filter-list__item {
-    margin-left: 1em;
-  }
+.filter-list__checkbox {
+  margin-right: 0.33em;
+}
 
-  &::before {
+.filter-list__item--purchased,
+.filter-list__item--prioritize {
+  label::before {
     background: gray;
     border-radius: 50%;
     content: '';
@@ -65,18 +87,14 @@ $color-prioritized: rgb(255 0 0 / 33%);
   }
 }
 
-.filter-list__checkbox {
-  margin-right: 0.33em;
-}
-
 .filter-list__item--purchased {
-  &::before {
+  label::before {
     background: $color-purchased;
   }
 }
 
 .filter-list__item--prioritize {
-  &::before {
+  label::before {
     background: $color-prioritized;
   }
 }

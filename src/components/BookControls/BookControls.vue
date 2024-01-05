@@ -6,43 +6,9 @@
       <AppButton v-if="isDev" @click="addSampleBooks">
         Add Sample Books
       </AppButton>
-      <AppButton v-if="isDev" @click="addSupabaseBooks">
-        Add Supabase Books
-      </AppButton>
       <AppButton v-if="isDev" @click="deleteAllBooks">
         Delete All Books
       </AppButton>
-    </div>
-    <div class="book-controls__filter">
-      <fieldset class="filter-list">
-        <legend class="sr-only">Filter by:</legend>
-        <div class="filter-list__item filter-list__item--purchased">
-          <input
-            id="is_purchased"
-            class="filter-list__checkbox"
-            :checked="filterBy.includes('is_purchased')"
-            type="checkbox"
-            name="is_purchased"
-            @change="setFilter"
-          />
-          <label class="filter-list__label" for="is_purchased">
-            Purchased
-          </label>
-        </div>
-        <div class="filter-list__item filter-list__item--prioritize">
-          <input
-            id="is_prioritized"
-            class="filter-list__checkbox"
-            :checked="filterBy.includes('is_prioritized')"
-            type="checkbox"
-            name="is_prioritized"
-            @change="setFilter"
-          />
-          <label class="filter-list__label" for="is_prioritized">
-            Prioritized
-          </label>
-        </div>
-      </fieldset>
     </div>
     <div class="book-controls__sort">
       <label for="sort" class="sort__label">Sort by:</label>
@@ -57,12 +23,54 @@
         </option>
       </select>
     </div>
+    <div class="book-controls__filter">
+      <AppButton
+        :aria-expanded="isFilterMenuOpen"
+        aria-controls="filter-list"
+        type="button"
+        @click="isFilterMenuOpen = !isFilterMenuOpen"
+      >
+        Filters
+        <small>
+          ({{ sortedAndFilteredBooksCount
+          }}<span v-if="filterBy.length">/{{ allBooksCount }}</span> books)
+        </small>
+      </AppButton>
+      <ul id="filter-list" :hidden="isFilterMenuOpen" class="filter-list">
+        <li
+          v-for="option in filterOptions"
+          :key="option.filterBy"
+          class="filter-list__item"
+          :class="{
+            'filter-list__item--purchased': option.filterBy === 'is_purchased',
+            'filter-list__item--prioritize':
+              option.filterBy === 'is_prioritized',
+          }"
+        >
+          <input
+            :id="option.filterBy"
+            class="filter-list__checkbox"
+            :checked="filterBy.includes(option.filterBy)"
+            type="checkbox"
+            :name="option.filterBy"
+            @change="setFilter"
+          />
+          <label class="filter-list__label" :for="option.filterBy">
+            {{ option.display }}
+          </label>
+        </li>
+      </ul>
+    </div>
   </form>
 </template>
 
 <script setup>
+import { ref } from 'vue';
+import { filterOptions } from '../../utils/filter-options';
 import { sortOptions } from '../../utils/sort-options';
 import {
+  sortedAndFilteredBooksCount,
+  allBooksCount,
   sortBy,
   filterBy,
   setFilter,
@@ -73,11 +81,11 @@ import {
   deleteAllBooks,
   addInitBooks,
   addSampleBooks,
-  addSupabaseBooks,
 } from '../../composables/useBookDev';
 import AppButton from '../AppButton/AppButton.vue';
 
 const isDev = import.meta.env.DEV;
+const isFilterMenuOpen = ref(false);
 </script>
 
 <style lang="scss">

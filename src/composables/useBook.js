@@ -6,6 +6,7 @@ import { emptyBook } from '../utils/empty-book';
 import { sortOptions } from '../utils/sort-options';
 import { userSession } from './useAuth';
 import { clearAlert, handleError } from './useAlert';
+import { filterOptions } from '../utils/filter-options';
 
 // Get a reference to the database service
 const database = getDatabase(firebaseApp);
@@ -40,6 +41,20 @@ export const sortedAndFilteredBooks = computed(() => {
     filterBy.value,
     sortBy.value,
   );
+});
+
+/**
+ * Sorted and Filtered Books Count
+ */
+export const sortedAndFilteredBooksCount = computed(() => {
+  return sortedAndFilteredBooks.value.length;
+});
+
+/**
+ * All Books Count
+ */
+export const allBooksCount = computed(() => {
+  return allBooks.value.length;
 });
 
 /**
@@ -86,7 +101,33 @@ const checkIfIsbnIsUsed = (isbn) => {
 const getSortedAndFilteredBooks = (bookSet, filterBy, sortBy) => {
   // filter the book set
   filterBy.forEach((key) => {
-    bookSet = bookSet.filter((book) => book[key]);
+    switch (key) {
+      case 'is_dated':
+        bookSet = bookSet.filter((book) => book.release_date);
+        break;
+      case 'is_tagged':
+        bookSet = bookSet.filter(
+          (book) => book.tags && Object.values(book.tags).length > 0,
+        );
+        break;
+      case 'untagged':
+        bookSet = bookSet.filter(
+          (book) => !book.tags || Object.values(book.tags).length === 0,
+        );
+        break;
+      case 'undated':
+        bookSet = bookSet.filter((book) => !book.release_date);
+        break;
+      case 'unpurchased':
+        bookSet = bookSet.filter((book) => !book.is_purchased);
+        break;
+      case 'unprioritized':
+        bookSet = bookSet.filter((book) => !book.is_prioritized);
+        break;
+      default:
+        bookSet = bookSet.filter((book) => book[key]);
+        break;
+    }
   });
   // define options for firstBy sorting
   const sortOptions = (method) => {
@@ -119,12 +160,16 @@ const getSortedAndFilteredBooks = (bookSet, filterBy, sortBy) => {
  * @param {Event} event
  */
 export const setFilter = (event) => {
+  const filter = filterOptions[event.target.name];
   if (event.target.checked) {
-    filterBy.value.push(event.target.name);
-  } else {
+    // Add the filter to the array
+    filterBy.value.push(filter.filterBy);
+    // Remove the opposite filter from the array
     filterBy.value = filterBy.value.filter(
-      (item) => item !== event.target.name,
+      (item) => item !== filter.unFilterBy,
     );
+  } else {
+    filterBy.value = filterBy.value.filter((item) => item !== filter.filterBy);
   }
 };
 
