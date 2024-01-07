@@ -16,6 +16,23 @@
     "is_prioritized": true,
     "tags": ["sci-fi", "space opera", "series", "expanse"]
   },
+  "0000000000SOIAF": {
+    "isbn": "0000000000SOIAF",
+    "title": "A Dream of Sprint",
+    "series": "A Song of Ice and Fire #7",
+    "author_fname": "George R.R.",
+    "author_lname": "Martin",
+    "rating": "4.00",
+    "length": "2040",
+    "release_date": "2040-01-01",
+    "thumbnail": "https://cdn.thestorygraph.com/h56q0c2gv9ahyrqj0qg9aof6f2zq",
+    "blurb": "Originally titled A Time For Wolves. The seventh and apparent final book of George R.R. Martin's acclaimed series, A Song of Ice and Fire.",
+    "source": null,
+    "note": null,
+    "is_purchased": false,
+    "is_prioritized": false,
+    "tags": ["fantasy", "high fantasy", "dragons"]
+  },
   "0593158296": {
     "isbn": "0593158296",
     "title": "Greater Good",

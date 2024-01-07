@@ -160,6 +160,10 @@ $color-shadow2: rgb(0 0 0 / 24%);
   white-space: nowrap;
 }
 
+.book__tag--unreleased {
+  background: $color-prioritized;
+}
+
 .book__details {
   margin-block: 0.75em;
 }

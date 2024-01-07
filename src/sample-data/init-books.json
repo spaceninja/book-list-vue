@@ -27,5 +27,10 @@
   "1029384756": {
     "title": "Minimum Viable Book",
     "isbn": "1029384756"
+  },
+  "5678901234": {
+    "title": "Future Book",
+    "isbn": "5678901234",
+    "release_date": "2077-01-01"
   }
 }

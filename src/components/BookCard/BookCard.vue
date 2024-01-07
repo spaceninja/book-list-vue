@@ -29,6 +29,9 @@
         <span class="sr-only">Length:</span> {{ length }}p
       </p>
       <ul v-if="releaseYear || tags" class="book__tags" role="list">
+        <li v-if="isUnreleased" class="book__tag book__tag--unreleased">
+          Unreleased
+        </li>
         <li v-if="releaseYear" class="book__tag">{{ releaseYear }}</li>
         <li v-for="tag in tags" :key="tag" class="book__tag">
           {{ tag }}
@@ -102,6 +105,13 @@ const releaseYear = computed(() => {
     year: 'numeric',
     timeZone: 'UTC',
   });
+});
+
+const isUnreleased = computed(() => {
+  if (!props.release_date) return false;
+  const release = new Date(props.release_date);
+  const now = new Date();
+  return release > now;
 });
 
 /* eslint-disable vue/prop-name-casing */

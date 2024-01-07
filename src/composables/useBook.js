@@ -105,6 +105,13 @@ const getSortedAndFilteredBooks = (bookSet, filterBy, sortBy) => {
       case 'is_dated':
         bookSet = bookSet.filter((book) => book.release_date);
         break;
+      case 'is_released':
+        bookSet = bookSet.filter((book) => {
+          const releaseDate = new Date(book.release_date);
+          const now = new Date();
+          return releaseDate <= now;
+        });
+        break;
       case 'is_tagged':
         bookSet = bookSet.filter(
           (book) => book.tags && Object.values(book.tags).length > 0,
@@ -123,6 +130,13 @@ const getSortedAndFilteredBooks = (bookSet, filterBy, sortBy) => {
         break;
       case 'unprioritized':
         bookSet = bookSet.filter((book) => !book.is_prioritized);
+        break;
+      case 'unreleased':
+        bookSet = bookSet.filter((book) => {
+          const releaseDate = new Date(book.release_date);
+          const now = new Date();
+          return releaseDate > now;
+        });
         break;
       default:
         bookSet = bookSet.filter((book) => book[key]);

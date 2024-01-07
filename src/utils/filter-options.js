@@ -19,6 +19,11 @@ export const filterOptions = {
     filterBy: 'is_dated',
     unFilterBy: 'undated',
   },
+  is_released: {
+    display: 'Released',
+    filterBy: 'is_released',
+    unFilterBy: 'unreleased',
+  },
   unpurchased: {
     display: 'Unpurchased',
     unFilterBy: 'is_purchased',
@@ -38,5 +43,10 @@ export const filterOptions = {
     display: 'Undated',
     unFilterBy: 'is_dated',
     filterBy: 'undated',
+  },
+  unreleased: {
+    display: 'Unreleased',
+    unFilterBy: 'is_released',
+    filterBy: 'unreleased',
   },
 };
