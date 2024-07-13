@@ -13,7 +13,7 @@ $color-shadow2: rgb(0 0 0 / 24%);
     0 1px 2px $color-shadow2;
   display: flex;
   margin: 0;
-  padding: 1em 1em 0.66em;
+  padding: 1em;
   position: relative;
 
   > * + * {
@@ -111,8 +111,7 @@ $color-shadow2: rgb(0 0 0 / 24%);
   opacity: 0.5;
 }
 
-.book__author,
-.book__date {
+.book__author {
   line-height: 1.2;
   margin-bottom: 0.33em;
   opacity: 0.7;
@@ -166,16 +165,29 @@ $color-shadow2: rgb(0 0 0 / 24%);
 
 .book__details {
   margin-block: 0.75em;
+
+  summary {
+    cursor: pointer;
+  }
+
+  > * {
+    margin-block: 0;
+  }
+
+  > * + * {
+    margin-block-start: 0.75em;
+  }
 }
 
 .book__snippet {
+  margin-block: 0;
   overflow-wrap: break-word; // 2
   word-wrap: break-word; // 1
 }
 
 .book__recommendation {
   background: var(--color-recommendation-bg);
-  margin: 0 -0.5em;
+  margin-inline: -0.5em;
   opacity: 0.7;
   padding: 0.4em 0.75em;
 }
@@ -186,11 +198,17 @@ $color-shadow2: rgb(0 0 0 / 24%);
   word-wrap: break-word; // 1
 }
 
+.book__date {
+  font-size: smaller;
+  line-height: 1.2;
+  opacity: 0.7;
+}
+
 .book__actions {
   display: flex;
   flex: none;
   flex-direction: column;
-  padding-top: 5rem;
+  padding-top: 4.75rem;
 
   .button + .button {
     margin-left: 0;

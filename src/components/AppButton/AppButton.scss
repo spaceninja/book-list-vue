@@ -24,8 +24,9 @@ $color-secondary-dark: #5a6268;
 }
 
 .button__icon {
+  background-clip: text;
+  background-color: var(--color-button-text);
   color: transparent;
-  text-shadow: 0 0 var(--color-button-text);
   transform: scale(-1, 1);
 }
 
