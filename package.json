@@ -18,7 +18,7 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
-    "firebase": "10.12.4",
+    "firebase": "10.12.5",
     "vue": "3.4.35"
   },
   "devDependencies": {
