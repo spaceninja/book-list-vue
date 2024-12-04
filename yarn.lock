@@ -823,14 +823,13 @@
     "@babel/helper-module-transforms" "^7.25.9"
     "@babel/helper-plugin-utils" "^7.25.9"
 
-"@babel/plugin-transform-modules-commonjs@7.25.9", "@babel/plugin-transform-modules-commonjs@^7.25.9":
-  version "7.25.9"
-  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-modules-commonjs/-/plugin-transform-modules-commonjs-7.25.9.tgz#d165c8c569a080baf5467bda88df6425fc060686"
-  integrity sha512-dwh2Ol1jWwL2MgkCzUSOvfmKElqQcuswAZypBSUsScMXvgdT8Ekq5YA6TtqpTVWH+4903NmboMuH1o9i8Rxlyg==
+"@babel/plugin-transform-modules-commonjs@7.26.3":
+  version "7.26.3"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-modules-commonjs/-/plugin-transform-modules-commonjs-7.26.3.tgz#8f011d44b20d02c3de44d8850d971d8497f981fb"
+  integrity sha512-MgR55l4q9KddUDITEzEFYn5ZsGDXMSsU9E+kh7fjRXTIC3RHqfCo8RPRbyReYJh44HQ/yomFkqbOFohXvDCiIQ==
   dependencies:
-    "@babel/helper-module-transforms" "^7.25.9"
+    "@babel/helper-module-transforms" "^7.26.0"
     "@babel/helper-plugin-utils" "^7.25.9"
-    "@babel/helper-simple-access" "^7.25.9"
 
 "@babel/plugin-transform-modules-commonjs@^7.2.0":
   version "7.23.3"
@@ -840,6 +839,15 @@
     "@babel/helper-module-transforms" "^7.23.3"
     "@babel/helper-plugin-utils" "^7.22.5"
     "@babel/helper-simple-access" "^7.22.5"
+
+"@babel/plugin-transform-modules-commonjs@^7.25.9":
+  version "7.25.9"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-modules-commonjs/-/plugin-transform-modules-commonjs-7.25.9.tgz#d165c8c569a080baf5467bda88df6425fc060686"
+  integrity sha512-dwh2Ol1jWwL2MgkCzUSOvfmKElqQcuswAZypBSUsScMXvgdT8Ekq5YA6TtqpTVWH+4903NmboMuH1o9i8Rxlyg==
+  dependencies:
+    "@babel/helper-module-transforms" "^7.25.9"
+    "@babel/helper-plugin-utils" "^7.25.9"
+    "@babel/helper-simple-access" "^7.25.9"
 
 "@babel/plugin-transform-modules-systemjs@^7.25.9":
   version "7.25.9"
