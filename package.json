@@ -24,7 +24,7 @@
   "devDependencies": {
     "@babel/core": "7.29.0",
     "@babel/plugin-transform-modules-commonjs": "7.28.6",
-    "@babel/preset-env": "7.29.0",
+    "@babel/preset-env": "7.29.2",
     "@testing-library/jest-dom": "6.9.1",
     "@testing-library/user-event": "14.6.1",
     "@testing-library/vue": "8.1.0",
