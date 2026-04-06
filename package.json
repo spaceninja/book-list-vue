@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "firebase": "12.11.0",
-    "vue": "3.5.31"
+    "vue": "3.5.32"
   },
   "devDependencies": {
     "@babel/core": "7.29.0",
@@ -30,7 +30,7 @@
     "@testing-library/vue": "8.1.0",
     "@types/jest": "30.0.0",
     "@vitejs/plugin-vue": "6.0.5",
-    "@vue/compiler-sfc": "3.5.31",
+    "@vue/compiler-sfc": "3.5.32",
     "@vue/vue3-jest": "29.2.6",
     "babel-jest": "30.3.0",
     "eslint": "9.39.4",
