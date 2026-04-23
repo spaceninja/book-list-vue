@@ -7292,10 +7292,10 @@ test-exclude@^6.0.0:
     glob "^7.1.4"
     minimatch "^3.0.4"
 
-thenby@1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/thenby/-/thenby-1.4.0.tgz#b561a6fabc94e6bc1c6874f4655e73b54c4c4527"
-  integrity sha512-D+BkEl5MpeTbQ1Rz0io/TLZmwmYUAgvUpS1r2eKUvPicYOnpqzjZE6bVa7rSEYv189zkSM+CVc+hG5X7nVe9LQ==
+thenby@1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/thenby/-/thenby-1.4.1.tgz#5b2bcf5c323038274712ebec9e2c681c915c9d98"
+  integrity sha512-D5a/bO0KdalOE3q8MlrRmSxjbKZHT3MQmXkJP+r97Vw8MMwOZKOwUSEyTtK7eSMj2y0kyAjpYMRMZmmLw1FtNQ==
 
 tinyglobby@^0.2.15:
   version "0.2.15"
