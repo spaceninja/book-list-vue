@@ -6,11 +6,11 @@ This project is a Vue version of my old [book list](https://github.com/spaceninj
 
 ## Project scripts
 
-- `yarn` - install dependencies
-- `yarn dev` - compiles and hot-reloads for development
-- `yarn build` - compiles and minifies for production
-- `yarn lint` - lints and fixes files
-- `yarn test` - runs the test suite
+- `npm ci` - install dependencies
+- `npm run dev` - compiles and hot-reloads for development
+- `npm run build` - compiles and minifies for production
+- `npm run lint` - lints and fixes files
+- `npm test` - runs the test suite
 
 ## Dependencies
 
