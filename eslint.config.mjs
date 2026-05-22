@@ -2,7 +2,6 @@ import globals from 'globals';
 import js from '@eslint/js';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import pluginVue from 'eslint-plugin-vue';
-import pluginJest from 'eslint-plugin-jest';
 
 export default [
   js.configs.recommended,
@@ -28,9 +27,8 @@ export default [
   },
   {
     files: ['**/*.spec.js', '**/*.test.js'],
-    plugins: { jest: pluginJest },
     languageOptions: {
-      globals: pluginJest.environments.globals.globals,
+      globals: globals.vitest,
     },
   },
   {

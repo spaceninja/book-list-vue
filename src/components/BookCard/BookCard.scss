@@ -181,8 +181,7 @@ $color-shadow2: rgb(0 0 0 / 24%);
 
 .book__snippet {
   margin-block: 0;
-  overflow-wrap: break-word; // 2
-  word-wrap: break-word; // 1
+  overflow-wrap: break-word;
 }
 
 .book__recommendation {
@@ -194,8 +193,7 @@ $color-shadow2: rgb(0 0 0 / 24%);
 
 .book__note {
   font-style: italic;
-  overflow-wrap: break-word; // 2
-  word-wrap: break-word; // 1
+  overflow-wrap: break-word;
 }
 
 .book__date {
