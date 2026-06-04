@@ -42,7 +42,7 @@
     "stylelint-config-spaceninja": "16.0.0",
     "thenby": "1.4.1",
     "vite": "8.0.16",
-    "vitest": "4.1.7",
+    "vitest": "4.1.8",
     "vue-eslint-parser": "10.4.0"
   }
 }
