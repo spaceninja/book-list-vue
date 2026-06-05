@@ -43,6 +43,6 @@
     "thenby": "1.4.1",
     "vite": "8.0.16",
     "vitest": "4.1.8",
-    "vue-eslint-parser": "10.4.0"
+    "vue-eslint-parser": "10.4.1"
   }
 }
