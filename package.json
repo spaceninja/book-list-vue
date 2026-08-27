@@ -28,7 +28,7 @@
     "@testing-library/vue": "8.1.0",
     "@vitejs/plugin-vue": "6.0.8",
     "@vue/compiler-sfc": "3.5.41",
-    "eslint": "10.9.0",
+    "eslint": "10.9.1",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-vue": "10.10.0",
     "globals": "17.11.0",
