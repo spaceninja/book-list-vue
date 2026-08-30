@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "firebase": "12.18.0",
-    "vue": "3.5.41"
+    "vue": "3.5.42"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
@@ -27,7 +27,7 @@
     "@testing-library/user-event": "14.6.6",
     "@testing-library/vue": "8.1.0",
     "@vitejs/plugin-vue": "6.0.8",
-    "@vue/compiler-sfc": "3.5.41",
+    "@vue/compiler-sfc": "3.5.42",
     "eslint": "10.9.1",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-vue": "10.10.0",
